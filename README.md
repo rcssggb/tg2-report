@@ -1,2 +1,2 @@
-# tg1-report
-Repo for writing the report for TG1 
+# tg2-report
+Repo for writing the report for TG2 
