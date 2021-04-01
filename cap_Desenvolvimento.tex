@@ -5,15 +5,79 @@
 
 
 \section{Biblioteca}
-\par O servidor da partida apresenta, como já mencionado, um protocolo de comunicação e sintaxe de mensagens específica. Uma biblioteca de interfaceamento é proposta com o objetivo de abstrair os detalhes de comunicação de construção de mensagens e facilitar, assim, o desenvolvimento dos programas jogadores. Esta abordagem já é comum na categoria e existem soluções de código aberto como a \textit{librcsc}, utilizada por várias equipes, usualmente atreladas ao agente base \textit{agent2d}, desenvolvidas pela equipe \textit{HELIOS}.
 
-\par Uma biblioteca própria desenvolvida em linguagem Go é proposta como forma de modernização e diversificação da base de código utilizada pelas equipes.
+O servidor da partida apresenta, como já mencionado, um protocolo de comunicação e sintaxe de mensagens específica. Uma biblioteca de interfaceamento é proposta com o objetivo de abstrair os detalhes de comunicação de construção de mensagens e facilitar, assim, o desenvolvimento dos programas jogadores. Esta abordagem já é comum na categoria e existem soluções de código aberto como a \textit{librcsc}, utilizada por várias equipes, usualmente atreladas ao agente base \textit{agent2d}, desenvolvidas pela equipe \textit{HELIOS}.
+
+Foi desenvolvida uma biblioteca própria em linguagem Go como forma de modernização e diversificação da base de código utilizada pelas equipes. A biblioteca cobre uma parte considerável das possibilidades previstas no protocolo de comunicação e foi programada de modo a ser facilmente expansível de acordo com o lançamento de novas versões do servidor.
+
+% TODO melhorar isso aqui
 
 \section{Agente Único}
-\par Inicialmente, deseja-se realizar o treinamento de um agente único que, com as informações de seus sensores, consiga com sucesso levar a bola ao gol. Essa proposta tem como objetivo fundamentar os conhecimentos e validar a base de código para a realização de um treinamento de um time de múltiplos agentes em um estágio posterior.
-\par O desenvolvimento de um agente único, inicialmente, permite adquirir o entendimento necessário para a definição do vetor de estados e ajuste das técnicas de treinamento. Além disso, busca-se uma maior agilidade na substituição e teste na estrutura do vetor de estados e no algoritmo de treinamento, uma vez que o custo computacional deste cenário é consideravelmente menor que o custo do treinamento de um time completo.
 
-% \subsection{Vetor de Estados} % não sei se faz sentido, sendo que não temos quase nada pronto sobre isso
+Inicialmente, deseja-se realizar o treinamento de um agente único que, com as informações de seus sensores, consiga com sucesso levar a bola ao gol. Essa proposta tem como objetivo fundamentar os conhecimentos e validar a base de código para a realização de um treinamento de um time de múltiplos agentes em um estágio posterior.
+
+O desenvolvimento de um agente único, inicialmente, permite adquirir o entendimento necessário para a definição do vetor de estados e ajuste das técnicas de treinamento. Além disso, busca-se uma maior agilidade na substituição e teste na estrutura do vetor de estados e no algoritmo de treinamento, uma vez que o custo computacional deste cenário é consideravelmente menor que o custo do treinamento de um time completo.
+
+O objetivo inicial para teste do sistema como um todo foi o de realizar o treinamento de um agente único capaz de executar gols estando sozinho em campo. Esse objetivo se provou mais difícil do que o esperado para a abordagem \textit{end-to-end} desejada.
+
+Foi utilizado o algoritmo Double Q-Learning tabular, possível através da discretização de diversas métricas obtidas através dos sensores do agente.
+
+\subsection{Codificação dos Estados}
+
+O estado percebido pelo agente é dado pela combinação dos seguintes fatores:
+
+\begin{itemize}
+    \item \textbf{Distância até a bola}. A distância $D$ até a bola foi discretizada de acordo com a seguinte função:
+    \begin{equation}
+    \label{eq:balldist}
+    \left\{
+        \begin{array}{ll}
+            0  & \mbox{se } D < 0.7 \\
+            \lfloor\log_2 (\frac{D}{0.7})\rfloor & \mbox{se } 0.7 \leq D \mbox{ e } D < 0.7 \times 2^6 \\
+            6  & \mbox{se } D \geq 0.7 \times 2^6 \\
+
+        \end{array}
+    \right.
+    \end{equation}
+
+    Ou seja, a distância percebida até a bola varia entre 0 e 6 com resolução cada vez menor à medida que o agente se afasta da bola. O fator 0.7 foi inserido na função devido ao fato de que esta é a distância mínima que permite que o agente chute a bola.
+
+    Caso o jogador possa enxergar a bola, a distância D é recebida diretamente do sensor. Caso contrário, a distância D é estimada com base na última posição percebida da bola.
+
+    \item \textbf{Direção da bola}. A direção da bola foi dividida em 24 fatias de $15^{\circ}$ cada. O ângulo de visão do jogador é de $\pm30^{\circ}$. Caso a bola não esteja visível, a direção da bola é estimada com base na última posição percebida.
+    
+    \item \textbf{Posição do jogador em X}. A posição estimada do jogador em X foi discretizada em 10 janelas de tamanho $11.5$.
+
+    \item \textbf{Posição do jogador em Y}. A posição estimada do jogador em Y foi discretizada em 7 janelas de tamanho aproximado $11.14$.
+    
+    \item \textbf{Direção do jogador}. A direção estimada do jogador em relação ao eixo horizontal foi discretizada em 24 fatias de $15^{\circ}$ cada.
+
+\end{itemize}
+
+Com isso, temos que o número total de estados possíveis é dado pelo produtório da quantidade de possibilidades em cada um dos itens a cima totalizando 282240 estados.
+
+\subsection{Codificação das Ações}
+
+Para simplificar o vasto espaço de ações disponíveis, foi selecionado um conjunto discreto de 13 ações:
+
+\begin{itemize}
+    \item \textbf{Ação nula}. O agente apenas espera até o próximo ciclo.
+
+    \item \textbf{Virar-se}. O agente tem a opção de virar-se $7^{\circ}$, $15^{\circ}$ ou $31^{\circ}$ para ambas as direções, totalizando 6 ações de rotação possíveis. 
+    
+    \item \textbf{Correr}. É possível correr em frente ($0^{\circ}$) ou a $30^{\circ}$ em ambas as direções, sempre com potência 50, totalizando 3 ações de corrida possíveis.
+
+    \item \textbf{Chutar}. Caso a distância até a bola seja menor ou igual a 0.7 metros, o jogador tem a opção de chutá-la em frente ou em um ângulo de $45^{\circ}$ em ambas as direções, totalizando 3 ações de chute possíveis. Caso a bola não esteja próxima o suficiente, nada acontece.
+\end{itemize}
+
+% TODO \subsection{Hiperparâmetros}
+% Falar do epsilon, alpha e gamma utilizados e explicar como cada um funciona e cada um foi atualizado.
+
+% TODO \subsection{Procedimentos}
+% Explicar o que foi feito quantas partidas foram jogadas quantas tentativas foram feitas pra tirar a média etc
+
+% TODO? \subsection{Resultados}
+% Mostrar e comentar rapidamente os resultados
 
 \section{Agentes Concorrentes}
 
@@ -24,7 +88,3 @@ Após validação do sistema com agente único, é interessante experimentar com
 Após validar os casos de agente único e de agentes concorrentes, propõe-se um treinamento completo em jogos 11 contra 11. O objetivo é, ao final do processo, termos um time capaz de jogar contra os principais times da atualidade na categoria RoboCup Soccer Simulation 2D.
 
 Para isso, os agentes devem ser capazes de cooperar e reagir aos movimentos da equipe oposta a fim de marcar gols e evitar os gols do adversário.
-
-% \subsection{Vetor de Estados}
-
-
