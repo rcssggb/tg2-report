@@ -86,8 +86,10 @@ Um dos algoritmos mais populares no campo da aprendizagem por reforço é o Q-Le
 O algoritmo é também muito simples. Dada uma representação tabular $Q: (\mathcal{S},\mathcal{A}) \to \mathbb{R}$ da função $q_*$, para cada instante de tempo $t$ é realizada a seguinte atualização a fim de aproximar $Q$ de $q_*$:
 
 \begin{equation}
-Q(S_t, A_t) \leftarrow Q(S_t, A_t) + \alpha[R_{t+1} + \max_{a} Q(S_{t+1}, a) - Q(S_t, A_t)]
+Q(S_t, A_t) \leftarrow Q(S_t, A_t) + \alpha[R_{t+1} + \gamma\max_{a} Q(S_{t+1}, a) - Q(S_t, A_t)]
 \end{equation}
+
+Sendo $\alpha$ o fator de aprendizagem, responsável por diluir as atualizações de cada entrada da tabela, e $\gamma$ o fator de desconto, responsável por reduzir a relevância de recompensas muito distantes no tempo.
 
 Após iterações suficientes, espera-se que $Q$ convirja para $q_*$. Em alguns casos a convergência é provada matematicamente.
 
