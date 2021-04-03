@@ -12,11 +12,11 @@ Foi desenvolvida uma biblioteca própria em linguagem Go como forma de moderniza
 
 % TODO melhorar isso aqui
 
-\section{Agente Único}
+\section{Agente Único com Double Q-Learning Tabular}
 
-Inicialmente, deseja-se realizar o treinamento de um agente único que, com as informações de seus sensores, consiga com sucesso levar a bola ao gol. Essa proposta tem como objetivo fundamentar os conhecimentos e validar a base de código para a realização de um treinamento de um time de múltiplos agentes em um estágio posterior.
+% Inicialmente, deseja-se realizar o treinamento de um agente único que, com as informações de seus sensores, consiga com sucesso levar a bola ao gol. Essa proposta tem como objetivo fundamentar os conhecimentos e validar a base de código para a realização de um treinamento de um time de múltiplos agentes em um estágio posterior.
 
-O desenvolvimento de um agente único, inicialmente, permite adquirir o entendimento necessário para a definição do vetor de estados e ajuste das técnicas de treinamento. Além disso, busca-se uma maior agilidade na substituição e teste na estrutura do vetor de estados e no algoritmo de treinamento, uma vez que o custo computacional deste cenário é consideravelmente menor que o custo do treinamento de um time completo.
+% O desenvolvimento de um agente único, inicialmente, permite adquirir o entendimento necessário para a definição do vetor de estados e ajuste das técnicas de treinamento. Além disso, busca-se uma maior agilidade na substituição e teste na estrutura do vetor de estados e no algoritmo de treinamento, uma vez que o custo computacional deste cenário é consideravelmente menor que o custo do treinamento de um time completo.
 
 O objetivo inicial para teste do sistema como um todo foi o de realizar o treinamento de um agente único capaz de executar gols estando sozinho em campo. Esse objetivo se provou mais difícil do que o esperado para a abordagem \textit{end-to-end} desejada.
 
@@ -77,14 +77,48 @@ Para simplificar o vasto espaço de ações disponíveis, foi selecionado um con
 
     \item \textbf{Fator de aprendizagem ($\alpha$)}: O fator de aprendizagem foi definido inicialmente como 0.1 e foi reduzido exponencialmente multiplicando-o por $0.99999$ ao final de cada partida. 
     
-    \item \textbf{Fator de exploração ($\epsilon$)}: Para incentivar a exploração das possibilidades, o fator de exploração foi definido inicialmente como 0.9 e reduzido exponencialmente multiplicando-o por $0.99996$ ao final de cada partida. A cada ação tomada, o agente tem probabilidade $\epsilon$ de escolher uma ação aleatória.
+    \item \textbf{Fator de exploração ($\epsilon$)}: Para incentivar a exploração das possibilidades, o fator de exploração foi definido inicialmente como 0.9 e reduzido exponencialmente multiplicando-o por $0.99996$ ao final de cada partida. A cada ação tomada, o agente tem probabilidade $\epsilon$ de escolher uma ação aleatória. Além disso, para favorecer a exploração, no início de cada partida era também sorteada uma posição inicial para o agente em seu lado do campo.
 \end{itemize}
 
-% TODO \subsection{Procedimentos}
-% Explicar o que foi feito quantas partidas foram jogadas quantas tentativas foram feitas pra tirar a média etc
+\subsection{Recompensa}
 
-% TODO? \subsection{Resultados}
-% Mostrar e comentar rapidamente os resultados
+A recompensa foi definida em 3 partes a fim de guiar o agente na direção do aprendizado desejado. Todas as medições de recompensa foram feitas utilizando dados da simulação e não da percepção do agente.
+
+\begin{itemize}
+    \item \textbf{Proximidade da bola $R_1$}: Para que o agente tenha tendência a se aproximar da bola, foi definida uma recompensa negativa proporcional à distância $d$ do agente em relação à bola, ou seja: $R_1 = -d*0.001/6000$.
+
+    \item \textbf{Velocidade da bola $R_2$}: Para que o agente adquira o comportamento de chutar a bola em direção ao gol adversário, foi definida uma recompensa positiva proporcional à velocidade instantânea da bola em X ($v_x$), ou seja: $R_2 = v_x/6000$.
+    
+    \item \textbf{Gol $R_3$}: Por fim, para incentivar que o agente fizesse gols, foi definida uma recompensa esparsa de valor 1 para cada gol realizado e -1 para gols contra, ou seja:
+    
+    $
+    R_3 =
+    \left\{
+        \begin{array}{ll}
+        \ \ 1  & \mbox{se foi feito um gol no ciclo} \\
+         -1  & \mbox{se foi feito um gol contra no ciclo} \\
+        \ \ 0  & \mbox{caso não houver gol no ciclo} \\
+        \end{array}
+    \right.
+    $
+\end{itemize}
+
+Deste modo, a cada instante de tempo foi atribuída uma recompensa $R = R_1 + R_2 + R_3$.
+
+\subsection{Procedimentos e Resultados}
+
+% TODO: ajustar N pra quantos treinamentos foram feitos
+Foram executados N treinamentos distintos de 100000 partidas a fim de suavizar o elemento sorte nos resultados. Após cada um dos treinamentos foi salva a tabela Q completa e o histórico dos retornos obtidos pelo agente ao longo do treinamento.
+
+Os gráficos a seguir mostram esse histórico. É interessante observar que com o decaimento dos fatores de exploração e de aprendizagem, após 100000 partidas ambos eram $\epsilon \approx 0.01648$ e $\alpha \approx 0.03679$, ou seja, o agente já executava na maior parte dos ciclos a política ótima aprendida.
+
+% TODO
+\begin{figure}[h]
+	\includegraphics[width=1.0\linewidth]{figs/placekitty4-3.jpg}
+	\centering
+	\caption{\textbf{PLACEHOLDER} Curva de aprendizado. Para cada partida foi feita a média entre os N retornos observados em cada um dos treinamentos.}
+	\label{fig:single-agent-curva}
+\end{figure}
 
 \section{Agentes Concorrentes}
 
