@@ -4,20 +4,112 @@
 % \resumodocapitulo{Resumo opcional.}
 
 
-\section{Biblioteca}
+\section{Biblioteca} \label{sec:lib}
 
-O servidor da partida apresenta, como já mencionado, um protocolo de comunicação e sintaxe de mensagens específica. Uma biblioteca de interfaceamento é proposta com o objetivo de abstrair os detalhes de comunicação de construção de mensagens e facilitar, assim, o desenvolvimento dos programas jogadores. Esta abordagem já é comum na categoria e existem soluções de código aberto como a \textit{librcsc}, utilizada por várias equipes, usualmente atreladas ao agente base \textit{agent2d}, desenvolvidas pela equipe \textit{HELIOS}.
+O servidor da partida apresenta, como já mencionado, um protocolo de comunicação e sintaxe de mensagens específica. Uma biblioteca de interfaceamento foi desenvolvida com o objetivo de abstrair os detalhes de comunicação de construção de mensagens e facilitar, assim, o desenvolvimento dos programas jogadores. Esta abordagem já é comum na categoria e existem soluções de código aberto como a \textit{librcsc}, utilizada por várias equipes, usualmente atreladas ao agente base \textit{agent2d}, desenvolvidas pela equipe \textit{HELIOS}.
 
-Foi desenvolvida uma biblioteca própria em linguagem Go como forma de modernização e diversificação da base de código utilizada pelas equipes. A biblioteca cobre uma parte considerável das possibilidades previstas no protocolo de comunicação e foi programada de modo a ser facilmente expansível de acordo com o lançamento de novas versões do servidor.
+A biblioteca própria foi desenvolvida em linguagem Go como forma de modernização e diversificação da base de código utilizada pelas equipes. A biblioteca cobre uma parte considerável das possibilidades previstas no protocolo de comunicação e foi programada de modo a ser facilmente expansível de acordo com o lançamento de novas versões do servidor.
 
 % TODO melhorar isso aqui
 
-\subsection{Estimação de Estado}
+\subsection{Arquitetura}
+A biblioteca possui três pacotes internos: \textit{playerclient}, \textit{trainerclient} e \textit{rcsscommon}. Os dois primeiros dizem respeito aos dois tipos de programas que podem se conectar ao servidor da partida: jogadores e treinadores. O terceiro engloba todas as funcionalidades utilizadas por ambos clientes, além de informações gerais sobre parâmetros da partida, como coordenadas de bandeiras do campo e modos de jogo.
 
-\subsection{Cliente de Treinamento}
+Os dois clientes desenvolvidos possuem as funcionalidades necessárias para se conectar ao servidor, ouvir mensagens via protocolo UDP, decodificá-las e então executar uma ação em forma de mensagem codificada e enviada ao servidor.
+
+\subsection{Decodificação de Codificação de Mensagens}
+% ( // tradução de parser)
+A decodificação de mensagens, por sua vez, foi feita em duas camadas: um \textit{lexer} e um analisador. O lexer passa pelas mensagens em formato string e retira todas as informações que ela contém. O analisador estrutura essas informações em estruturas de dados para que possam ser utilizadas fora da biblioteca. As informações recebidas e decodificadas são, em sua maioria, dados dos sensores do jogador.
+\begin{center}
 
 
-\section{Agente Único com Double Q-Learning Tabular}
+
+\begin{tabular}{c}
+\begin{lstlisting}
+(see 37 ((f c b) 16.6 -1 -0 -0.8))
+\end{lstlisting}
+\end{tabular}
+
+Exemplo de mensagem codificada.
+
+
+\begin{tabular}{c}
+\begin{lstlisting}
+SightSymbols{
+	Time: 37,
+	ObjMap: map[string][]string{
+		"f c b":    {"16.6", "-1", "-0", "-0.8"},
+	},
+}
+\end{lstlisting}
+\end{tabular}
+
+Mensagem após passar pelo \textit{lexer}.
+
+
+
+\begin{tabular}{c}
+\begin{lstlisting}
+SightData{
+	Time: 37,
+	Ball: nil,
+	Lines: LineArray{},
+	Flags: FlagArray{
+		{
+			ID:        rcsscommon.FlagCenterBot,
+			Distance:  16.6,
+			Direction: -1,
+		},
+	},
+}
+\end{lstlisting}
+\end{tabular}
+
+Mensagem após passar pelo analisador.
+
+\end{center}
+
+\section{Experimentos}
+
+\subsection{Ambiente de Treinamento}
+
+O ambiente de treinamento consiste em uma base de código que importa a biblioteca detalhada na seção \ref{sec:lib}. Um formato geral foi definido e desenvolvido a fim de tornar os experimentos fáceis de adaptar, bastando mudar alguns trechos do código.
+
+Além disso, para os dados disponíveis por meio da biblioteca foram estimados outros estados que pudessem ser úteis no treinamento: posições absolutas da bola, dos outros jogadores e do próprio jogador.
+
+\subsubsection{Laço de Treinamento}
+
+De forma geral o laço de treinamento obedece o pseudo-código apresentado.
+
+\begin{tabular}{c}
+	\begin{lstlisting}
+definir parametros
+inicializar pesos de treinamento
+laco para cada partida:
+	conectar jogador
+	laco para cada passo da partida:
+		ver estado
+		escolher acao de acordo com uma politica
+		observar novo estado e recompensa
+		treinar pesos
+		estado <- novo estado
+		se estado for terminal:
+			quebra
+	\end{lstlisting}
+\end{tabular}
+
+O laço interno é onde efetivamente os algoritmos de treinamento são implementados, portanto este trecho é alterado a depender da técnica de aprendizagem por reforço utilizada.
+
+\subsubsection{Estimação de Estados}
+
+Os sensores do jogador fornecem somente informações em coordenadas polares relativas ao próprio jogador. Desta forma, ele possui informações de distância e direção para a bola, demais jogadores, bandeiras do campo e linhas do campo. 
+
+Com esses dados, entretanto, é possível estimar as coordenadas cartesianas absolutas no campo de todas as entidades de interesse. As bandeiras do campo são fixas e possuem coordenadas conhecidas. Portanto, a transformação da informação polar e relativa para uma cartesiana e absoluta da posição do próprio jogador é direta utilizando trigonometria básica. 
+
+A partir da informação de posição absoluta do próprio jogador e de sua direção é possível calcular as posições para o resto das entidades.
+
+
+\subsection{Agente Único com Double Q-Learning Tabular}
 
 % Inicialmente, deseja-se realizar o treinamento de um agente único que, com as informações de seus sensores, consiga com sucesso levar a bola ao gol. Essa proposta tem como objetivo fundamentar os conhecimentos e validar a base de código para a realização de um treinamento de um time de múltiplos agentes em um estágio posterior.
 
@@ -27,7 +119,7 @@ O objetivo inicial para teste do sistema como um todo foi o de realizar o treina
 
 Foi utilizado o algoritmo Double Q-Learning tabular, possível através da discretização de diversas métricas obtidas através dos sensores do agente.
 
-\subsection{Codificação dos Estados}
+\subsubsection{Codificação dos Estados}
 
 O estado percebido pelo agente é dado pela combinação dos seguintes fatores:
 
@@ -61,7 +153,7 @@ O estado percebido pelo agente é dado pela combinação dos seguintes fatores:
 
 Com isso, temos que o número total de estados possíveis é dado pelo produtório da quantidade de possibilidades em cada um dos itens acima totalizando 282240 estados.
 
-\subsection{Codificação das Ações}
+\subsubsection{Codificação das Ações}
 
 Para simplificar o vasto espaço de ações disponíveis, foi selecionado um conjunto discreto de 13 ações:
 
@@ -75,7 +167,7 @@ Para simplificar o vasto espaço de ações disponíveis, foi selecionado um con
     \item \textbf{Chutar}: Caso a distância até a bola seja menor ou igual a 0.7 metros, o jogador tem a opção de chutá-la em frente ou em um ângulo de $45^{\circ}$ em ambas as direções, totalizando 3 ações de chute possíveis. Caso a bola não esteja próxima o suficiente, nada acontece.
 \end{itemize}
 
-\subsection{Parâmetros}
+\subsubsection{Parâmetros}
 
 \begin{itemize}
     \item \textbf{Fator de desconto ($\gamma$)}: Apesar do ambiente ser episódico, foi utilizado um fator de desconto de 0.99 devido ao fato de que a condição de término do episódio (fim de jogo) não ser observável através da discretização do estado utilizada.  
@@ -85,7 +177,7 @@ Para simplificar o vasto espaço de ações disponíveis, foi selecionado um con
     \item \textbf{Fator de exploração ($\epsilon$)}: Para incentivar a exploração das possibilidades, o fator de exploração foi definido inicialmente como 0.9 e reduzido exponencialmente multiplicando-o por $0.99996$ ao final de cada partida. A cada ação tomada, o agente tem probabilidade $\epsilon$ de escolher uma ação aleatória. Além disso, para favorecer a exploração, no início de cada partida era também sorteada uma posição inicial para o agente em seu lado do campo.
 \end{itemize}
 
-\subsection{Recompensa}
+\subsubsection{Recompensa}
 
 A recompensa foi definida em 3 partes a fim de guiar o agente na direção do aprendizado desejado. Todas as medições de recompensa foram feitas utilizando dados da simulação e não da percepção do agente.
 
@@ -110,7 +202,7 @@ A recompensa foi definida em 3 partes a fim de guiar o agente na direção do ap
 
 Deste modo, a cada instante de tempo foi atribuída uma recompensa $R = R_1 + R_2 + R_3$.
 
-\subsection{Procedimentos e Resultados}
+\subsubsection{Procedimentos e Resultados}
 
 Foram executados 2 treinamentos distintos de 100000 partidas a fim de suavizar o elemento sorte nos resultados. Após cada um dos treinamentos foi salva a tabela Q completa e o histórico dos retornos obtidos pelo agente ao longo do treinamento.
 
