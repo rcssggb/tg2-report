@@ -112,16 +112,14 @@ Deste modo, a cada instante de tempo foi atribuída uma recompensa $R = R_1 + R_
 
 \subsection{Procedimentos e Resultados}
 
-% TODO: ajustar N pra quantos treinamentos foram feitos
-Foram executados N treinamentos distintos de 100000 partidas a fim de suavizar o elemento sorte nos resultados. Após cada um dos treinamentos foi salva a tabela Q completa e o histórico dos retornos obtidos pelo agente ao longo do treinamento.
+Foram executados 2 treinamentos distintos de 100000 partidas a fim de suavizar o elemento sorte nos resultados. Após cada um dos treinamentos foi salva a tabela Q completa e o histórico dos retornos obtidos pelo agente ao longo do treinamento.
 
 Os gráficos a seguir mostram esse histórico. É interessante observar que com o decaimento dos fatores de exploração e de aprendizagem, após 100000 partidas ambos eram $\epsilon \approx 0.01648$ e $\alpha \approx 0.03679$, ou seja, o agente já executava na maior parte dos ciclos a política ótima aprendida.
 
-% TODO
 \begin{figure}[h]
-	\includegraphics[width=1.0\linewidth]{figs/placekitty4-3.jpg}
+	\includegraphics[width=1.0\linewidth]{figs/curva-qtabular.jpg}
 	\centering
-	\caption{\textbf{PLACEHOLDER} Curva de aprendizado. Para cada partida foi feita a média entre os N retornos observados em cada um dos treinamentos.}
+	\caption{Curva de aprendizado. Para cada jogo foi feita a média entre os 2 retornos observados em cada um dos treinamentos.}
 	\label{fig:single-agent-curva}
 \end{figure}
 
