@@ -10,16 +10,15 @@ O servidor da partida apresenta, como já mencionado, um protocolo de comunicaç
 
 A biblioteca própria foi desenvolvida em linguagem Go como forma de modernização e diversificação da base de código utilizada pelas equipes. A biblioteca cobre uma parte considerável das possibilidades previstas no protocolo de comunicação e foi programada de modo a ser facilmente expansível de acordo com o lançamento de novas versões do servidor.
 
-% TODO melhorar isso aqui
-
 \subsection{Arquitetura}
 A biblioteca possui três pacotes internos: \textit{playerclient}, \textit{trainerclient} e \textit{rcsscommon}. Os dois primeiros dizem respeito aos dois tipos de programas que podem se conectar ao servidor da partida: jogadores e treinadores. O terceiro engloba todas as funcionalidades utilizadas por ambos clientes, além de informações gerais sobre parâmetros da partida, como coordenadas de bandeiras do campo e modos de jogo.
 
 Os dois clientes desenvolvidos possuem as funcionalidades necessárias para se conectar ao servidor, ouvir mensagens via protocolo UDP, decodificá-las e então executar uma ação em forma de mensagem codificada e enviada ao servidor.
 
 \subsection{Decodificação de Codificação de Mensagens}
-% ( // tradução de parser)
-A decodificação de mensagens, por sua vez, foi feita em duas camadas: um \textit{lexer} e um analisador. O lexer passa pelas mensagens em formato string e retira todas as informações que ela contém. O analisador estrutura essas informações em estruturas de dados para que possam ser utilizadas fora da biblioteca. As informações recebidas e decodificadas são, em sua maioria, dados dos sensores do jogador.
+% lexer -> analisador léxico
+% parser -> analisador sintático
+A decodificação de mensagens, por sua vez, foi feita em duas camadas: um analisador léxico e um analisador sintático. O lexer passa pelas mensagens em formato string e retira todas as informações que ela contém. O analisador sintático estrutura essas informações em estruturas de dados para que possam ser utilizadas fora da biblioteca. As informações recebidas e decodificadas são, em sua maioria, dados dos sensores do jogador.
 \begin{center}
 
 
@@ -44,7 +43,7 @@ SightSymbols{
 \end{lstlisting}
 \end{tabular}
 
-Mensagem após passar pelo \textit{lexer}.
+Mensagem após passar pelo analisador léxico.
 
 
 
@@ -65,7 +64,7 @@ SightData{
 \end{lstlisting}
 \end{tabular}
 
-Mensagem após passar pelo analisador.
+Mensagem após passar pelo analisador sintático.
 
 \end{center}
 
@@ -85,16 +84,13 @@ De forma geral o laço de treinamento obedece o pseudo-código apresentado.
 	\begin{lstlisting}
 definir parametros
 inicializar pesos de treinamento
-laco para cada partida:
+enquanto o estado nao e terminal:
 	conectar jogador
 	laco para cada passo da partida:
-		ver estado
-		escolher acao de acordo com uma politica
+		escolher acao de acordo com a politica e o estado
 		observar novo estado e recompensa
 		treinar pesos
 		estado <- novo estado
-		se estado for terminal:
-			quebra
 	\end{lstlisting}
 \end{tabular}
 
@@ -107,7 +103,6 @@ Os sensores do jogador fornecem somente informações em coordenadas polares rel
 Com esses dados, entretanto, é possível estimar as coordenadas cartesianas absolutas no campo de todas as entidades de interesse. As bandeiras do campo são fixas e possuem coordenadas conhecidas. Portanto, a transformação da informação polar e relativa para uma cartesiana e absoluta da posição do próprio jogador é direta utilizando trigonometria básica. 
 
 A partir da informação de posição absoluta do próprio jogador e de sua direção é possível calcular as posições para o resto das entidades.
-
 
 \subsection{Agente Único com Double Q-Learning Tabular}
 
@@ -215,12 +210,12 @@ Os gráficos a seguir mostram esse histórico. É interessante observar que com 
 	\label{fig:single-agent-curva}
 \end{figure}
 
-\section{Agentes Concorrentes}
+% \section{Agentes Concorrentes}
 
-Após validação do sistema com agente único, é interessante experimentar com treinamento adversarial de apenas 2 jogadores em formato um-contra-um. A intenção dessa etapa é experimentar com o sistema o caso adversarial, no qual há um ou mais agentes com objetivo oposto ao do agente sendo treinado.
+% Após validação do sistema com agente único, é interessante experimentar com treinamento adversarial de apenas 2 jogadores em formato um-contra-um. A intenção dessa etapa é experimentar com o sistema o caso adversarial, no qual há um ou mais agentes com objetivo oposto ao do agente sendo treinado.
 
-\section{Múltiplos Agentes}
+% \section{Múltiplos Agentes}
 
-Após validar os casos de agente único e de agentes concorrentes, propõe-se um treinamento completo em jogos 11 contra 11. O objetivo é, ao final do processo, termos um time capaz de jogar contra os principais times da atualidade na categoria RoboCup Soccer Simulation 2D.
+% Após validar os casos de agente único e de agentes concorrentes, propõe-se um treinamento completo em jogos 11 contra 11. O objetivo é, ao final do processo, termos um time capaz de jogar contra os principais times da atualidade na categoria RoboCup Soccer Simulation 2D.
 
-Para isso, os agentes devem ser capazes de cooperar e reagir aos movimentos da equipe oposta a fim de marcar gols e evitar os gols do adversário.
+% Para isso, os agentes devem ser capazes de cooperar e reagir aos movimentos da equipe oposta a fim de marcar gols e evitar os gols do adversário.
