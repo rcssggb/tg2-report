@@ -6,8 +6,14 @@
 % Resumo opcional. Comentar se não usar.
 % \resumodocapitulo{Resumo opcional}
 
+\section{Robótica}
 
-\section{RoboCup Soccer Simulation 2D}
+\section{Aprendizagem por Reforço}
+
+\section{Futebol de Robôs}
+% TODO: detalhar histórico de futebol de robôs e falar de outras categorias de competição existentes
+
+\subsection{RoboCup Soccer Simulation 2D}
 \par A ideia de robôs jogando futebol foi proposta pela primeira vez em 1992 por Alan Mackworth\cite{mackworth1993seeing}.
 Desde então a comunidade científica tem criado iniciativas buscando por soluções que tornem isso realidade.
 Uma delas é a \textit{Robot World Cup Initiative}, abreviada como \textit{RoboCup}, que teve sua primeira edição em 1997 com mais de 40 equipes distribuídas entre as diversas categorias do evento.
@@ -18,6 +24,9 @@ Desde 2005, a RCSS está presente na maior competição de robótica da América
 \par Nessa categoria, duas equipes de 11 jogadores autônomos e independentes jogam futebol em um ambiente virtual bidimensional.
 Um servidor é responsável por esse ambiente e possui informação absoluta sobre o estado do jogo e suas regras.
 Os jogadores, por sua vez, recebem dele informação incompleta e ruidosa de seus sensores virtuais, podendo executar comandos a fim de atuar sobre o estado do jogo.
+
+\section{Caracterização do Problema}
+% TODO: escrever sobre o problema de fazerr gols com aprondizagem por reforço
 
 \subsection{Servidor da partida}
 \par Um servidor que executa a partida é disponibilizado pelos organizadores da competição e este pode ser utilizado, também, para desenvolvimento. O servidor, portanto, apresenta, internamente, algumas das regras da partida bem como um juiz autônomo que age para determinar gols, faltas e demais situações de uma partida de futebol. Caso necessário, um juiz humano poderá intervir em situações não contempladas pelas regras do servidor.
@@ -44,6 +53,8 @@ Os jogadores, por sua vez, recebem dele informação incompleta e ruidosa de seu
 \end{figure}
 
 \subsection{Sensores}
+
+%TODO: Mover detalhes técnicos dos sensores (listagem e sintaxe da mensagem) para seção de Desenvolvimento
 
 Para receber informações a respeito da situação do jogo, cada cliente conectado recebe mensagens referentes a atualizações de três sensores virtuais descritos abaixo.
 
@@ -84,6 +95,8 @@ O sensor corporal contém informações sobre o estado físico do jogador. Entre
 
 \subsection{Ações}
 \label{sec:actions}
+
+%TODO: Mover detalhes técnicos das ações para seção de Desenvolvimento
 
 A cada ciclo de simulação, cada cliente conectado ao servidor pode realizar ações que terão efeito no ambiente. As ações são descritas abaixo. \cite{rcssmanual2003}
 
@@ -138,7 +151,7 @@ Usado para transmitir mensagens aos outros jogadores. As mensagens devem ter com
 
 Como já dito, não será implementada nenhuma comunicação entre os jogadores neste trabalho.
 
-\section{Abordagens utilizadas na categoria}
+\subsection{Abordagens utilizadas na categoria}
 \par Uma pesquisa sobre as abordagens para o desenvolvimento das estratégias dos times participantes da RCSS revelou o uso recorrente de métodos de inteligência computacional.
 \par A equipe chinesa \textit{WrightEagle}, campeã do principal evento internacional da categoria diversas vezes, utiliza Processos de Decisão de Markov ou MDPs para modelar a partida\cite{bai2015online}.
 \par A equipe japonesa \textit{HELIOS}, campeã de 2018 da categoria na RoboCup, divide seus jogadores em categorias "chutadores" e "não-chutadores".
