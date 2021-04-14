@@ -53,45 +53,9 @@ Os jogadores, por sua vez, recebem dele informação incompleta e ruidosa de seu
 \end{figure}
 
 \subsection{Sensores}
+\par Cada jogador presente na partida possui um conjunto de sensores de onde são tiradas todas as informações sobre o ambiente. Em uma partida usual, um jogador tem informações visuais dos jogadores do seu time e do time adversário, da bola e de uma série de marcadores fixos no campo, como bandeiras e linhas, que servem para situar o jogador em coordenadas absolutas do campo. O jogador possui também informações ``sonoras'', onde pode ouvir mensagem do árbitro, treinador e de outros jogadores. Por último, tem acesso a informações do próprio corpo, como orientação do corpo e pescoço. \cite{rcssmanual2003}
+\par Os sensores possuem características que os aproximam de sensores reais como perda de resolução da informação conforme a variável medida se afasta do sensor.
 
-%TODO: Mover detalhes técnicos dos sensores (listagem e sintaxe da mensagem) para seção de Desenvolvimento
-
-Para receber informações a respeito da situação do jogo, cada cliente conectado recebe mensagens referentes a atualizações de três sensores virtuais descritos abaixo.
-
-\subsubsection{Sensor Auditivo}
-
-As mensagens do sensor auditivo são do seguinte formato:
-
-\textit{(hear Tempo Remetente "mensagem")}
-
-Onde \textit{Tempo} é o número do ciclo em que a mensagem foi ouvida e \textit{Remetente} é descrição de quem enviou a mensagem. O \textit{Remetente} pode ser o árbitro, outros jogadores, um dos treinadores ou o próprio jogador.
-
-No escopo deste trabalho, apenas as mensagens do árbitro serão consideradas, não sendo implementada nenhuma forma de comunicação direta entre os jogadores.
-
-\subsubsection{Sensor Visual}
-
-As mensagens do sensor visual contém as posições relativas referentes a cada objeto dentro do campo de visão do jogador. Esses objetos podem ser outros jogadores, marcadores como bandeiras e linhas (Figura \ref{fig:flags}) e a bola. O formato genérico é este:
-
-\textit{(see (Objeto1)(Objeto2)(Objeto3)...(ObjetoN))}
-
-Onde cada objeto tem o seguinte formato:
-
-\textit{((NomeDoObjeto) Distância Direção VariaçãoDeDistância VariaçãoDeDireção DireçãoDoCorpo DireçãoDaCabeça)}
-
-Sendo a distância e a direção dados em coordenadas polares, assim como suas variações. As informações de direção do corpo e da cabeça só aparecem quando o objeto em questão é um outro jogador.
-
-\begin{figure}[H]
-	\includegraphics[width=0.9\linewidth]{figs/flags.png}
-	\centering
-	\caption{Indicadores espalhados pelo campo para que o agente possa estimar sua posição absoluta \cite{rcssmanual2003}.}
-	\label{fig:flags}
-\end{figure}
-
-A riqueza de detalhes a respeito das informações obtidas depende da distância entre o objeto e o jogador. Por exemplo, caso esteja sendo visto outro jogador a uma distância muito grande, talvez seja impossível determinar o número de sua camisa ou até mesmo a qual time ele pertence. Em contrapartida, para jogadores próximos, é fornecido até mesmo a direção para a qual ele está olhando.
-
-\subsubsection{Sensor Corporal}
-
-O sensor corporal contém informações sobre o estado físico do jogador. Entre elas sua energia, que é consumida a cada ação tomada como chute ou arrancada (Seção \ref{sec:actions}), sua própria velocidade e direção de movimento, a direção de sua cabeça e a quantidade de cartões de advertência recebidos.
 
 \subsection{Ações}
 \label{sec:actions}
@@ -103,15 +67,15 @@ A cada ciclo de simulação, cada cliente conectado ao servidor pode realizar a�
 \subsubsection{Arrancar}
 \label{sec:dash}
 
-O comando de arrancar faz com que haja uma aceleração do jogador na direção da arrancada. Um parâmetro "potência" determina o valor da aceleração. É importante notar que o comando de arranque é o jeito padrão de movimentar um jogador.
+O comando de arrancar faz com que haja uma aceleração do jogador na direção da arrancada. Um parâmetro ``potência'' determina o valor da aceleração. É importante notar que o comando de arranque é o jeito padrão de movimentar um jogador.
 
-Cada jogador possui uma certa quantidade de energia e o arranque tem um custo sobre ela. Ao começo de cada tempo da partida, a energia do jogador é colocada no máximo. Se o jogador acelera para frente, a energia é reduzida pelo valor de "potência". Se o jogador acelera para trás, o custo é maior e a energia é reduzida pelo dobro da potência.
+Cada jogador possui uma certa quantidade de energia e o arranque tem um custo sobre ela. Ao começo de cada tempo da partida, a energia do jogador é colocada no máximo. Se o jogador acelera para frente, a energia é reduzida pelo valor de ``potência''. Se o jogador acelera para trás, o custo é maior e a energia é reduzida pelo dobro da potência.
 
-Se a energia disponível é menor que a necessária para a realização com comando, o valor de "potência" é reduzido para que a quantidade necessária de energia seja a disponível.
+Se a energia disponível é menor que a necessária para a realização com comando, o valor de ``potência'' é reduzido para que a quantidade necessária de energia seja a disponível.
 
 \subsubsection{Chutar}
 
-O comando de chute recebe dois parâmetros: a força e a direção do chute. Para realizar o comando, a bola precisa ser "chutável", ou seja, estar a uma certa distância do jogador.
+O comando de chute recebe dois parâmetros: a força e a direção do chute. Para realizar o comando, a bola precisa ser ``chutável'', ou seja, estar a uma certa distância do jogador.
 
 Caso a bola não esteja diretamente à frente do jogador, a força efetiva será reduzida por um fator dependente da posição relativa da bola.
 
@@ -128,7 +92,7 @@ O jogador pode virar seu pescoço de maneira semi-independente de seu corpo. O �
 \subsubsection{Mover-se}
 \label{sec:move}
 
-O comando "mover-se" é utilizado para mover diretamente jogadores para coordenadas. Não pode ser utilizado no decorrer de uma partida, exceto quando o goleiro tem a posse da bola.  O comando fica disponível no início dos tempos da partida para posicionamento dos jogadores.
+O comando ``mover-se'' é utilizado para mover diretamente jogadores para coordenadas. Não pode ser utilizado no decorrer de uma partida, exceto quando o goleiro tem a posse da bola.  O comando fica disponível no início dos tempos da partida para posicionamento dos jogadores.
 
 Para movimentar o jogadores durante a partida, o arranque Seção \ref{sec:dash}) deve ser utilizado.
 
@@ -154,7 +118,7 @@ Como já dito, não será implementada nenhuma comunicação entre os jogadores 
 \subsection{Abordagens utilizadas na categoria}
 \par Uma pesquisa sobre as abordagens para o desenvolvimento das estratégias dos times participantes da RCSS revelou o uso recorrente de métodos de inteligência computacional.
 \par A equipe chinesa \textit{WrightEagle}, campeã do principal evento internacional da categoria diversas vezes, utiliza Processos de Decisão de Markov ou MDPs para modelar a partida\cite{bai2015online}.
-\par A equipe japonesa \textit{HELIOS}, campeã de 2018 da categoria na RoboCup, divide seus jogadores em categorias "chutadores" e "não-chutadores".
+\par A equipe japonesa \textit{HELIOS}, campeã de 2018 da categoria na RoboCup, divide seus jogadores em categorias ``chutadores'' e ``não-chutadores''.
 Os chutadores são responsáveis por realizar o planejamento de sequência de ações, utilizando métodos de valor de ação.
 Os não-chutadores, por sua vez, não tem conhecimento do planejamento feito pelos chutadores, e devem obter o máximo de informações relevantes para tentar gerar a mesma sequência de ações que jogador chutador\cite{nakashima2018helios2018}.
 \par A equipe brasileira \textit{ITAndroids}, atual campeã da LARC, utiliza a abordagem de sequência de ações, similar à \textit{HELIOS}, explorando uma árvore de ações criada dinamicamente de forma a maximizar o valor de cada ação. Além disso, utilizam Otimização por Enxame de Partículas \cite{melloitandroids} para adequar os parâmetros que calculam o valor da ação. A \textit{ITAndroids} também vem desenvolvendo o uso de Aprendizagem por Reforço Profunda \cite{maximoitandroids}.

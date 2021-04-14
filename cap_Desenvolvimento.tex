@@ -16,6 +16,7 @@ A biblioteca possui três pacotes internos: \textit{playerclient}, \textit{train
 Os dois clientes desenvolvidos possuem as funcionalidades necessárias para se conectar ao servidor, ouvir mensagens via protocolo UDP, decodificá-las e então executar uma ação em forma de mensagem codificada e enviada ao servidor.
 
 \subsection{Decodificação de Codificação de Mensagens}
+\label{sec:messsages}
 % lexer -> analisador léxico
 % parser -> analisador sintático
 A decodificação de mensagens, por sua vez, foi feita em duas camadas: um analisador léxico e um analisador sintático. O lexer passa pelas mensagens em formato string e retira todas as informações que ela contém. O analisador sintático estrutura essas informações em estruturas de dados para que possam ser utilizadas fora da biblioteca. As informações recebidas e decodificadas são, em sua maioria, dados dos sensores do jogador.
@@ -69,20 +70,55 @@ Mensagem após passar pelo analisador sintático.
 \end{center}
 
 \section{Definição dos Estados}
+\par As informações de estado são fornecidas pelos sensores do jogador. Há três sensores presentes que entregam informações, em forma de mensagens, para o agente: sensor auditivo, sensor visual e sensor corporal.
+\par Além de ser necessário tratar as mensagens recebidas, como demonstrado na seção \ref{sec:messsages}, é necessário tratar alguns dos estados para dar mais informações ao agente. 
 
 \subsection{Sensores}
-% TODO: mover detalhamento de sensores para cá
+\par Os sensores são responsáveis por todas as informações que o jogador tem do ambiente. Eles são modelados de forma a emular características de sensores reais, então, dessa forma, um sensor pode ``perder'' informações caso a variável medida esteja longe, como será evidenciado no modelo do sensor visual.
+\subsubsection{Sensor Auditivo}
 
-\subsection{Estimação de Estados}
+As mensagens do sensor auditivo são do seguinte formato:
 
-Os sensores do jogador fornecem somente informações em coordenadas polares relativas ao próprio jogador. Desta forma, ele possui informações de distância e direção para a bola, demais jogadores, bandeiras do campo e linhas do campo. 
+\textit{(hear Tempo Remetente "mensagem")}
 
-Com esses dados, entretanto, é possível estimar as coordenadas cartesianas absolutas no campo de todas as entidades de interesse. As bandeiras do campo são fixas e possuem coordenadas conhecidas. Portanto, a transformação da informação polar e relativa para uma cartesiana e absoluta da posição do próprio jogador é direta utilizando trigonometria básica. 
+Onde \textit{Tempo} é o número do ciclo em que a mensagem foi ouvida e \textit{Remetente} é descrição de quem enviou a mensagem. O \textit{Remetente} pode ser o árbitro, outros jogadores, um dos treinadores ou o próprio jogador.
 
-A partir da informação de posição absoluta do próprio jogador e de sua direção é possível calcular as posições para o resto das entidades.
+No escopo deste trabalho, apenas as mensagens do árbitro serão consideradas, não sendo implementada nenhuma forma de comunicação direta entre os jogadores.
+
+\subsubsection{Sensor Visual}
+\label{sec:visual}
+As mensagens do sensor visual contém as posições relativas referentes a cada objeto dentro do campo de visão do jogador. Esses objetos podem ser outros jogadores, marcadores como bandeiras e linhas (Figura \ref{fig:flags}) e a bola. O formato genérico é este:
+
+\textit{(see (Objeto1)(Objeto2)(Objeto3)...(ObjetoN))}
+
+Onde cada objeto tem o seguinte formato:
+
+\textit{((NomeDoObjeto) Distância Direção VariaçãoDeDistância VariaçãoDeDireção DireçãoDoCorpo DireçãoDaCabeça)}
+
+Sendo a distância e a direção dados em coordenadas polares, assim como suas variações. As informações de direção do corpo e da cabeça só aparecem quando o objeto em questão é um outro jogador.
+
+\begin{figure}[H]
+	\includegraphics[width=0.9\linewidth]{figs/flags.png}
+	\centering
+	\caption{Indicadores espalhados pelo campo para que o agente possa estimar sua posição absoluta \cite{rcssmanual2003}.}
+	\label{fig:flags}
+\end{figure}
+
+A riqueza de detalhes a respeito das informações obtidas depende da distância entre o objeto e o jogador. Por exemplo, caso esteja sendo visto outro jogador a uma distância muito grande, talvez seja impossível determinar o número de sua camisa ou até mesmo a qual time ele pertence. Em contrapartida, para jogadores próximos, é fornecido até mesmo a direção para a qual ele está olhando.
+
+\subsubsection{Sensor Corporal}
+
+O sensor corporal contém informações sobre o estado físico do jogador. Entre elas sua energia, que é consumida a cada ação tomada como chute ou arrancada (Seção \ref{sec:actions}), sua própria velocidade e direção de movimento, a direção de sua cabeça e a quantidade de cartões de advertência recebidos.
+
+\subsection{Estimação e Tratamento de Estados}
+\par Os sensores do jogador fornecem somente informações em coordenadas polares relativas ao próprio jogador. Desta forma, ele possui informações de distância e direção para a bola, demais jogadores, bandeiras do campo e linhas do campo. 
+\par Com esses dados, entretanto, é possível estimar as coordenadas cartesianas absolutas no campo de todas as entidades de interesse. As bandeiras do campo são fixas e possuem coordenadas conhecidas, seção \ref{sec:visual}. Portanto, a transformação da informação polar e relativa para uma cartesiana e absoluta da posição do próprio jogador é direta utilizando trigonometria básica. 
+\par A partir da informação de posição absoluta do próprio jogador e de sua direção é possível calcular as posições para o resto das entidades.
+% TODO: decidir se falar do NotSeenBallFor é ok já que a gente não treinou com ele
+\par É possível, também, extrair estados úteis a partir das informações dos sensores, como por exemplo um estado que representa a quanto tempo o jogador não vê a bola. Este estado pode ser determinante para que o jogador escolha buscar a bola.
 
 \subsection{Discretização}
-
+% TODO
 \section{Definição de Ações}
 % TODO: mover detalhamento de ações para cá
 
@@ -105,12 +141,12 @@ De forma geral o laço de treinamento obedece o pseudo-código apresentado.
 		definir parametros
 		inicializar pesos de treinamento
 		enquanto o estado nao e terminal:
-		conectar jogador
-		laco para cada passo da partida:
-		escolher acao de acordo com a politica e o estado
-		observar novo estado e recompensa
-		treinar pesos
-		estado <- novo estado
+			conectar jogador
+			laco para cada passo da partida:
+				escolher acao de acordo com a politica e o estado
+				observar novo estado e recompensa
+				treinar pesos
+				estado <- novo estado
 	\end{lstlisting}
 \end{tabular}
 
