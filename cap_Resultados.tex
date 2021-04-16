@@ -7,9 +7,9 @@
 
 \section{Agente Único com Double Q-Learning Tabular e Ações Puras}
 
-Foram executados 3 treinamentos distintos de 100000 partidas a fim de suavizar o elemento sorte nos resultados. Após cada um dos treinamentos foi salva a tabela Q completa e o histórico dos retornos obtidos pelo agente ao longo do treinamento.
+Foram executados 3 treinamentos distintos de 100000 partidas a fim de suavizar o elemento sorte nos resultados. Após cada um dos treinamentos foram salvos a tabela Q completa e o histórico dos retornos obtidos pelo agente ao longo do treinamento.
 
-Os gráficos a seguir mostram esse histórico. É interessante observar que com o decaimento dos fatores de exploração e de aprendizagem, após 100000 partidas ambos eram $\epsilon \approx 0.01648$ e $\alpha \approx 0.03679$, ou seja, o agente já executava na maior parte dos ciclos a política aprendida.
+A Figura \ref{fig:single-agent-curva} mostram esse histórico. É interessante observar que com o decaimento dos fatores de exploração e de aprendizagem, após 100000 partidas ambos eram $\epsilon \approx 0.01648$ e $\alpha \approx 0.03679$, ou seja, o agente já executava na maior parte dos ciclos a política aprendida.
 
 \begin{figure}[h]
 	\includegraphics[width=0.8\linewidth]{figs/curva-qtabular.jpg}
@@ -27,11 +27,22 @@ Além disso, foi executado um treinamento de 200000 partidas com os mesmos parâ
 	\label{fig:single-agent-curvalonga}
 \end{figure}
 
-Apesar da grande quantidade de experiência a que o agente teve acesso, nota-se que o crescimento de seu desempenho é bastante limitado, sequer atingindo a média de 1 gol por partida. Isso é um indicativo do altíssimo custo computacional de soluções \textit{end-to-end} como a utilizada no experimento.
+Apesar da grande quantidade de experiência a que o agente teve acesso, nota-se na Figura \ref{fig:single-agent-curvalonga} que o crescimento de seu desempenho é bastante limitado, sequer atingindo a média de 1 gol por partida. Isso é um indicativo do altíssimo custo computacional de soluções \textit{end-to-end} como a utilizada no experimento.
 
 \section{Agente Único com Double Q-Learning Tabular e Comportamentos Pré-Programados}
 
-% TODO inserir gráficos e comentar resultados do tabular behaviors
+Foi executado um treinamento de 100000 partidas e foram salvos a tabela Q completa e o histórico dos retornos obtidos pelo agente ao longo do treinamento.
+
+O gráfico da Figura \ref{fig:single-agent-tabular-behaviors} a seguir mostra esse histórico. 
+
+\begin{figure}[h]
+	\includegraphics[width=0.8\linewidth]{figs/placekitty16-9.jpg}
+	\centering
+	\caption{\textbf{PLACEHOLDER} Curva de aprendizado do agente com comportamentos pré-programados.}
+	\label{fig:single-agent-tabular-behaviors}
+\end{figure}
+
+% TODO comentar histórico
 
 % \section{Agentes Concorrentes}
 
