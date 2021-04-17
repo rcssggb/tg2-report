@@ -77,6 +77,7 @@ Mensagem após passar pelo analisador sintático.
 
 \subsection{Sensores}
 \par Os sensores são responsáveis por todas as informações que o jogador tem do ambiente. Eles são modelados de forma a emular características de sensores reais, então, dessa forma, um sensor pode ``perder'' informações caso a variável medida esteja longe, como será evidenciado no modelo do sensor visual.
+
 \subsubsection{Sensor Auditivo}
 
 As mensagens do sensor auditivo são do seguinte formato:
@@ -126,7 +127,59 @@ O sensor corporal contém informações sobre o estado físico do jogador. Entre
 \subsection{Discretização}
 
 \section{Definição de Ações}
-% TODO: mover detalhamento de ações para cá
+
+\par Os jogadores possuem diversas ações possíveis mapeadas pelo servidor da partida. As ações recebem parâmetros, em sua maioria, contínuos. Dessa forma as escolhas de quais ações podem ser feitas são discretas, mas cada ação tem um espectro contínuo de parâmetros.
+
+\subsection{Arrancar}
+\label{sec:dash}
+
+O comando de arrancar faz com que haja uma aceleração do jogador na direção da arrancada. Um parâmetro ``potência'' determina o valor da aceleração. É importante notar que o comando de arranque é o jeito padrão de movimentar um jogador.
+
+Cada jogador possui uma certa quantidade de energia e o arranque tem um custo sobre ela. Ao começo de cada tempo da partida, a energia do jogador é colocada no máximo. Se o jogador acelera para frente, a energia é reduzida pelo valor de ``potência''. Se o jogador acelera para trás, o custo é maior e a energia é reduzida pelo dobro da potência.
+
+Se a energia disponível é menor que a necessária para a realização com comando, o valor de ``potência'' é reduzido para que a quantidade necessária de energia seja a disponível.
+
+\subsection{Chutar}
+
+O comando de chute recebe dois parâmetros: a força e a direção do chute. Para realizar o comando, a bola precisa ser ``chutável'', ou seja, estar a uma certa distância do jogador.
+
+Caso a bola não esteja diretamente à frente do jogador, a força efetiva será reduzida por um fator dependente da posição relativa da bola.
+
+\subsection{Virar}
+
+O comando virar recebe o momento angular a ser aplicado pelo jogador sobre si mesmo. Se o jogador não estiver em movimento, o seu ângulo é incrementado com o momento.
+
+Porém, caso o jogador esteja em movimento, o resultado do comando é influenciado pelo momento de inércia do jogador (definido aleatoriamente pelo servidor no início da partida) e sua velocidade linear.
+
+\subsection{Virar pescoço}
+
+O jogador pode virar seu pescoço de maneira semi-independente de seu corpo. O ângulo do pescoço é relativo ao ângulo do corpo, então caso um comando virar seja executado, o ângulo absoluto do pescoço também mudará. Os ângulos máximo e mínimo em relação ao corpo são definidos na configuração do servidor, sendo o padrão +90 e -90 graus, respectivamente.
+
+\subsection{Mover-se}
+\label{sec:move}
+
+O comando ``mover-se'' é utilizado para mover diretamente jogadores para coordenadas. Não pode ser utilizado no decorrer de uma partida, exceto quando o goleiro tem a posse da bola.  O comando fica disponível no início dos tempos da partida para posicionamento dos jogadores.
+
+Para movimentar o jogadores durante a partida, o arranque Seção \ref{sec:dash}) deve ser utilizado.
+
+\subsection{Agarrar}
+
+O único jogador com permissão para agarrar ou pegar a bola é o goleiro. O goleiro pode pegar a bola em qualquer direção, desde que ela esteja dentro da área agarrável (Figura \ref{fig:catch}), definida como um retângulo com comprimento 2.0 e largura 1.0 na direção em que se deseja tentar agarrar.
+
+Se o comando de agarrar falhar o goleiro fica incapacitado de agarrar a bola durante um número pré-determinados de ciclos do jogo. Se o comando tiver sucesso o goleiro pode usar o comando "mover-se" (Seção \ref{sec:move}) para se mover segurando a bola até um limite máximo de vezes estabelecido nas configurações do servidor.
+
+\begin{figure}[H]
+	\includegraphics[width=0.5\linewidth]{figs/catch.png}
+	\centering
+	\caption{Visualização da área agarrável pelo goleiro \cite{rcssmanual2003}.}
+	\label{fig:catch}
+\end{figure}
+
+\subsection{Falar}
+
+Usado para transmitir mensagens aos outros jogadores. As mensagens devem ter comprimento menor que um valor pré-determinado pelo servidor. Os jogadores que estiverem à distância audível da mensagem receberão a mensagem do servidor imediatamente.
+
+Não será implementada nenhuma comunicação entre os jogadores neste trabalho.
 
 \subsection{Discretização do Espaço de Ações}
 
