@@ -263,10 +263,32 @@ Deste modo, a cada instante de tempo foi atribuída uma recompensa $R = R_1 + R_
 
 \subsection{Agente Único com Double Q-Learning Tabular e Comportamentos Pré-Programados}
 
-Além da solução através de ações puras, foi testada uma solução utilizando comportamentos pré-programados disponíveis para seleção do agente. Esses comportamentos permitem que sejam inseridos conhecimentos prévios a respeito do que é esperado de um agente jogador de futebol, ou seja, é possível simplificar o aprendizado substituindo as ações puras, como chutar ou correr, por ações abstratas como perseguir a bola e chutar para o gol.
+Além da solução através de ações puras, foi testada uma solução utilizando comportamentos pré-programados disponíveis para seleção do agente. Esses comportamentos permitem que sejam inseridos conhecimentos prévios a respeito do que é esperado de um agente jogador de futebol, ou seja, é possível simplificar o aprendizado substituindo as ações puras, como chutar ou correr, por ações abstratas como perseguir a bola e chutar para o gol.\
+
 
 A codificação dos estados, parâmetros $\alpha$, $\epsilon$ e $\gamma$ e a recompensa foram mantidos como descrito nas subseções \ref{subsubsec:state-encoding}, \ref{subsubsec:tabular-params} e \ref{subsubsec:reward} respectivamente.
 
 \subsubsection{Codificação dos Comportamentos}
+
+Os comportamentos pré-programados foram desenvolvidos de forma a cobrir ações que permitissem a realização de gols, que é o objetivo do treinamento.
+
+ \begin{itemize}
+ 	\item \textbf{Comportamento nulo}: O agente apenas espera até o próximo ciclo.
+ 	
+ 	\item \textbf{Localizar bola}: Caso o agente não veja a bola, ele gira no seu próprio eixo na direção em que a bola foi vista pela última vez. Se a bola não foi vista por mais de 30 ciclos, o agente gira em seu eixo $45^{\circ}$, a fim de achar a bola mais rápido. 
+ 	
+ 	\item \textbf{Se aproximar da bola}: Caso o agente veja a bola, ele se move em direção a ela com velocidade constante
+ 	
+ 	\item \textbf{Se afastar da bola}: Caso o agente veja a bola, ele se move em direção oposta a ela com velocidade constante
+ 	
+ 	\item \textbf{Carregar bola para o gol direito}: Caso a distância até a bola seja menor ou igual a 0.7 metros, o agente chuta levemente a bola e anda de forma a conduzi-la ao gol direito.
+ 	
+ 	\item \textbf{Chutar bola para gol direito}: Caso a distância até a bola seja menor ou igual a 0.7 metros, o agente chuta a bola na direção do gol direito.
+ 	
+	\item \textbf{Carregar bola para o gol esquerdo}: Caso a distância até a bola seja menor ou igual a 0.7 metros, o agente chuta levemente a bola e anda de forma a conduzi-la ao gol esquerdo.
+ 	
+ 	\item \textbf{Chutar bola para gol esquerdo}: Caso a distância até a bola seja menor ou igual a 0.7 metros, o agente chuta a bola na direção do gol esquerdo.
+ 	
+ \end{itemize}
 
 % TODO descrever comportamentos
