@@ -12,7 +12,7 @@ Foram executados 3 treinamentos distintos de 100000 partidas a fim de suavizar o
 A Figura \ref{fig:single-agent-curva} mostram esse histórico. É interessante observar que com o decaimento dos fatores de exploração e de aprendizagem, após 100000 partidas ambos eram $\epsilon \approx 0.01648$ e $\alpha \approx 0.03679$, ou seja, o agente já executava na maior parte dos ciclos a política aprendida.
 
 \begin{figure}[h]
-	\includegraphics[width=0.8\linewidth]{figs/curva-qtabular.jpg}
+	\includegraphics[width=0.9\linewidth]{figs/curva-qtabular.jpg}
 	\centering
 	\caption{Curva de aprendizado. Para cada jogo foi feita a média entre os 3 retornos observados em cada um dos treinamentos.}
 	\label{fig:single-agent-curva}
@@ -21,7 +21,7 @@ A Figura \ref{fig:single-agent-curva} mostram esse histórico. É interessante o
 Além disso, foi executado um treinamento de 200000 partidas com os mesmos parâmetros, a fim de observar a aprendizagem por um período mais longo.
 
 \begin{figure}[h]
-	\includegraphics[width=0.8\linewidth]{figs/curvalonga-qtabular.jpg}
+	\includegraphics[width=0.9\linewidth]{figs/curvalonga-qtabular.jpg}
 	\centering
 	\caption{Curva de aprendizado para treinamento longo. Observa-se a cessação de aprendizado com o decaimento do fator de exploração.}
 	\label{fig:single-agent-curvalonga}
@@ -33,16 +33,14 @@ Apesar da grande quantidade de experiência a que o agente teve acesso, nota-se 
 
 Foi executado um treinamento de 100000 partidas e foram salvos a tabela Q completa e o histórico dos retornos obtidos pelo agente ao longo do treinamento.
 
-O gráfico da Figura \ref{fig:single-agent-tabular-behaviors} a seguir mostra esse histórico. 
+O gráfico da Figura \ref{fig:single-agent-tabular-behaviors} a seguir mostra esse histórico. Observa-se que o desempenho dessa abordagem supera o da abordagem anterior rapidamente, com poucas amostras. Em contrapartida, há uma estagnação do retorno por volta das 70000 amostras, o que indica a existência de um limite superior para o desempenho do agente devido à menor flexibilidade da política aprendida.
 
 \begin{figure}[h]
-	\includegraphics[width=0.8\linewidth]{figs/placekitty16-9.jpg}
+	\includegraphics[width=0.9\linewidth]{figs/curva-behaviors-tabular.jpg}
 	\centering
-	\caption{\textbf{PLACEHOLDER} Curva de aprendizado do agente com comportamentos pré-programados.}
+	\caption{Curva de aprendizado do agente com comportamentos pré-programados.}
 	\label{fig:single-agent-tabular-behaviors}
 \end{figure}
-
-% TODO comentar histórico
 
 % \section{Agentes Concorrentes}
 
