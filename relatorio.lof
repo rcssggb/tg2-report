@@ -1,0 +1,14 @@
+\babel@toc {brazilian}{}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {1.1}{\ignorespaces Visualização de uma partida em andamento\relax }}{3}%
+\contentsline {figure}{\numberline {1.2}{\ignorespaces Esquema ilustrando a arquitetura de um cliente e sua comunicação com o servidor do jogo.\relax }}{4}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Interação agente-ambiente em um MDP \cite {sutton2018reinforcement}.\relax }}{6}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Indicadores espalhados pelo campo para que o agente possa estimar sua posição absoluta \cite {rcssmanual2003}.\relax }}{14}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Visualização da área agarrável pelo goleiro \cite {rcssmanual2003}.\relax }}{17}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Curva de aprendizado. Para cada jogo foi feita a média entre os 3 retornos observados em cada um dos treinamentos.\relax }}{23}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Curva de aprendizado para treinamento longo. Observa-se a cessação de aprendizado com o decaimento do fator de exploração.\relax }}{23}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Curva de aprendizado do agente com comportamentos pré-programados.\relax }}{24}%
+\addvspace {10\p@ }
