@@ -17,24 +17,19 @@
 
 
 \section{Aprendizagem por Reforço}
+\par 
 
 \section{Futebol de Robôs}
-% TODO: detalhar histórico de futebol de robôs e falar de outras categorias de competição existentes
+\par A ideia de robôs jogando futebol foi proposta pela primeira vez em 1992 por Alan Mackworth\cite{mackworth1993seeing}. Desde então a comunidade científica tem criado iniciativas buscando por soluções que tornem isso realidade. Desde então a comunidade científica tem criado iniciativas buscando por soluções que tornem isso realidade.
+\par Uma delas é a \textit{Robot World Cup Initiative}, abreviada como \textit{RoboCup}, que teve sua primeira edição em 1997 com mais de 40 equipes distribuídas entre as diversas categorias do evento.
+\par O objetivo da iniciativa, definido pela \textit{RoboCup Federation}, é que por volta da metade do século XXI, um time de robôs humanóides autônomos vençam uma partida contra os campeões da Copa do Mundo mais recente. Mesmo que o objetivo pareça ambicioso, ele guia as pesquisas e motiva o avanço no campo.
+\par Atualmente, a RoboCup conta com mais de 10 categorias, incluindo robôs humanoides, robôs com rodas e simulações. Entre elas há a \textit{RoboCup Soccer Simulation 2D}, abreviada RCSS, objeto de estudo deste projeto.
 
 \subsection{RoboCup Soccer Simulation 2D}
-\par A ideia de robôs jogando futebol foi proposta pela primeira vez em 1992 por Alan Mackworth\cite{mackworth1993seeing}.
-Desde então a comunidade científica tem criado iniciativas buscando por soluções que tornem isso realidade.
-Uma delas é a \textit{Robot World Cup Initiative}, abreviada como \textit{RoboCup}, que teve sua primeira edição em 1997 com mais de 40 equipes distribuídas entre as diversas categorias do evento.
-\par O objetivo da iniciativa, definido pela \textit{RoboCup Federation}, é que por volta da metade do século XXI, um time de robôs humanóides autônomos vençam uma partida contra os campeões da Copa do Mundo mais recente. Mesmo que o objetivo pareça ambicioso, ele guia as pesquisas e motiva o avanço no campo.
-Atualmente, a RoboCup conta com mais de 10 categorias, entre elas a \textit{RoboCup Soccer Simulation 2D}, abreviada RCSS, objeto de estudo deste projeto.
+\par A RCSS possui grande relevância internacional, sendo uma das principais categorias disputadas na RoboCup, com equipes do mundo inteiro.
 \par A categoria apresenta, também, grande relevância no cenário brasileiro.
 Desde 2005, a RCSS está presente na maior competição de robótica da América Latina, a \textit{Latin American Robotics Competition}, LARC.
-\par Nessa categoria, duas equipes de 11 jogadores autônomos e independentes jogam futebol em um ambiente virtual bidimensional.
-Um servidor é responsável por esse ambiente e possui informação absoluta sobre o estado do jogo e suas regras.
-Os jogadores, por sua vez, recebem dele informação incompleta e ruidosa de seus sensores virtuais, podendo executar comandos a fim de atuar sobre o estado do jogo.
-
-\section{Caracterização do Problema}
-% TODO: escrever sobre o problema de fazerr gols com aprondizagem por reforço
+\par Nessa categoria, duas equipes de 11 jogadores autônomos e independentes jogam futebol em um ambiente virtual bidimensional. Um servidor é responsável por esse ambiente e possui informação absoluta sobre o estado do jogo e suas regras. Os jogadores, por sua vez, recebem dele informação incompleta e ruidosa de seus sensores virtuais, podendo executar comandos a fim de atuar sobre o estado do jogo. \cite{rcssmanual2003}
 
 \subsection{Servidor da partida}
 \par Um servidor que executa a partida é disponibilizado pelos organizadores da competição e este pode ser utilizado, também, para desenvolvimento. O servidor, portanto, apresenta, internamente, algumas das regras da partida bem como um juiz autônomo que age para determinar gols, faltas e demais situações de uma partida de futebol. Caso necessário, um juiz humano poderá intervir em situações não contempladas pelas regras do servidor.
@@ -81,3 +76,18 @@ Os chutadores são responsáveis por realizar o planejamento de sequência de a�
 Os não-chutadores, por sua vez, não tem conhecimento do planejamento feito pelos chutadores, e devem obter o máximo de informações relevantes para tentar gerar a mesma sequência de ações que jogador chutador\cite{nakashima2018helios2018}.
 \par A equipe brasileira \textit{ITAndroids}, atual campeã da LARC, utiliza a abordagem de sequência de ações, similar à \textit{HELIOS}, explorando uma árvore de ações criada dinamicamente de forma a maximizar o valor de cada ação. Além disso, utilizam Otimização por Enxame de Partículas \cite{melloitandroids} para adequar os parâmetros que calculam o valor da ação. A \textit{ITAndroids} também vem desenvolvendo o uso de Aprendizagem por Reforço Profunda \cite{maximoitandroids}.
 \par Muitas equipes, ainda, desenvolvem seus agentes utilizando o agente base da equipe \textit{HELIOS}, \textit{Agent2d} com a biblioteca \textit{Librcsc}, escritas em C++. Por isso, é comum que haja semelhança na construção dos agentes dessas equipes.
+
+\section{Caracterização do Problema}
+% TODO: escrever sobre o problema de fazerr gols com aprondizagem por reforço
+
+\subsection{Agente Único}
+
+
+\subsection{Objetivos}
+\par De acordo com o contexto apresentado, o presente trabalho se propõe a cumprir as sequintes etapas:
+\begin{itemize}
+	\item Implementar uma biblioteca de interfaceamento para comunicação com o servidor
+	\item Utilizar técnicas de aprendizagem por reforço para treinar a escolha de ações puras
+	\item Utilizar técnicas de aprendizagem por reforço para treinar a escolha de comportamentos
+\end{itemize}
+
