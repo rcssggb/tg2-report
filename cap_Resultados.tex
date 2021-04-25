@@ -1,4 +1,5 @@
-\chapter{Resultados Experimentais \label{chap:Resultados}}
+\chapter{Resultados Experimentais}
+\label{chap:Resultados}
 
 % Gráficos e comentários provenientes de cada um dos experimentos.
 
@@ -8,8 +9,8 @@
 \section{Agente Único com Double Q-Learning Tabular e Ações Puras}
 
 Foram executados 3 treinamentos distintos de 100000 partidas a fim de suavizar o elemento sorte nos resultados. Após cada um dos treinamentos foram salvos a tabela Q completa e o histórico dos retornos obtidos pelo agente ao longo do treinamento.
-
-A Figura \ref{fig:single-agent-curva} mostram esse histórico. É interessante observar que com o decaimento dos fatores de exploração e de aprendizagem, após 100000 partidas ambos eram $\epsilon \approx 0.01648$ e $\alpha \approx 0.03679$, ou seja, o agente já executava na maior parte dos ciclos a política aprendida.
+ 
+A Figura \ref{fig:single-agent-curva} mostra esse histórico. É interessante observar que com o decaimento dos fatores de exploração e de aprendizagem, após 100000 partidas ambos eram $\epsilon \approx 0.01648$ e $\alpha \approx 0.03679$, ou seja, o agente já executava na maior parte dos ciclos a política aprendida.
 
 \begin{figure}[h]
 	\includegraphics[width=0.9\linewidth]{figs/curva-qtabular.jpg}
@@ -45,7 +46,7 @@ O gráfico da Figura \ref{fig:single-agent-tabular-behaviors} a seguir mostra es
 % \section{Agentes Concorrentes}
 
 % Após validação do sistema com agente único, é interessante experimentar com treinamento adversarial de apenas 2 jogadores em formato um-contra-um. A intenção dessa etapa é experimentar com o sistema o caso adversarial, no qual há um ou mais agentes com objetivo oposto ao do agente sendo treinado.
-
+ 
 % \section{Múltiplos Agentes}
 
 % Após validar os casos de agente único e de agentes concorrentes, propõe-se um treinamento completo em jogos 11 contra 11. O objetivo é, ao final do processo, termos um time capaz de jogar contra os principais times da atualidade na categoria RoboCup Soccer Simulation 2D.
