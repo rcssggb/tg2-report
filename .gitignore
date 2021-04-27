@@ -22,3 +22,5 @@
 relatorio.dvi
 
 .DS_Store
+
+*.lof
