@@ -7,10 +7,10 @@
 
 \section{Processos de Decisão de Markov}
 
-O problema abordado neste trabalho pode ser descrito como um Processo de Decisão de Markov (MDP).
+O problema abordado neste trabalho pode ser descrito simplificadamente como um Processo de Decisão de Markov (MDP).
 MDP é uma forma clássica de representação matemática de processos de decisão sequenciais.
-Nessa representação, cada ação tomada por um agente que interage com o ambiente transforma o estado do processo e determina a recompensa que o agente recebe imediatamente.
-Esse estado também deve ser suficiente para conter toda a informação relevante para a dinâmica futura do processo.
+Nesse modelo de representação, cada ação realizada por um agente que interage com o ambiente transforma o estado do processo e determina a recompensa que o agente recebe.
+Em um MDP, a codificação do estado atual deve conter toda a informação sobre a interação entre o agente e o ambiente que seja relevante para a dinâmica futura do processo. Nesse caso, é dito que o estado possui a "propriedade de Markov".
 
 \begin{figure}[h]
 	\includegraphics[width=0.6\linewidth]{figs/RL.png}
@@ -19,9 +19,9 @@ Esse estado também deve ser suficiente para conter toda a informação relevant
 	\label{fig:mdp_env}
 \end{figure}
 
-Assim, dado um espaço de estados $\mathcal{S}$, um espaço de ações $\mathcal{A}$ e um espaço de recompensas $\mathcal{R}$, para cada par $(S, A)$ com $S \in \mathcal{S}$ sendo o estado atual do processo e $A \in \mathcal{A}$ a ação tomada pelo agente existe uma determinada probabilidade de atingir o estado $S' \in \mathcal{S}$ e receber a recompensa imediata $R \in \mathcal{R}$ \cite{sutton2018reinforcement}.
+Assim, dado um espaço de estados $\mathcal{S}$, um espaço de ações $\mathcal{A}$ e um espaço de recompensas $\mathcal{R}$, para cada par $(S, A)$ com $S \in \mathcal{S}$ sendo o estado atual do processo e $A \in \mathcal{A}$ a ação tomada pelo agente existe uma determinada probabilidade de atingir o estado $S' \in \mathcal{S}$ e receber a recompensa $R \in \mathcal{R}$ \cite{sutton2018reinforcement}.
 
-Essa abordagem é bastante flexível e torna possível a modelagem da dinâmica do futebol virtual de robôs de diversas maneiras de modo que cada agente possa construir um estado percebido a partir de seus sensores e tomar decisões acerca de qual ação tomar diante desse estado a fim de maximizar a recompensa recebida.
+Essa abordagem é bastante flexível e torna possível a modelagem da dinâmica do futebol virtual de robôs de diversas maneiras de modo que cada agente possa construir um estado percebido a partir de seus sensores e tomar decisões acerca de qual a melhor ação a fim de maximizar a recompensa recebida.
 
 \subsection{MDP Episódico e Contínuo}
 
@@ -29,13 +29,26 @@ Um MDP pode ser caracterizado quanto à presença de um estado terminal. Caso o 
 
 Em contrapartida, há MDPs onde não está bem definido nenhum estado terminal. Nesses casos, o MDP pode continuar indefinidamente até que uma ação externa ao MDP determine a sua parada. Um exemplo disso é um MDP que controle um robô numa linha de produção. Caso o sistema de automação supervisor desse robô não determine sua parada (por falta de insumos, por exemplo), o MDP pode seguir operando indefinidamente.
 
-Nesta fundamentação, será tratado com mais atenção o caso episódico uma vez que é o caso que interessa para aplicação na simulação de futebol de robôs.
+% Nesta fundamentação, será tratado com mais atenção o caso episódico uma vez que é o caso que interessa para aplicação na simulação de futebol de robôs.
+% (comentei fora essa parte porque a gente acabou fazendo o algoritmo contínuo usando o gamma lá porque a gente não codificou o tempo de jogo no estado)
 
 \subsection{Recompensa e Retorno}
 
 Como definido acima, para cada ação tomada em um MDP é atribuída uma recompensa $R \in \mathcal{R}$. Essa recompensa é sempre referente ao instante de tempo anterior, ou seja, não depende de qualquer outro fator que não o par $(S_t, A_t)$ executados no instante $t$ e a função de probabilidade associada pelo MDP a esse par. Por isso, é comum utilizar a notação $R_{t+1}$ para se referir à recompensa obtida após tomar a ação $A_t$ no instante de tempo $t$.
 
-Porém em muitos casos é esperado de um agente que ele tome decisões que maximizem a recompensa total ao fim de um episódio, ou seja, é esperado que se escolha $A_t$ a fim de maximizar não apenas $R_{t+1}$ mas sim o retorno $G_{t+1} = R_{t+1} + R_{t+2} + \dotsc + R_{terminal}$.
+Porém em muitos casos é esperado de um agente que ele tome decisões que maximizem a recompensa total a longo prazo, ou seja, em um MDP episódico é esperado que se escolha $A_t$ a fim de maximizar não apenas $R_{t+1}$ mas sim o retorno $G_{t}$ tal que:
+
+\begin{equation}
+G_{t} = R_{t+1} + R_{t+2} + \dotsc + R_{terminal}.
+\end{equation}
+
+Caso o MDP seja contínuo, $G_t$ poderia divergir, uma vez que seja uma soma infinita de parcelas. Para solucionar o problema, basta adicionar à equação um fator de desconto ($\gamma$), tal que seja possível ajustar a relevância de recompensas futuras para o cálculo do retorno:
+
+\begin{equation}
+	G_{t} = R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + \dotsc = \sum_{k=1}^{\infty} \gamma^k R_{t+k+1}
+\end{equation}
+
+Observa-se que, para $ 0 \leq \gamma < 1$, o somatório converge. Para $\gamma = 0$, o retorno leva em consideração apenas a recompensa imediata $R_{t+1}$. Em contrapartida, para $\gamma \to 1$, as recompensas mais distantes no futuro são cada vez menos descontadas, ou seja, o agente tende a levar mais em consideração os ganhos futuros.
 
 \subsection{Políticas}
 
