@@ -9,7 +9,7 @@
 
 \section{Biblioteca} \label{sec:lib}
  
-O servidor da partida apresenta, como já mencionado, um protocolo de comunicação e sintaxe de mensagens específica. Uma biblioteca de interfaceamento foi desenvolvida com o objetivo de abstrair os detalhes de comunicação de construção de mensagens e facilitar, assim, o desenvolvimento dos programas jogadores. Esta abordagem já é comum na categoria e existem soluções de código aberto como a \textit{librcsc}, utilizada por várias equipes, usualmente atreladas ao agente base \textit{agent2d}, desenvolvidas pela equipe \textit{HELIOS}.
+O servidor da partida apresenta, como já mencionado na Subseção \ref{subsec:server}, um protocolo de comunicação e sintaxe de mensagens específica. Uma biblioteca de interfaceamento foi desenvolvida com o objetivo de abstrair os detalhes de comunicação de construção de mensagens e facilitar, assim, o desenvolvimento dos programas jogadores. Esta abordagem já é comum na categoria e existem soluções de código aberto como a \textit{librcsc}, utilizada por várias equipes, usualmente atreladas ao agente base \textit{agent2d}, desenvolvidas pela equipe \textit{HELIOS}.
 
 A biblioteca própria foi desenvolvida em linguagem Go como forma de modernização e diversificação da base de código utilizada pelas equipes. A biblioteca cobre uma parte considerável das possibilidades previstas no protocolo de comunicação e foi programada de modo a ser facilmente expansível de acordo com o lançamento de novas versões do servidor.
 
@@ -24,8 +24,6 @@ Os dois clientes desenvolvidos possuem as funcionalidades necessárias para se c
 % parser -> analisador sintático
 A decodificação de mensagens, por sua vez, foi feita em duas camadas: um analisador léxico e um analisador sintático. O lexer passa pelas mensagens em formato string e retira todas as informações que ela contém. O analisador sintático estrutura essas informações em estruturas de dados para que possam ser utilizadas fora da biblioteca. As informações recebidas e decodificadas são, em sua maioria, dados dos sensores do jogador.
 \begin{center}
-
-
 
 \begin{tabular}{c}
 \begin{lstlisting}
@@ -74,7 +72,7 @@ Mensagem após passar pelo analisador sintático.
 
 \section{Definição dos Estados}
 \par As informações de estado são fornecidas pelos sensores do jogador. Há três sensores presentes que entregam informações, em forma de mensagens, para o agente: sensor auditivo, sensor visual e sensor corporal.
-\par Além de ser necessário tratar as mensagens recebidas, como demonstrado na seção \ref{sec:messages}, é necessário tratar alguns dos estados para dar mais informações ao agente. 
+\par Além de ser necessário tratar as mensagens recebidas, como demonstrado na Subseção \ref{sec:messages}, é necessário tratar alguns dos estados para dar mais informações ao agente. 
 
 \subsection{Sensores}
 \par Os sensores são responsáveis por todas as informações que o jogador tem do ambiente. Eles são modelados de forma a emular características de sensores reais, então, dessa forma, um sensor pode ``perder'' informações caso a variável medida esteja longe, como será evidenciado no modelo do sensor visual.
@@ -118,14 +116,12 @@ O sensor corporal contém informações sobre o estado físico do jogador. Entre
 
 \par Os sensores do jogador fornecem somente informações em coordenadas polares relativas ao próprio jogador. Desta forma, ele possui informações de distância e direção para a bola, demais jogadores, bandeiras do campo e linhas do campo.
 
-\par Com esses dados, entretanto, é possível estimar as coordenadas cartesianas absolutas no campo de todas as entidades de interesse. As bandeiras do campo são fixas e possuem coordenadas conhecidas, seção \ref{sec:visual}. Portanto, a transformação da informação polar e relativa para uma cartesiana e absoluta da posição do próprio jogador é direta utilizando trigonometria básica. 
+\par Com esses dados, portanto, é possível estimar as coordenadas cartesianas absolutas no campo de todas as entidades de interesse. As bandeiras do campo são fixas e possuem coordenadas conhecidas, seção \ref{sec:visual}. Logo, a transformação da informação polar e relativa para uma cartesiana e absoluta da posição do próprio jogador é direta utilizando trigonometria básica. 
 
 \par A partir da informação de posição absoluta do próprio jogador e de sua direção é possível calcular as posições para o resto das entidades.
 
 % TODO: decidir se falar do NotSeenBallFor é ok já que a gente não treinou com ele
 \par É possível, também, extrair estados úteis a partir das informações dos sensores, como por exemplo um estado que representa há quantos ciclos de simulação o jogador não vê a bola. Este estado pode ser determinante para que o jogador escolha, por exemplo, tomar a decisão de buscar a bola para atualizar a informação que possui sobre ela.
-
-\subsection{Discretização}
 
 \section{Definição de Ações}
 
