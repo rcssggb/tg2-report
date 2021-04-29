@@ -118,10 +118,9 @@ O sensor corporal contém informações sobre o estado físico do jogador. Entre
 
 \par Com esses dados, portanto, é possível estimar as coordenadas cartesianas absolutas no campo de todas as entidades de interesse. As bandeiras do campo são fixas e possuem coordenadas conhecidas, seção \ref{sec:visual}. Logo, a transformação da informação polar e relativa para uma cartesiana e absoluta da posição do próprio jogador é direta utilizando trigonometria básica. 
 
-\par A partir da informação de posição absoluta do próprio jogador e de sua direção é possível calcular as posições para o resto das entidades.
+\par A partir da informação de posição absoluta do próprio jogador e de sua direção é possível calcular as posições absolutas para o resto das entidades.
 
-% TODO: decidir se falar do NotSeenBallFor é ok já que a gente não treinou com ele
-\par É possível, também, extrair estados úteis a partir das informações dos sensores, como por exemplo um estado que representa há quantos ciclos de simulação o jogador não vê a bola. Este estado pode ser determinante para que o jogador escolha, por exemplo, tomar a decisão de buscar a bola para atualizar a informação que possui sobre ela.
+% \par É possível também extrair estados úteis a partir das informações dos sensores, como por exemplo um estado que representa há quantos ciclos de simulação o jogador não vê a bola. Este estado pode ser determinante para que o jogador escolha, por exemplo, tomar a decisão de buscar a bola para atualizar a informação que possui sobre ela.
 
 \section{Definição de Ações}
 

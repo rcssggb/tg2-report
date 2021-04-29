@@ -52,7 +52,9 @@ Observa-se que, para $ 0 \leq \gamma < 1$, o somatório converge. Para $\gamma =
 
 \subsection{Políticas}
 
-É dado o nome de política para qualquer função $\pi(S) \to \mathcal{A}$ que leve de um estado qualquer do MDP para uma ação a ser tomada. Para cada política $\pi$, existe uma função $q_\pi(S, A)$ que, para cada par de estado e ação, define a esperança de retorno caso o agente continue seguindo a política $\pi$ no restante do episódio.
+É dado o nome de política para qualquer função $\pi: (S, A) \to \mathbb{R}$ que associe um estado qualquer do MDP e uma ação a uma probabilidade de se tomar essa ação diante desse estado, ou seja, $\pi(A|S) = p$ onde $p$ é a probabilidade de selecionar a ação A diante do estado S.
+
+Para cada política $\pi$ existe uma função $q_\pi: (S, A) \to \mathbb{R}$ que, para cada par de estado e ação, define a esperança de retorno caso o agente continue seguindo a política $\pi$.
 
 É possível comparar duas políticas $\pi$ e $\pi'$ a respeito de suas funções $q$. A política $\pi$ é considerada melhor ou igual a $\pi$, ou $\pi \ge \pi'$, caso $q_\pi(S, A) \ge q_{\pi'}(S, A)$ para todo par $(S, A)$.
 
@@ -62,11 +64,10 @@ Uma política que toma sempre o caminho de maior retorno é denominada gulosa, e
 
 \section{Aprendizagem por Reforço}
 
-Dada uma modelagem do problema como um MDP, resta obter uma maneira de estimar as probabilidades que determinam a dinâmica desse MDP, e com isso determinar um critério de decisão - denominado política - capaz de maximizar a recompensa a longo prazo recebida pelo agente.
+Dada uma modelagem do problema como um MDP, resta obter uma maneira de estimar as probabilidades que determinam a dinâmica desse MDP para determinar a política capaz de maximizar a recompensa a longo prazo recebida pelo agente. O conjunto de técnicas que resolvem esse tipo de problema é chamado de Aprendizagem por Reforço.
 
-O conjunto de técnicas que resolvem esse tipo de problema é chamado de Aprendizagem por Reforço.
-No campo da aprendizagem de máquina, ela se difere da Aprendizagem Supervisionada por não haver um conjunto de pares $(s, a)$ dados como corretos.
-Nesse tipo de aprendizagem, o objetivo é extrapolar uma solução genérica a partir de exemplos de um conjunto de treinamento dado como correto, o que não é prático em problemas em que não se tem exemplos de comportamentos corretos e que representem bem o conjunto total de situações possíveis.
+No campo da aprendizagem de máquina, ela se difere da Aprendizagem Supervisionada por não haver um conjunto de pares $(s, a)$ considerados como verdade fundamental.
+Nesse tipo de aprendizagem, o objetivo é extrapolar uma solução genérica a partir de exemplos de um conjunto de treinamento dado como correto, o que não é prático em problemas em que não se tem exemplos de comportamentos esperados e que representem bem o conjunto total de situações possíveis.
 Ela também se diferencia da Aprendizagem Não-Supervisionada, que tradicionalmente visa encontrar estrutura em conjuntos de dados não classificados, enquanto a Aprendizagem por Reforço visa maximizar um sinal de recompensa \cite{sutton2018reinforcement}.
 
 Desse modo, as técnicas de Aprendizagem por Reforço serão aplicadas a fim de buscar políticas capazes de maximizar o desempenho dos jogadores virtuais, ou seja, obter políticas que tornem os agentes capazes de fazer gols e evitar que os jogadores do time adversário façam gols.
