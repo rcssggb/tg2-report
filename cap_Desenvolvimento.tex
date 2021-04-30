@@ -9,7 +9,7 @@
 
 \section{Biblioteca} \label{sec:lib}
  
-O servidor da partida apresenta, como já mencionado na Subseção \ref{subsec:server}, um protocolo de comunicação e sintaxe de mensagens específica. Uma biblioteca de interfaceamento foi desenvolvida com o objetivo de abstrair os detalhes de comunicação de construção de mensagens e facilitar, assim, o desenvolvimento dos programas jogadores. Esta abordagem já é comum na categoria e existem soluções de código aberto como a \textit{librcsc}, utilizada por várias equipes, usualmente atreladas ao agente base \textit{agent2d}, desenvolvidas pela equipe \textit{HELIOS}.
+O servidor da partida apresenta, como já mencionado na Subseção \ref{subsec:server}, um protocolo de comunicação e sintaxe de mensagens específicos. Uma biblioteca de interfaceamento foi desenvolvida com o objetivo de abstrair os detalhes de comunicação de construção de mensagens e facilitar, assim, o desenvolvimento dos programas jogadores. Esta abordagem já é comum na categoria e existem soluções de código aberto como a \textit{librcsc}, utilizada por várias equipes, usualmente atreladas ao agente base \textit{agent2d}, desenvolvidas pela equipe \textit{HELIOS}, como visto na Subseção \ref{subsec:abordagens}.
 
 A biblioteca própria foi desenvolvida em linguagem Go como forma de modernização e diversificação da base de código utilizada pelas equipes. A biblioteca cobre uma parte considerável das possibilidades previstas no protocolo de comunicação e foi programada de modo a ser facilmente expansível de acordo com o lançamento de novas versões do servidor.
 
@@ -22,7 +22,7 @@ Os dois clientes desenvolvidos possuem as funcionalidades necessárias para se c
 \label{sec:messages}
 % lexer -> analisador léxico
 % parser -> analisador sintático
-A decodificação de mensagens, por sua vez, foi feita em duas camadas: um analisador léxico e um analisador sintático. O lexer passa pelas mensagens em formato string e retira todas as informações que ela contém. O analisador sintático estrutura essas informações em estruturas de dados para que possam ser utilizadas fora da biblioteca. As informações recebidas e decodificadas são, em sua maioria, dados dos sensores do jogador.
+A decodificação de mensagens, por sua vez, foi feita em duas camadas: um analisador léxico e um analisador sintático. O analisador léxico passa pelas mensagens em formato \textit{string} e extrai todas as informações que ela contém. O analisador sintático organiza essas informações em estruturas de dados para que possam ser utilizadas fora da biblioteca. As informações recebidas e decodificadas são, em sua maioria, dados dos sensores do jogador.
 \begin{center}
 
 \begin{tabular}{c}
@@ -106,17 +106,17 @@ Sendo a distância e a direção dados em coordenadas polares, assim como suas v
 	\label{fig:flags}
 \end{figure}
 
-A riqueza de detalhes a respeito das informações obtidas depende da distância entre o objeto e o jogador. Por exemplo, caso esteja sendo visto outro jogador a uma distância muito grande, talvez seja impossível determinar o número de sua camisa ou até mesmo a qual time ele pertence. Em contrapartida, para jogadores próximos, é fornecido até mesmo a direção para a qual ele está olhando.
+A riqueza de detalhes a respeito das informações obtidas depende da distância entre o objeto e o jogador. Por exemplo, caso um jogador esteja sendo visto a uma distância muito grande, pode ser impossível determinar o número de sua camisa ou até mesmo a qual time ele pertence. Em contrapartida, para jogadores próximos, é fornecido até mesmo a direção para a qual ele está olhando.
 
 \subsubsection{Sensor Corporal}
 
-O sensor corporal contém informações sobre o estado físico do jogador. Entre elas sua energia, que é consumida a cada ação tomada como chute ou arrancada (Seção \ref{sec:actions}), sua própria velocidade e direção de movimento, a direção de sua cabeça e a quantidade de cartões de advertência recebidos.
+O sensor corporal contém informações sobre o estado físico do jogador. Entre elas sua energia, que é consumida a cada ação tomada como chute ou arrancada (Subseção \ref{sec:actions}), sua própria velocidade e direção de movimento, a direção de sua cabeça e a quantidade de cartões de advertência recebidos.
 
 \subsection{Estimação e Tratamento de Estados}
 
 \par Os sensores do jogador fornecem somente informações em coordenadas polares relativas ao próprio jogador. Desta forma, ele possui informações de distância e direção para a bola, demais jogadores, bandeiras do campo e linhas do campo.
 
-\par Com esses dados, portanto, é possível estimar as coordenadas cartesianas absolutas no campo de todas as entidades de interesse. As bandeiras do campo são fixas e possuem coordenadas conhecidas, seção \ref{sec:visual}. Logo, a transformação da informação polar e relativa para uma cartesiana e absoluta da posição do próprio jogador é direta utilizando trigonometria básica. 
+\par Com esses dados é possível estimar as coordenadas cartesianas absolutas no campo de todas as entidades de interesse. As bandeiras do campo são fixas e possuem coordenadas conhecidas, detalhado na subseção \ref{sec:visual}. Logo, a transformação da informação polar e relativa para uma cartesiana e absoluta da posição do próprio jogador é direta utilizando trigonometria básica. 
 
 \par A partir da informação de posição absoluta do próprio jogador e de sua direção é possível calcular as posições absolutas para o resto das entidades.
 
@@ -156,7 +156,7 @@ O jogador pode virar seu pescoço de maneira semi-independente de seu corpo. O �
 
 O comando ``mover-se'' é utilizado para mover diretamente jogadores para coordenadas. Não pode ser utilizado no decorrer de uma partida, exceto quando o goleiro tem a posse da bola.  O comando fica disponível no início dos tempos da partida para posicionamento dos jogadores.
 
-Para movimentar o jogadores durante a partida, o arranque (Seção \ref{sec:dash}) deve ser utilizado.
+Para movimentar os jogadores durante a partida, o arranque (Subseção \ref{sec:dash}) deve ser utilizado.
 
 \subsection{Agarrar}
 
@@ -179,11 +179,11 @@ Não será implementada nenhuma comunicação entre os jogadores neste trabalho.
 
 \section{Ambiente de Treinamento}
 
-O ambiente de treinamento consiste em uma base de código que importa a biblioteca detalhada na seção \ref{sec:lib}. Um formato geral foi definido e desenvolvido a fim de tornar os experimentos fáceis de adaptar, bastando mudar alguns trechos do código.
+O ambiente de treinamento consiste em uma base de código que importa a biblioteca detalhada na Seção \ref{sec:lib}. Um formato geral foi definido e desenvolvido a fim de tornar os experimentos fáceis de adaptar, bastando mudar alguns trechos do código.
 
 \subsection{Laço de Treinamento}
 
-De forma geral o laço de treinamento obedece o pseudo-código apresentado.
+De forma geral o laço de treinamento obedece ao pseudo-código apresentado.
 
 \begin{tabular}{c}
 	\begin{lstlisting}
