@@ -21,11 +21,11 @@ Em um MDP, a codificação do estado atual deve conter toda a informação sobre
 
 Assim, dado um espaço de estados $\mathcal{S}$, um espaço de ações $\mathcal{A}$ e um espaço de recompensas $\mathcal{R}$, para cada par $(S, A)$ com $S \in \mathcal{S}$ sendo o estado atual do processo e $A \in \mathcal{A}$ a ação tomada pelo agente existe uma determinada probabilidade de atingir o estado $S' \in \mathcal{S}$ e receber a recompensa $R \in \mathcal{R}$ \cite{sutton2018reinforcement}.
 
-Essa abordagem é bastante flexível e torna possível a modelagem da dinâmica do futebol virtual de robôs de diversas maneiras de modo que cada agente possa construir um estado percebido a partir de seus sensores e tomar decisões acerca de qual a melhor ação a fim de maximizar a recompensa recebida.
+Essa abordagem é bastante flexível e torna possível modelar a dinâmica do futebol virtual de robôs de diversas maneiras de modo que cada agente possa construir um estado percebido a partir de seus sensores e tomar decisões acerca de qual a melhor ação a fim de maximizar a recompensa recebida.
 
 \subsection{MDP Episódico e Contínuo}
 
-Um MDP pode ser caracterizado quanto à presença de um estado terminal. Caso o MDP tenha um ou mais estados que determinem o fim do processo, ele é dito episódico. A simulação de futebol de robôs tratada neste trabalho é um exemplo de MDP episódico, uma vez que o MDP termina ao se encerrar o tempo de jogo.
+Um MDP pode ser caracterizado quanto à presença de um estado terminal. Caso o MDP tenha um ou mais estados que determinem o fim do processo, ele é dito episódico, e a totalidade do processo até o estado que determina o fim é chamada de episódio. A simulação de futebol de robôs tratada neste trabalho é um exemplo de MDP episódico, uma vez que o MDP termina ao se encerrar o tempo de jogo.
 
 Em contrapartida, há MDPs onde não está bem definido nenhum estado terminal. Nesses casos, o MDP pode continuar indefinidamente até que uma ação externa ao MDP determine a sua parada. Um exemplo disso é um MDP que controle um robô numa linha de produção. Caso o sistema de automação supervisor desse robô não determine sua parada (por falta de insumos, por exemplo), o MDP pode seguir operando indefinidamente.
 
@@ -50,17 +50,22 @@ Caso o MDP seja contínuo, $G_t$ poderia divergir, uma vez que seja uma soma inf
 
 Observa-se que, para $ 0 \leq \gamma < 1$, o somatório converge. Para $\gamma = 0$, o retorno leva em consideração apenas a recompensa imediata $R_{t+1}$. Em contrapartida, para $\gamma \to 1$, as recompensas mais distantes no futuro são cada vez menos descontadas, ou seja, o agente tende a levar mais em consideração os ganhos futuros.
 
-\subsection{Políticas}
+\subsection{Políticas e Funções de Valor}
 
 É dado o nome de política para qualquer função $\pi: (S, A) \to \mathbb{R}$ que associe um estado qualquer do MDP e uma ação a uma probabilidade de se tomar essa ação diante desse estado, ou seja, $\pi(A|S) = p$ onde $p$ é a probabilidade de selecionar a ação A diante do estado S.
 
-Para cada política $\pi$ existe uma função $q_\pi: (S, A) \to \mathbb{R}$ que, para cada par de estado e ação, define a esperança de retorno caso o agente continue seguindo a política $\pi$.
+Para cada política $\pi$ existe uma função $v_\pi: (S) \to \mathbb{R}$ que, para cada estado, define a esperança de retorno caso o agente continue seguindo a política $\pi$. A função $v_\pi$ é conhecida como função de valor sob a política $\pi$.
+
+Similarmente, existe uma função $q_\pi: (S, A) \to \mathbb{R}$ que, para cada par de estado e ação, define a esperança de retorno. Neste caso, a função $q_\pi$ é conhecida como função de valor da ação sob a política $\pi$.
 
 É possível comparar duas políticas $\pi$ e $\pi'$ a respeito de suas funções $q$. A política $\pi$ é considerada melhor ou igual a $\pi$, ou $\pi \ge \pi'$, caso $q_\pi(S, A) \ge q_{\pi'}(S, A)$ para todo par $(S, A)$.
 
-Sempre há ao menos uma política melhor ou igual a todas as outras, denominada política ótima. Qualquer política que cumpra esse requisito é denominada $\pi_*$ e, caso haja mais de uma, todas devem possuir a mesma função $q$ denominada $q_*$ \cite{sutton2018reinforcement}. % chap 3.6
+Sempre há ao menos uma política melhor ou igual a todas as outras, denominada política ótima. Qualquer política que cumpra esse requisito é denominada $\pi_*$ e, caso haja mais de uma, todas devem possuir a mesma função $q$ denominada $q_*$ \cite{sutton2018reinforcement}. No decorrer deste trabalho serão utilizadas técnicas que determinam $q_*$. % chap 3.6 
 
 Uma política que toma sempre o caminho de maior retorno é denominada gulosa, e uma política que toma o caminho de maior retorno mas escolhe uma ação aleatoriamente com probabilidade parametrizada $\epsilon$ é denominada $\epsilon$-gulosa.
+
+
+
 
 \section{Aprendizagem por Reforço}
 
@@ -86,7 +91,7 @@ Além disso, é possível observar que a aprendizagem on-policy é apenas um cas
 
 A maioria dos métodos de aprendizagem por reforço são testados e validados em MDPs cujos espaços de estados $\mathcal{S}$ e de ações $\mathcal{A}$ são suficientemente pequenos. Para esses MDPs é possível utilizar uma solução tabular, ou seja, a função $Q$ poda ser armazenada em uma tabela de tamanho razoável e sua imagem para cada par estado-ação pode ser atualizado individualmente.
 
-Infelizmente em diversas aplicações a quantidade de estados possíveis é grande demais ou até mesmo infinito, como é o caso de sistemas em que determinada característica do estado é medida como uma grandeza contínua. Nesses casos, é impossível esperar que se obtenha soluções ótimas mesmo com tempo infinito, portanto o objetivo é obter uma solução aproximada que seja boa o suficiente para a aplicação desejada.
+Infelizmente em diversas aplicações a quantidade de estados possíveis é grande demais ou até mesma infinito, como é o caso de sistemas em que determinada característica do estado é medida como uma grandeza contínua. Nesses casos, é impossível esperar que se obtenha soluções ótimas mesmo com tempo infinito, portanto o objetivo é obter uma solução aproximada que seja boa o suficiente para a aplicação desejada.
 
 A ferramenta matemática utilizada para viabilizar soluções aproximadas é o conceito de aproximadores de função, muito utilizados na aprendizagem supervisionada. Entre os aproximadores mais utilizados estão os aproximadores lineares e as redes neurais multicamada.
 
