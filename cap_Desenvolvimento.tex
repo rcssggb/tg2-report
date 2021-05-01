@@ -212,19 +212,86 @@ O laço interno é onde efetivamente os algoritmos de treinamento são implement
 % double q tabular
 % double q tabular behaviors
 
+O objetivo inicial para teste do sistema como um todo foi o de realizar o treinamento de um agente único capaz de executar gols estando sozinho em campo.
+
 \subsection{Agente Único com Sarsa Aproximado e Comportamentos Pré-Programados}
 % TODO
 
+A utilização de comportamentos permite que sejam inseridos conhecimentos prévios a respeito do que é esperado de um agente jogador de futebol, ou seja, é possível simplificar o aprendizado substituindo as ações puras, como chutar ou correr, por ações abstratas como perseguir a bola e chutar para o gol.
 
-\subsection{Agente Único com Double Q-Learning Tabular e Ações Puras}
-% TODO mudar ordem para Sarsa -> Behaviors -> End-to-End
-% Inicialmente, deseja-se realizar o treinamento de um agente único que, com as informações de seus sensores, consiga com sucesso levar a bola ao gol. Essa proposta tem como objetivo fundamentar os conhecimentos e validar a base de código para a realização de um treinamento de um time de múltiplos agentes em um estágio posterior.
 
-% O desenvolvimento de um agente único, inicialmente, permite adquirir o entendimento necessário para a definição do vetor de estados e ajuste das técnicas de treinamento. Além disso, busca-se uma maior agilidade na substituição e teste na estrutura do vetor de estados e no algoritmo de treinamento, uma vez que o custo computacional deste cenário é consideravelmente menor que o custo do treinamento de um time completo.
+\subsubsection{Recompensa}
+\label{subsubsec:reward}
 
-O objetivo inicial para teste do sistema como um todo foi o de realizar o treinamento de um agente único capaz de executar gols estando sozinho em campo. Esse objetivo se provou mais difícil do que o esperado para a abordagem \textit{end-to-end} desejada.
+A recompensa foi definida em 3 partes a fim de guiar o agente na direção do aprendizado desejado. Todas as medições de recompensa foram feitas utilizando dados da simulação e não da percepção do agente.
 
-Foi utilizado o algoritmo Double Q-Learning tabular, possível através da discretização de diversas métricas obtidas através dos sensores do agente.
+\begin{itemize}
+	\item \textbf{Proximidade da bola $R_1$}: Para que o agente tenha tendência a se aproximar da bola, foi definida uma recompensa negativa proporcional à distância $d$ do agente em relação à bola, ou seja: $R_1 = -d*0.001/6000$.
+	
+	\item \textbf{Velocidade da bola $R_2$}: Para que o agente adquira o comportamento de chutar a bola em direção ao gol adversário, foi definida uma recompensa positiva proporcional à velocidade instantânea da bola em X ($v_x$), ou seja: $R_2 = v_x/6000$.
+	
+	\item \textbf{Gol $R_3$}: Por fim, para incentivar que o agente fizesse gols, foi definida uma recompensa esparsa de valor 1 para cada gol realizado e -1 para gols contra, ou seja:
+	
+	$
+	R_3 =
+	\left\{
+	\begin{array}{ll}
+		\ \ 1  & \mbox{se foi feito um gol no ciclo} \\
+		-1  & \mbox{se foi feito um gol contra no ciclo} \\
+		\ \ 0  & \mbox{caso não houver gol no ciclo} \\
+	\end{array}
+	\right.
+	$
+\end{itemize}
+
+Deste modo, a cada instante de tempo foi atribuída uma recompensa $R = R_1 + R_2 + R_3$.
+
+\subsubsection{Parâmetros}
+\label{subsubsec:tabular-params}
+
+% TODO: mudar os parâmetros dependendo do Sarsa ultilizado
+\begin{itemize}
+	\item \textbf{Fator de desconto ($\gamma$)}: Apesar do ambiente ser episódico, foi utilizado um fator de desconto de 0.99 devido ao fato de que a condição de término do episódio (fim de jogo) não ser observável através da discretização do estado utilizada.  
+	
+	
+	\item \textbf{Fator de aprendizagem ($\alpha$)}: O fator de aprendizagem foi definido inicialmente como 0.1 e foi reduzido exponencialmente multiplicando-o por $0.99999$ ao final de cada partida. 
+	
+	\item \textbf{Fator de exploração ($\epsilon$)}: Para incentivar a exploração das possibilidades, o fator de exploração foi definido inicialmente como 0.9 e reduzido exponencialmente multiplicando-o por $0.99996$ ao final de cada partida. A cada ação tomada, o agente tem probabilidade $\epsilon$ de escolher uma ação aleatória. Além disso, para favorecer a exploração, no início de cada partida era também sorteada uma posição inicial para o agente em seu lado do campo.
+\end{itemize}
+
+\subsubsection{Codificação dos Estados}
+\label{subsubsec:state-approx}
+% TODO
+
+\subsubsection{Codificação dos Comportamentos}
+\label{subsubsec:behaviors-mapping}
+Os comportamentos pré-programados foram desenvolvidos de forma a cobrir ações que permitissem a realização de gols, que é o objetivo do treinamento.
+
+\begin{itemize}
+	
+	\item \textbf{Comportamento nulo}: O agente apenas espera até o próximo ciclo.
+	
+	\item \textbf{Localizar bola}: Caso o agente não veja a bola, ele gira no seu próprio eixo na direção em que a bola foi vista pela última vez. Se a bola não foi vista por mais de 30 ciclos, o agente gira em seu eixo $45^{\circ}$, a fim de achar a bola mais rápido. 
+	
+	\item \textbf{Se aproximar da bola}: Caso o agente veja a bola, ele se move em direção a ela com velocidade constante
+	
+	\item \textbf{Se afastar da bola}: Caso o agente veja a bola, ele se move em direção oposta a ela com velocidade constante
+	
+	\item \textbf{Carregar bola para o gol direito}: Caso a distância até a bola seja menor ou igual a 0.7 metros, o agente chuta levemente a bola e anda de forma a conduzi-la ao gol direito.
+	
+	\item \textbf{Chutar bola para gol direito}: Caso a distância até a bola seja menor ou igual a 0.7 metros, o agente chuta a bola na direção do gol direito.
+	
+	\item \textbf{Carregar bola para o gol esquerdo}: Caso a distância até a bola seja menor ou igual a 0.7 metros, o agente chuta levemente a bola e anda de forma a conduzi-la ao gol esquerdo.
+	
+	\item \textbf{Chutar bola para gol esquerdo}: Caso a distância até a bola seja menor ou igual a 0.7 metros, o agente chuta a bola na direção do gol esquerdo.
+	
+\end{itemize}
+
+\subsection{Agente Único com Double Q-Learning Tabular e Comportamentos Pré-Programados}
+
+Além da solução através de um aproximador de funções, foi testada uma solução utilizando o método tabular, com os mesmos comportamentos.
+
+A codificação dos comportamentos, parâmetros $\alpha$, $\epsilon$ e $\gamma$ e a recompensa foram mantidos como descrito nas subseções \ref{subsubsec:behaviors-mapping}, \ref{subsubsec:tabular-params} e \ref{subsubsec:reward} respectivamente.
 
 \subsubsection{Codificação dos Estados}
 \label{subsubsec:state-encoding}
@@ -261,7 +328,16 @@ O estado percebido pelo agente é dado pela combinação dos seguintes fatores:
 
 Com isso, temos que o número total de estados possíveis é dado pelo produtório da quantidade de possibilidades em cada um dos itens acima totalizando 282240 estados.
 
-\subsection{Codificação das Ações}
+\subsection{Agente Único com Double Q-Learning Tabular e Ações Puras}
+% Inicialmente, deseja-se realizar o treinamento de um agente único que, com as informações de seus sensores, consiga com sucesso levar a bola ao gol. Essa proposta tem como objetivo fundamentar os conhecimentos e validar a base de código para a realização de um treinamento de um time de múltiplos agentes em um estágio posterior.
+
+% O desenvolvimento de um agente único, inicialmente, permite adquirir o entendimento necessário para a definição do vetor de estados e ajuste das técnicas de treinamento. Além disso, busca-se uma maior agilidade na substituição e teste na estrutura do vetor de estados e no algoritmo de treinamento, uma vez que o custo computacional deste cenário é consideravelmente menor que o custo do treinamento de um time completo.
+
+Esse objetivo se provou mais difícil do que o esperado para a abordagem \textit{end-to-end} desejada.
+
+Foi utilizado o algoritmo Double Q-Learning tabular, possível através da discretização de diversas métricas obtidas através dos sensores do agente.
+
+\subsubsection{Codificação das Ações}
 
 Para simplificar o vasto espaço de ações disponíveis, foi selecionado um conjunto discreto de 13 ações:
 
@@ -275,71 +351,5 @@ Para simplificar o vasto espaço de ações disponíveis, foi selecionado um con
 	\item \textbf{Chutar}: Caso a distância até a bola seja menor ou igual a 0.7 metros, o jogador tem a opção de chutá-la em frente ou em um ângulo de $45^{\circ}$ em ambas as direções, totalizando 3 ações de chute possíveis. Caso a bola não esteja próxima o suficiente, nada acontece.
 \end{itemize}
 
-\subsubsection{Parâmetros}
-\label{subsubsec:tabular-params}
-
-\begin{itemize}
-	\item \textbf{Fator de desconto ($\gamma$)}: Apesar do ambiente ser episódico, foi utilizado um fator de desconto de 0.99 devido ao fato de que a condição de término do episódio (fim de jogo) não ser observável através da discretização do estado utilizada.  
-	
-	\item \textbf{Fator de aprendizagem ($\alpha$)}: O fator de aprendizagem foi definido inicialmente como 0.1 e foi reduzido exponencialmente multiplicando-o por $0.99999$ ao final de cada partida. 
-	
-	\item \textbf{Fator de exploração ($\epsilon$)}: Para incentivar a exploração das possibilidades, o fator de exploração foi definido inicialmente como 0.9 e reduzido exponencialmente multiplicando-o por $0.99996$ ao final de cada partida. A cada ação tomada, o agente tem probabilidade $\epsilon$ de escolher uma ação aleatória. Além disso, para favorecer a exploração, no início de cada partida era também sorteada uma posição inicial para o agente em seu lado do campo.
-\end{itemize}
-
-\subsubsection{Recompensa}
-\label{subsubsec:reward}
-
-A recompensa foi definida em 3 partes a fim de guiar o agente na direção do aprendizado desejado. Todas as medições de recompensa foram feitas utilizando dados da simulação e não da percepção do agente.
-
-\begin{itemize}
-	\item \textbf{Proximidade da bola $R_1$}: Para que o agente tenha tendência a se aproximar da bola, foi definida uma recompensa negativa proporcional à distância $d$ do agente em relação à bola, ou seja: $R_1 = -d*0.001/6000$.
-	
-	\item \textbf{Velocidade da bola $R_2$}: Para que o agente adquira o comportamento de chutar a bola em direção ao gol adversário, foi definida uma recompensa positiva proporcional à velocidade instantânea da bola em X ($v_x$), ou seja: $R_2 = v_x/6000$.
-	
-	\item \textbf{Gol $R_3$}: Por fim, para incentivar que o agente fizesse gols, foi definida uma recompensa esparsa de valor 1 para cada gol realizado e -1 para gols contra, ou seja:
-	
-	$
-	R_3 =
-	\left\{
-	\begin{array}{ll}
-		\ \ 1  & \mbox{se foi feito um gol no ciclo} \\
-		-1  & \mbox{se foi feito um gol contra no ciclo} \\
-		\ \ 0  & \mbox{caso não houver gol no ciclo} \\
-	\end{array}
-	\right.
-	$
-\end{itemize}
-
-Deste modo, a cada instante de tempo foi atribuída uma recompensa $R = R_1 + R_2 + R_3$.
-
-\subsection{Agente Único com Double Q-Learning Tabular e Comportamentos Pré-Programados}
-
-Além da solução através de ações puras, foi testada uma solução utilizando comportamentos pré-programados disponíveis para seleção do agente. Esses comportamentos permitem que sejam inseridos conhecimentos prévios a respeito do que é esperado de um agente jogador de futebol, ou seja, é possível simplificar o aprendizado substituindo as ações puras, como chutar ou correr, por ações abstratas como perseguir a bola e chutar para o gol.\
 
 
-A codificação dos estados, parâmetros $\alpha$, $\epsilon$ e $\gamma$ e a recompensa foram mantidos como descrito nas subseções \ref{subsubsec:state-encoding}, \ref{subsubsec:tabular-params} e \ref{subsubsec:reward} respectivamente.
-
-\subsubsection{Codificação dos Comportamentos}
-
-Os comportamentos pré-programados foram desenvolvidos de forma a cobrir ações que permitissem a realização de gols, que é o objetivo do treinamento.
-
- \begin{itemize}
- 	\item \textbf{Comportamento nulo}: O agente apenas espera até o próximo ciclo.
- 	
- 	\item \textbf{Localizar bola}: Caso o agente não veja a bola, ele gira no seu próprio eixo na direção em que a bola foi vista pela última vez. Se a bola não foi vista por mais de 30 ciclos, o agente gira em seu eixo $45^{\circ}$, a fim de achar a bola mais rápido. 
- 	
- 	\item \textbf{Se aproximar da bola}: Caso o agente veja a bola, ele se move em direção a ela com velocidade constante
- 	
- 	\item \textbf{Se afastar da bola}: Caso o agente veja a bola, ele se move em direção oposta a ela com velocidade constante
- 	
- 	\item \textbf{Carregar bola para o gol direito}: Caso a distância até a bola seja menor ou igual a 0.7 metros, o agente chuta levemente a bola e anda de forma a conduzi-la ao gol direito.
- 	
- 	\item \textbf{Chutar bola para gol direito}: Caso a distância até a bola seja menor ou igual a 0.7 metros, o agente chuta a bola na direção do gol direito.
- 	
-	\item \textbf{Carregar bola para o gol esquerdo}: Caso a distância até a bola seja menor ou igual a 0.7 metros, o agente chuta levemente a bola e anda de forma a conduzi-la ao gol esquerdo.
- 	
- 	\item \textbf{Chutar bola para gol esquerdo}: Caso a distância até a bola seja menor ou igual a 0.7 metros, o agente chuta a bola na direção do gol esquerdo.
- 	
- \end{itemize}
-
-% TODO descrever comportamentos
