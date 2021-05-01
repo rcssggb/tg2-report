@@ -11,7 +11,7 @@
  
 O servidor da partida apresenta, como já mencionado na Subseção \ref{subsec:server}, um protocolo de comunicação e sintaxe de mensagens específicos. Uma biblioteca de interfaceamento foi desenvolvida com o objetivo de abstrair os detalhes de comunicação de construção de mensagens e facilitar, assim, o desenvolvimento dos programas jogadores. Esta abordagem já é comum na categoria e existem soluções de código aberto como a \textit{librcsc}, utilizada por várias equipes, usualmente atreladas ao agente base \textit{agent2d}, desenvolvidas pela equipe \textit{HELIOS}, como visto na Subseção \ref{subsec:abordagens}.
 
-A biblioteca própria foi desenvolvida em linguagem Go como forma de modernização e diversificação da base de código utilizada pelas equipes. A biblioteca cobre uma parte considerável das possibilidades previstas no protocolo de comunicação e foi programada de modo a ser facilmente expansível de acordo com o lançamento de novas versões do servidor.
+A biblioteca própria foi desenvolvida em linguagem Go como forma de modernização e diversificação da base de código utilizada pelas equipes. A biblioteca cobre uma parte considerável das possibilidades previstas no protocolo de comunicação e foi programada de modo a ser facilmente expansível de acordo com o lançamento de atualizações do servidor.
 
 \subsection{Arquitetura do código}
 A biblioteca possui três pacotes internos: \textit{playerclient}, \textit{trainerclient} e \textit{rcsscommon}. Os dois primeiros dizem respeito aos dois tipos de programas que podem se conectar ao servidor da partida: jogadores e treinadores. O terceiro engloba todas as funcionalidades utilizadas por ambos clientes, além de informações gerais sobre parâmetros da partida, como coordenadas de bandeiras do campo e modos de jogo.
@@ -22,7 +22,7 @@ Os dois clientes desenvolvidos possuem as funcionalidades necessárias para se c
 \label{sec:messages}
 % lexer -> analisador léxico
 % parser -> analisador sintático
-A decodificação de mensagens, por sua vez, foi feita em duas camadas: um analisador léxico e um analisador sintático. O analisador léxico passa pelas mensagens em formato \textit{string} e extrai todas as informações que ela contém. O analisador sintático organiza essas informações em estruturas de dados para que possam ser utilizadas fora da biblioteca. As informações recebidas e decodificadas são, em sua maioria, dados dos sensores do jogador.
+A decodificação de mensagens, por sua vez, foi feita em duas camadas: um analisador léxico e um analisador sintático. O analisador léxico passa pelas mensagens em formato \textit{string} e identifica os símbolos que ela contém. O analisador sintático extrai desses símbolos as informações e as organiza em estruturas de dados para que possam ser utilizadas fora da biblioteca. As informações recebidas e decodificadas são, em sua maioria, dados dos sensores do jogador.
 \begin{center}
 
 \begin{tabular}{c}
@@ -32,6 +32,8 @@ A decodificação de mensagens, por sua vez, foi feita em duas camadas: um anali
 \end{tabular}
 
 Exemplo de mensagem codificada.
+
+\hfill
 
 
 \begin{tabular}{c}
@@ -47,6 +49,7 @@ SightSymbols{
 
 Mensagem após passar pelo analisador léxico.
 
+\hfill
 
 
 \begin{tabular}{c}
@@ -71,11 +74,11 @@ Mensagem após passar pelo analisador sintático.
 \end{center}
 
 \section{Definição dos Estados}
-\par As informações de estado são fornecidas pelos sensores do jogador. Há três sensores presentes que entregam informações, em forma de mensagens, para o agente: sensor auditivo, sensor visual e sensor corporal.
-\par Além de ser necessário tratar as mensagens recebidas, como demonstrado na Subseção \ref{sec:messages}, é necessário tratar alguns dos estados para dar mais informações ao agente. 
+\par As informações de estado são fornecidas pelos sensores do jogador. Há três sensores presentes que entregam informações em forma de mensagens para o agente: sensor auditivo, sensor visual e sensor corporal.
+\par Além de ser necessário decodificar as mensagens recebidas, como demonstrado na Subseção \ref{sec:messages}, é necessário processar os dados dos sensores para extrair mais características do estado atual do agente. 
 
 \subsection{Sensores}
-\par Os sensores são responsáveis por todas as informações que o jogador tem do ambiente. Eles são modelados de forma a emular características de sensores reais, então, dessa forma, um sensor pode ``perder'' informações caso a variável medida esteja longe, como será evidenciado no modelo do sensor visual.
+\par Os sensores são responsáveis por todas as informações que o jogador tem do ambiente. Eles são modelados de forma a emular características de sensores reais, portanto um sensor pode ``perder'' informações caso o objeto da variável medida esteja longe, como será evidenciado no modelo do sensor visual.
 
 \subsubsection{Sensor Auditivo}
 
@@ -85,7 +88,7 @@ As mensagens do sensor auditivo são do seguinte formato:
 
 Onde \textit{Tempo} é o número do ciclo em que a mensagem foi ouvida e \textit{Remetente} é descrição de quem enviou a mensagem. O \textit{Remetente} pode ser o árbitro, outros jogadores, um dos treinadores ou o próprio jogador.
 
-No escopo deste trabalho, apenas as mensagens do árbitro serão consideradas, não sendo implementada nenhuma forma de comunicação direta entre os jogadores.
+No escopo deste trabalho, apenas as mensagens do árbitro serão consideradas, não sendo implementada nenhuma forma de comunicação direta entre os agentes.
 
 \subsubsection{Sensor Visual}
 \label{sec:visual}
@@ -106,7 +109,7 @@ Sendo a distância e a direção dados em coordenadas polares, assim como suas v
 	\label{fig:flags}
 \end{figure}
 
-A riqueza de detalhes a respeito das informações obtidas depende da distância entre o objeto e o jogador. Por exemplo, caso um jogador esteja sendo visto a uma distância muito grande, pode ser impossível determinar o número de sua camisa ou até mesmo a qual time ele pertence. Em contrapartida, para jogadores próximos, é fornecido até mesmo a direção para a qual ele está olhando.
+A riqueza de detalhes a respeito das informações obtidas depende da distância entre o objeto e o jogador. Por exemplo, caso um outro jogador esteja sendo visto a uma distância muito grande, pode ser impossível determinar o número de sua camisa ou até mesmo a qual time ele pertence. Em contrapartida, para jogadores próximos, é fornecido até mesmo a direção para a qual ele está olhando.
 
 \subsubsection{Sensor Corporal}
 
@@ -118,7 +121,7 @@ O sensor corporal contém informações sobre o estado físico do jogador. Entre
 
 \par Com esses dados é possível estimar as coordenadas cartesianas absolutas no campo de todas as entidades de interesse. As bandeiras do campo são fixas e possuem coordenadas conhecidas, detalhado na subseção \ref{sec:visual}. Logo, a transformação da informação polar e relativa para uma cartesiana e absoluta da posição do próprio jogador é direta utilizando trigonometria básica. 
 
-\par A partir da informação de posição absoluta do próprio jogador e de sua direção é possível calcular as posições absolutas para o resto das entidades.
+\par A partir da informação de posição absoluta do próprio jogador é possível calcular as posições absolutas para o resto das entidades.
 
 % \par É possível também extrair estados úteis a partir das informações dos sensores, como por exemplo um estado que representa há quantos ciclos de simulação o jogador não vê a bola. Este estado pode ser determinante para que o jogador escolha, por exemplo, tomar a decisão de buscar a bola para atualizar a informação que possui sobre ela.
 
