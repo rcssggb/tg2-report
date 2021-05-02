@@ -94,8 +94,16 @@ Infelizmente em diversas aplicações a quantidade de estados possíveis é gran
 A ferramenta matemática utilizada para viabilizar soluções aproximadas é o conceito de aproximadores de função, muito utilizados na aprendizagem supervisionada. Entre os aproximadores mais utilizados estão os aproximadores lineares e as redes neurais multicamada.
 
 \subsection{Sarsa}
-% TODO
 
+Entre os algoritmos de aprendizagem on-policy está o Sarsa. Seu nome é derivado da quíntupla $(S_t, A_t, R_{t+1}, S_{t+1}, A_{t+1})$ utilizada como entrada da sua fórmula de atualização:
+
+\begin{equation}
+	Q(S_t, A_t) \leftarrow Q(S_t, A_t) + \alpha[R_{t+1} + \gamma Q(S_{t+1}, A_{t+1}) - Q(S_t, A_t)]
+\end{equation}
+
+Uma vez que a política adotada pelo agente não pode ser gulosa, uma vez que ela inibiria a exploração do espaço de estados e de ações, é interessante que o agente siga uma política $\epsilon$-gulosa baseada na estimativa de $Q$. Nesse caso, para Q tabular, a convergência para a política ótima é garantida desde que todos os pares $(S, A)$ sejam visitados infinitas vezes e a política convirja para a política gulosa em $t \to \infty$.
+
+Para o caso em que se usa um aproximador para estimar Q não há garantias, porém a natureza on-policy do Sarsa reduz a variância da aprendizagem. Isso pode tornar essa abordagem mais estável do que o Q-learning, descrito a seguir.
 
 \subsection{Q-Learning}
 

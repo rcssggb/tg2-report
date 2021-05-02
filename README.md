@@ -2,7 +2,8 @@
 Repo for writing the report for TG2 
 
 ## Tarefas
-- [ ] Escrever Sarsa na fundamentação teórica
+- [x] Escrever Sarsa na fundamentação teórica
+- [ ] Revisar Sarsa na fundamentação teórica
 - [x] Escrever Sarsa no desenvolvimento
 - [x] Inverter a ordem dos experimentos no Desenvolvimento
 - [ ] Inverter a ordem dos experimentos nos Resultados
