@@ -6,10 +6,32 @@
 % Resumo opcional. Comentar se não usar.
 % \resumodocapitulo{Resumo opcional.}
 
+\section{Agente Único com Sarsa Aproximado e Comportamentos Pré-Programados}
+
+\begin{figure}[h]
+	\includegraphics[width=0.9\linewidth]{figs/goal-sequence.png}
+	\centering
+	\caption{Sobreposição de sequência de imagens do agente fazendo gol}
+	\label{fig:goal-seq}
+\end{figure}
+
+\section{Agente Único com Double Q-Learning Tabular e Comportamentos Pré-Programados}
+
+Foi executado um treinamento de 100000 partidas e foram salvos a tabela Q completa e o histórico dos retornos obtidos pelo agente ao longo do treinamento.
+
+O gráfico da Figura \ref{fig:single-agent-tabular-behaviors} a seguir mostra esse histórico. Observa-se que o desempenho dessa abordagem supera o da abordagem anterior rapidamente, com poucas amostras. Em contrapartida, há uma estagnação do retorno por volta das 70000 amostras, o que indica a existência de um limite superior para o desempenho do agente devido à menor flexibilidade da política aprendida.
+
+\begin{figure}[h]
+	\includegraphics[width=0.9\linewidth]{figs/curva-behaviors-tabular.jpg}
+	\centering
+	\caption{Curva de aprendizado do agente com comportamentos pré-programados.}
+	\label{fig:single-agent-tabular-behaviors}
+\end{figure}
+
 \section{Agente Único com Double Q-Learning Tabular e Ações Puras}
 
 Foram executados 3 treinamentos distintos de 100000 partidas a fim de suavizar o elemento sorte nos resultados. Após cada um dos treinamentos foram salvos a tabela Q completa e o histórico dos retornos obtidos pelo agente ao longo do treinamento.
- 
+
 A Figura \ref{fig:single-agent-curva} mostra esse histórico. É interessante observar que com o decaimento dos fatores de exploração e de aprendizagem, após 100000 partidas ambos eram $\epsilon \approx 0.01648$ e $\alpha \approx 0.03679$, ou seja, o agente já executava na maior parte dos ciclos a política aprendida.
 
 \begin{figure}[h]
@@ -29,19 +51,6 @@ Além disso, foi executado um treinamento de 200000 partidas com os mesmos parâ
 \end{figure}
 
 Apesar da grande quantidade de experiência a que o agente teve acesso, nota-se na Figura \ref{fig:single-agent-curvalonga} que o crescimento de seu desempenho é bastante limitado, sequer atingindo a média de 1 gol por partida. Isso é um indicativo do altíssimo custo computacional de soluções \textit{end-to-end} como a utilizada no experimento.
-
-\section{Agente Único com Double Q-Learning Tabular e Comportamentos Pré-Programados}
-
-Foi executado um treinamento de 100000 partidas e foram salvos a tabela Q completa e o histórico dos retornos obtidos pelo agente ao longo do treinamento.
-
-O gráfico da Figura \ref{fig:single-agent-tabular-behaviors} a seguir mostra esse histórico. Observa-se que o desempenho dessa abordagem supera o da abordagem anterior rapidamente, com poucas amostras. Em contrapartida, há uma estagnação do retorno por volta das 70000 amostras, o que indica a existência de um limite superior para o desempenho do agente devido à menor flexibilidade da política aprendida.
-
-\begin{figure}[h]
-	\includegraphics[width=0.9\linewidth]{figs/curva-behaviors-tabular.jpg}
-	\centering
-	\caption{Curva de aprendizado do agente com comportamentos pré-programados.}
-	\label{fig:single-agent-tabular-behaviors}
-\end{figure}
 
 % \section{Agentes Concorrentes}
 
