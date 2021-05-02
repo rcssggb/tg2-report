@@ -125,16 +125,17 @@ O sensor corporal contém informações sobre o estado físico do jogador. Entre
 
 % \par É possível também extrair estados úteis a partir das informações dos sensores, como por exemplo um estado que representa há quantos ciclos de simulação o jogador não vê a bola. Este estado pode ser determinante para que o jogador escolha, por exemplo, tomar a decisão de buscar a bola para atualizar a informação que possui sobre ela.
 
+
 \section{Definição de Ações}
 
-\par Os jogadores possuem diversas ações possíveis mapeadas pelo servidor da partida. As ações recebem parâmetros, em sua maioria, contínuos. Dessa forma as escolhas de quais ações podem ser feitas são discretas, mas cada ação tem um espectro contínuo de parâmetros.
+\par Os jogadores possuem diversas ações possíveis mapeadas pelo servidor da partida. As ações recebem parâmetros em sua maioria contínuos. Dessa forma a escolha de quais ações devem ser executadas se dá em um domínio discreto, porém cada ação exige uma escolha de parâmetros em um domínio contínuo.
 
 \subsection{Arrancar}
 \label{sec:dash}
 
-O comando de arrancar faz com que haja uma aceleração do jogador na direção da arrancada. Um parâmetro ``potência'' determina o valor da aceleração. É importante notar que o comando de arranque é o jeito padrão de movimentar um jogador.
+O comando de arrancar faz com que haja uma aceleração do jogador na direção da arrancada. O parâmetro ``potência'' determina o valor da aceleração e o parâmetro ``direção'' é relativo à direção do corpo do jogador. É importante salientar que o comando de arranque é o jeito padrão de movimentar um jogador.
 
-Cada jogador possui uma certa quantidade de energia e o arranque tem um custo sobre ela. Ao começo de cada tempo da partida, a energia do jogador é colocada no máximo. Se o jogador acelera para frente, a energia é reduzida pelo valor de ``potência''. Se o jogador acelera para trás, o custo é maior e a energia é reduzida pelo dobro da potência.
+Cada jogador possui uma certa quantidade de energia e o arranque tem um custo sobre ela. Ao começo de cada partida, a energia do jogador é colocada no máximo. Se o jogador acelera para frente, a energia é reduzida em $1\times$ a potência. Se o jogador acelera para trás, o custo é maior e a energia é reduzida em $2\times$ a potência.
 
 Se a energia disponível é menor que a necessária para a realização com comando, o valor de ``potência'' é reduzido para que a quantidade necessária de energia seja a disponível.
 
@@ -146,7 +147,7 @@ Caso a bola não esteja diretamente à frente do jogador, a força efetiva será
 
 \subsection{Virar}
 
-O comando virar recebe o momento angular a ser aplicado pelo jogador sobre si mesmo. Se o jogador não estiver em movimento, o seu ângulo é incrementado com o momento.
+O comando virar recebe como parâmetro o momento angular a ser aplicado pelo jogador sobre si mesmo. Se o jogador não estiver em movimento, o seu ângulo é apenas incrementado com o momento.
 
 Porém, caso o jogador esteja em movimento, o resultado do comando é influenciado pelo momento de inércia do jogador (definido aleatoriamente pelo servidor no início da partida) e sua velocidade linear.
 
@@ -157,10 +158,11 @@ O jogador pode virar seu pescoço de maneira semi-independente de seu corpo. O �
 \subsection{Mover-se}
 \label{sec:move}
 
-O comando ``mover-se'' é utilizado para mover diretamente jogadores para coordenadas. Não pode ser utilizado no decorrer de uma partida, exceto quando o goleiro tem a posse da bola.  O comando fica disponível no início dos tempos da partida para posicionamento dos jogadores.
+O comando ``mover-se'' é utilizado para mover diretamente jogadores para coordenadas. Não pode ser utilizado no decorrer de uma partida, exceto quando o goleiro tem a posse da bola. O comando fica disponível no início dos tempos da partida para posicionamento dos jogadores.
 
 Para movimentar os jogadores durante a partida, o arranque (Subseção \ref{sec:dash}) deve ser utilizado.
 
+% TODO: remover essa seção? nem falamos nada direito do goleiro o artigo inteiro...
 \subsection{Agarrar}
 
 O único jogador com permissão para agarrar ou pegar a bola é o goleiro. O goleiro pode pegar a bola em qualquer direção, desde que ela esteja dentro da área agarrável (Figura \ref{fig:catch}), definida como um retângulo com comprimento 2.0 e largura 1.0 na direção em que se deseja tentar agarrar.
@@ -176,9 +178,10 @@ Se o comando de agarrar falhar o goleiro fica incapacitado de agarrar a bola dur
 
 \subsection{Falar}
 
-Usado para transmitir mensagens aos outros jogadores. As mensagens devem ter comprimento menor que um valor pré-determinado pelo servidor. Os jogadores que estiverem à distância audível da mensagem receberão a mensagem do servidor imediatamente.
+Usado para transmitir mensagens aos outros jogadores. As mensagens devem ter comprimento menor que um valor pré-determinado pelo servidor. Os jogadores que estiverem a uma distância audível da mensagem receberão a mensagem do servidor imediatamente.
 
 Não será implementada nenhuma comunicação entre os jogadores neste trabalho.
+
 
 \section{Ambiente de Treinamento}
 
@@ -194,7 +197,7 @@ De forma geral o laço de treinamento obedece ao pseudo-código apresentado.
 		inicializar pesos de treinamento
 		enquanto o estado nao e terminal:
 			conectar jogador
-			laco para cada passo da partida:
+			para cada ciclo da partida:
 				escolher acao de acordo com a politica e o estado
 				observar novo estado e recompensa
 				treinar pesos
@@ -204,13 +207,8 @@ De forma geral o laço de treinamento obedece ao pseudo-código apresentado.
 
 O laço interno é onde efetivamente os algoritmos de treinamento são implementados, portanto este trecho é alterado a depender da técnica de aprendizagem por reforço utilizada.
 
-\section{Experimentos}
 
-% TODO
-% listar experimentos que serão apresentados a seguir
-% sarsa aproximado behaviors
-% double q tabular
-% double q tabular behaviors
+\section{Experimentos}
 
 O objetivo inicial para teste do sistema como um todo foi o de realizar o treinamento de um agente único capaz de executar gols estando sozinho em campo.
 

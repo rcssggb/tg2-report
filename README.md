@@ -12,3 +12,4 @@ Repo for writing the report for TG2
 - [ ] Escrever conclusão
 - [ ] Terminar a revisão do cap. 3
 - [ ] Migrar descrição de figuras para o texto
+- [ ] Descrever transformações trigonométricas dos sensores
