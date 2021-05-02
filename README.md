@@ -6,8 +6,8 @@ Repo for writing the report for TG2
 - [ ] Revisar Sarsa na fundamentação teórica
 - [x] Escrever Sarsa no desenvolvimento
 - [x] Inverter a ordem dos experimentos no Desenvolvimento
-- [ ] Inverter a ordem dos experimentos nos Resultados
-- [ ] Produzir imagens do campo e jogador
+- [x] Inverter a ordem dos experimentos nos Resultados
+- [x] Produzir imagens do campo e jogador
 - [ ] Refazer gráficos
 - [ ] Escrever conclusão
 - [ ] Terminar a revisão do cap. 3
