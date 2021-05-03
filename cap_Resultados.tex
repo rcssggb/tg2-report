@@ -8,20 +8,15 @@
 
 \section{Agente Único com Sarsa Aproximado e Comportamentos Pré-Programados}
 
+\par O treinamento de Sarsa realizado contou com XXXXX partidas utilizando a rede neural multicamadas descrita na Subseção \ref{subsec:sarsadev} e salvando os retornos obtidos em cada partida.
+\par O gráfico da Figura \ref{fig:single-agent-sarsa-behaviors} mostra em conjunto o retorno a cada partida e a média do retorno a cada 100 partidas. É possível observar que há um tendência de subida do retorno com o passar dos episódios experenciados, porém em grande parte das partidas o agente não realizou nenhum gol, refletido pelo baixo valor da média de 100 partidas.
 \begin{figure}[h]
-	\includegraphics[width=0.9\linewidth]{figs/goal-sequence.png}
-	\centering
-	\caption{Sobreposição de sequência de imagens do agente fazendo gol}
-	\label{fig:goal-seq}
-\end{figure}
-
-\begin{figure}[ht]
 	\includegraphics[width=0.9\linewidth]{figs/placekitty4-3.jpg}
 	\centering
 	\caption{Curva de aprendizado do agente com comportamentos pré-programados utilizando Sarsa aproximado.}
 	\label{fig:single-agent-sarsa-behaviors}
 \end{figure}
-
+\par É interessante ressaltar o alto custo de processamento deste tipo de treinamento, por utilizar redes neurais. Dessa forma, a quantidade de amostras possíveis de serem coletadas em tempo hábil foram dramaticamente reduzidas.
 
 
 \section{Agente Único com Double Q-Learning Tabular e Comportamentos Pré-Programados}
@@ -35,6 +30,15 @@ O gráfico da Figura \ref{fig:single-agent-tabular-behaviors} a seguir mostra es
 	\centering
 	\caption{Curva de aprendizado do agente com comportamentos pré-programados.}
 	\label{fig:single-agent-tabular-behaviors}
+\end{figure}
+
+A Figura \ref{fig:goal-seq} ilustra o agente conduzindo a bola e realizando um gol conforme a política aprendida.
+
+\begin{figure}[h]
+	\includegraphics[width=0.9\linewidth]{figs/goal-sequence.png}
+	\centering
+	\caption{Sobreposição de sequência de imagens do agente fazendo gol}
+	\label{fig:goal-seq}
 \end{figure}
 
 \section{Agente Único com Double Q-Learning Tabular e Ações Puras}

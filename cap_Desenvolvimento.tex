@@ -192,13 +192,14 @@ O ambiente de treinamento consiste em uma base de código que importa a bibliote
 De forma geral o laço de treinamento obedece ao pseudo-código apresentado.
 
 \begin{tabular}{c}
-	\begin{lstlisting}
-		definir parametros
+	\label{code:training-loop}
+	\begin{lstlisting}[caption={Pseudo-código que descreve a rotina de treinamento} , captionpos=b]
+		definir par'â'metros
 		inicializar pesos de treinamento
-		enquanto o estado nao e terminal:
+		enquanto o estado n'ã'o 'é' terminal:
 			conectar jogador
 			para cada ciclo da partida:
-				escolher acao de acordo com a politica e o estado
+				escolher a'ç''ã'o de acordo com a pol'í'tica e o estado
 				observar novo estado e recompensa
 				treinar pesos
 				estado <- novo estado
@@ -221,6 +222,7 @@ Para isso foram realizadas três abordagens diferentes.
 \end{itemize}
 
 \subsection{Sarsa Aproximado e Comportamentos Pré-Programados}
+\label{subsec:sarsadev}
 
 Inicialmente, desejou-se realizar um treinamento utilizando um método aproximado, devido ao grande número de estados contínuos possíveis para o agente. Portanto, foi usada uma rede neural multicamada com estrutura detalhada na Tabela \ref{table:ann}.
 
@@ -285,6 +287,45 @@ Os comportamentos pré-programados foram desenvolvidos de forma a cobrir ações
 	\item \textbf{Chutar bola para gol esquerdo}: Caso a distância até a bola seja menor ou igual a 0.7 metros, o agente chuta a bola na direção do gol esquerdo.
 	
 \end{itemize}
+
+A seguir, são descritos os algoritmos dos comportamentos de forma geral. Com poucas adaptações chega-se aos comportamentos específicos para direita ou esquerda do campo.
+
+
+	\begin{tabular}{c}
+		\label{code:walktoball}
+		\begin{lstlisting}[caption={Algoritmo do comportamento de se aproximar da bola} , captionpos=b]
+				fun'ç''ã'o AproximarBola(s):
+						se s.BolaVis'í'vel:
+								'â'ngulo da bola <- s.Dire'ç''ã'oBola + s.Dire'ç''ã'oPesco'ç'o
+								comando <- Arrancar(60, 'â'ngulo da bola)
+						retorna comando
+		\end{lstlisting}
+	\end{tabular}
+
+	\begin{tabular}{c}
+		\label{code:leadball}
+		\begin{lstlisting}[caption={Algoritmo geral do comportamento de carregar bola} , captionpos=b]
+			fun'ç''ã'o CarregarBola(s):
+					se s.Dist'â'nciaBola < 0.7:
+							'â'ngulo <- -s.Orienta'ç''ã'o
+							comando <- Chutar(5, 'â'ngulo)
+					retorna comando
+		\end{lstlisting}
+	\end{tabular}
+	
+	\begin{tabular}{c}
+		\label{code:shootball}
+		\begin{lstlisting}[caption={Algoritmo geral do comportamento de chutar bola para o gol} , captionpos=b]
+			fun'ç''ã'o CarregarBola(s):
+					Xgol, Ygol <- Gol.Posição 
+					se s.Dist'â'nciaBola < 0.7:
+							'â'ngulo <- atan2(s.Y - Ygol, s.X - Xgol) - s.Orienta'ç''ã'o
+							comando <- Chutar(60, 'â'ngulo)
+					retorna comando
+		\end{lstlisting}
+	\end{tabular}
+
+
 
 \subsubsection{Parâmetros}
 \label{subsubsec:sarsa-params}
