@@ -10,6 +10,6 @@ Repo for writing the report for TG2
 - [x] Produzir imagens do campo e jogador
 - [ ] Refazer gráficos
 - [ ] Escrever conclusão
-- [ ] Terminar a revisão do cap. 3
+- [x] Terminar a revisão do cap. 3
 - [ ] Migrar descrição de figuras para o texto
 - [ ] Descrever transformações trigonométricas dos sensores

@@ -220,8 +220,7 @@ Para isso foram realizadas três abordagens diferentes.
 	\item Double Q-Learning tabular e ações puras
 \end{itemize}
 
-\subsection{Agente Único com Sarsa Aproximado e Comportamentos Pré-Programados}
-% TODO
+\subsection{Sarsa Aproximado e Comportamentos Pré-Programados}
 
 Inicialmente, desejou-se realizar um treinamento utilizando um método aproximado, devido ao grande número de estados contínuos possíveis para o agente. Portanto, foi usada uma rede neural multicamada com estrutura detalhada na Tabela \ref{table:ann}.
 
@@ -248,18 +247,18 @@ Inicialmente, desejou-se realizar um treinamento utilizando um método aproximad
 	\label{table:ann}
 \end{table}
 
-A utilização de comportamentos permite que sejam inseridos conhecimentos prévios a respeito do que é esperado de um agente jogador de futebol, ou seja, é possível simplificar o aprendizado substituindo as ações puras, como chutar ou correr, por ações abstratas como perseguir a bola e chutar para o gol.
+A utilização de comportamentos permite que sejam inseridos conhecimentos prévios a respeito do que é esperado de um agente jogador de futebol, ou seja, é possível simplificar o aprendizado substituindo as ações puras como chutar ou correr por ações abstratas como perseguir a bola e chutar para o gol.
 
 \subsubsection{Codificação dos Estados}
 \label{subsubsec:state-approx}
 
 
 \begin{itemize}
-	\item \textbf{Coordenada X}: normalizada de acordo com o comprimento do campo.
-	\item \textbf{Coordenada Y}: normalizada de acordo com a largura do campo.
-	\item \textbf{Orientação}: normalizada em relação a $180º$.
-	\item \textbf{Distância para a bola}: normalizada em relação à distância máxima visível.
-	\item \textbf{Direção da bola}: normalizada em relação a $180º$. 
+	\item \textbf{Coordenada X do Jogador}: dentro do intervalo $[-1, 1]$ e normalizada em relação ao comprimento do campo.
+	\item \textbf{Coordenada Y do Jogador}: dentro do intervalo $[-1, 1]$ e normalizada em relação à largura do campo.
+	\item \textbf{Orientação do Jogador}: dentro do intervalo $[-1, 1]$ e proporcional ao ângulo do corpo do jogador em relação ao eixo X entre $-180^{\circ}$ e $180^{\circ}$.
+	\item \textbf{Distância até a bola}: normalizada em relação à distância máxima visível.
+	\item \textbf{Direção da bola}: dentro do intervalo $[-1, 1]$ e proporcional ao ângulo do corpo do jogador em relação ao vetor que o liga à bola entre $-180^{\circ}$ e $180^{\circ}$. 
 	
 \end{itemize}
 
@@ -288,9 +287,9 @@ Os comportamentos pré-programados foram desenvolvidos de forma a cobrir ações
 \end{itemize}
 
 \subsubsection{Parâmetros}
-\label{subsubsec:tabular-params}
+\label{subsubsec:sarsa-params}
 
-% TODO: mudar os parâmetros dependendo do Sarsa ultilizado
+% TODO: mudar os parâmetros dependendo do Sarsa utilizado
 \begin{itemize}
 	\item \textbf{Fator de desconto ($\gamma$)}: Apesar do ambiente ser episódico, foi utilizado um fator de desconto de 0.99 devido ao fato de que a condição de término do episódio (fim de jogo) não ser observável através da discretização do estado utilizada.  
 	
@@ -325,11 +324,11 @@ A recompensa foi definida em 3 partes a fim de guiar o agente na direção do ap
 
 Deste modo, a cada instante de tempo foi atribuída uma recompensa $R = R_1 + R_2 + R_3$.
 
-\subsection{Agente Único com Double Q-Learning Tabular e Comportamentos Pré-Programados}
+\subsection{Double Q-Learning Tabular e Comportamentos Pré-Programados}
 
-Além da solução através de um aproximador de funções, foi testada uma solução utilizando o método tabular, com os mesmos comportamentos.
+Além da solução através de um aproximador de funções, foi testada uma solução utilizando o método tabular com os mesmos comportamentos e uma discretização dos estados descrita abaixo.
 
-A codificação dos comportamentos, parâmetros $\alpha$, $\epsilon$ e $\gamma$ e a recompensa foram mantidos como descrito nas subseções \ref{subsubsec:behaviors-mapping}, \ref{subsubsec:tabular-params} e \ref{subsubsec:reward} respectivamente.
+A codificação dos comportamentos, parâmetros $\alpha$, $\epsilon$ e $\gamma$ e a recompensa foram mantidos como descrito nas subseções \ref{subsubsec:behaviors-mapping}, \ref{subsubsec:sarsa-params} e \ref{subsubsec:reward} respectivamente.
 
 \subsubsection{Codificação dos Estados}
 \label{subsubsec:state-encoding}
@@ -366,15 +365,18 @@ O estado percebido pelo agente é dado pela combinação dos seguintes fatores:
 
 Com isso, temos que o número total de estados possíveis é dado pelo produtório da quantidade de possibilidades em cada um dos itens acima totalizando 282240 estados.
 
-\subsection{Agente Único com Double Q-Learning Tabular e Ações Puras}
+\subsection{Double Q-Learning Tabular e Ações Puras}
 % Inicialmente, deseja-se realizar o treinamento de um agente único que, com as informações de seus sensores, consiga com sucesso levar a bola ao gol. Essa proposta tem como objetivo fundamentar os conhecimentos e validar a base de código para a realização de um treinamento de um time de múltiplos agentes em um estágio posterior.
 
 % O desenvolvimento de um agente único, inicialmente, permite adquirir o entendimento necessário para a definição do vetor de estados e ajuste das técnicas de treinamento. Além disso, busca-se uma maior agilidade na substituição e teste na estrutura do vetor de estados e no algoritmo de treinamento, uma vez que o custo computacional deste cenário é consideravelmente menor que o custo do treinamento de um time completo.
 
-% TODO: detalhar mais
-Esse objetivo se provou mais difícil do que o esperado para a abordagem \textit{end-to-end} desejada.
+% Esse objetivo se provou mais difícil do que o esperado para a abordagem \textit{end-to-end} desejada.
 
-Foi utilizado o algoritmo Double Q-Learning tabular, possível através da discretização de diversas métricas obtidas através dos sensores do agente.
+% TODO: detalhar mais
+
+Após o resultado positivo obtido utilizando comportamentos pré-programados, foi testada uma abordagem \textit{end-to-end} utilizando a discretização de estados descrita na subseção \ref{subsubsec:state-encoding} e a recompensa descrita na subseção \ref{subsubsec:reward}.
+
+% Foi utilizado o algoritmo Double Q-Learning tabular, possível através da discretização de diversas métricas obtidas através dos sensores do agente.
 
 \subsubsection{Codificação das Ações}
 
@@ -390,5 +392,13 @@ Para simplificar o vasto espaço de ações disponíveis, foi selecionado um con
 	\item \textbf{Chutar}: Caso a distância até a bola seja menor ou igual a 0.7 metros, o jogador tem a opção de chutá-la em frente ou em um ângulo de $45^{\circ}$ em ambas as direções, totalizando 3 ações de chute possíveis. Caso a bola não esteja próxima o suficiente, nada acontece.
 \end{itemize}
 
+\subsubsection{Parâmetros}
+\label{subsubsec:tabular-params}
 
-
+\begin{itemize}
+	\item \textbf{Fator de desconto ($\gamma$)}: Foi mantido tal como descrito na subseção \ref{subsubsec:sarsa-params}.
+	
+	\item \textbf{Fator de aprendizagem ($\alpha$)}: O fator de aprendizagem foi definido como $\frac{6000}{6000+N}$ sendo $N$ o número de partidas experienciadas pelo jogador. 
+	
+	\item \textbf{Fator de exploração ($\epsilon$)}: O fator de aprendizagem foi definido como $\frac{8000}{8000+N}$ sendo $N$ o número de partidas experienciadas pelo jogador. 
+\end{itemize}
