@@ -8,8 +8,9 @@ Repo for writing the report for TG2
 - [x] Inverter a ordem dos experimentos no Desenvolvimento
 - [x] Inverter a ordem dos experimentos nos Resultados
 - [x] Produzir imagens do campo e jogador
+- [ ] Escrever Sarsa nos resultados
 - [ ] Refazer gráficos
 - [ ] Escrever conclusão
 - [x] Terminar a revisão do cap. 3
-- [ ] Migrar descrição de figuras para o texto
+- [x] Migrar descrição de figuras para o texto
 - [ ] Descrever transformações trigonométricas dos sensores
