@@ -10,9 +10,10 @@ Repo for writing the report for TG2
 - [x] Produzir imagens do campo e jogador
 - [x] Escrever Sarsa nos resultados
 - [ ] Revisar resultados
-- [ ] Mudar título do trabalho ❗️
+- [x] Mudar título do trabalho ❗️
+- [ ] Validar mudança do título do trabalho ❗️
 - [ ] Escrever abstract e resumo
-- [ ] Lista de símbolos
+- [x] Lista de símbolos
 - [ ] Lista de algoritmos
 - [ ] Refazer gráficos
 - [ ] Escrever conclusão
