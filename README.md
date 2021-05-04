@@ -12,11 +12,14 @@ Repo for writing the report for TG2
 - [ ] Revisar resultados
 - [x] Mudar título do trabalho ❗️
 - [ ] Validar mudança do título do trabalho ❗️
-- [ ] Escrever abstract e resumo
+- [x] Escrever resumo
+- [ ] Revisar resumo
+- [ ] Escrever abstract
 - [x] Lista de símbolos
 - [ ] Lista de algoritmos
 - [ ] Refazer gráficos
 - [ ] Escrever conclusão
+- [ ] Escrever agradecimentos
 - [x] Terminar a revisão do cap. 3
 - [x] Migrar descrição de figuras para o texto
 - [ ] Descrever transformações trigonométricas dos sensores
