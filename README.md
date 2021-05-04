@@ -23,3 +23,4 @@ Repo for writing the report for TG2
 - [x] Terminar a revisão do cap. 3
 - [x] Migrar descrição de figuras para o texto
 - [ ] Descrever transformações trigonométricas dos sensores
+- [ ] Adicionar ficha catalográfica (depois de aprovado imagino)
