@@ -223,8 +223,7 @@ Para isso foram realizadas três abordagens diferentes.
 
 \subsection{Sarsa Aproximado e Comportamentos Pré-Programados}
 \label{subsec:sarsadev}
-
-Inicialmente, desejou-se realizar um treinamento utilizando um método aproximado, devido ao grande número de estados contínuos possíveis para o agente. Portanto, foi usada uma rede neural multicamada com estrutura detalhada na Tabela \ref{table:ann}.
+\par Inicialmente, desejou-se realizar um treinamento utilizando um método aproximado, devido ao grande número de estados contínuos possíveis para o agente. Portanto, foi usada uma rede neural multicamada com estrutura detalhada na Tabela \ref{table:ann}.
 
 \begin{table}[h]
 	\centering
@@ -253,8 +252,6 @@ A utilização de comportamentos permite que sejam inseridos conhecimentos prév
 
 \subsubsection{Codificação dos Estados}
 \label{subsubsec:state-approx}
-
-
 \begin{itemize}
 	\item \textbf{Coordenada X do Jogador}: dentro do intervalo $[-1, 1]$ e normalizada em relação ao comprimento do campo.
 	\item \textbf{Coordenada Y do Jogador}: dentro do intervalo $[-1, 1]$ e normalizada em relação à largura do campo.

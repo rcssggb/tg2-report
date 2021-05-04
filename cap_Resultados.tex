@@ -19,7 +19,7 @@
 	\label{fig:single-agent-sarsa-behaviors}
 \end{figure}
 \par É interessante ressaltar o alto custo de processamento deste tipo de treinamento, por utilizar redes neurais. Dessa forma, a quantidade de amostras possíveis de serem coletadas em tempo hábil foram dramaticamente reduzidas.
-
+\par A utilização de métodos aproximados posa um problema de duplo aprendizado: deseja-se aprender a política ótima enquanto se aprende a aproximar esta política ótima desconhecida por meio de uma rede neural. Esse fator contribui negativamente no tempo para convergência da política. Em métodos tabulares, apesar do maior custo de memória, esse problema é inexistente.
 
 \section{Agente Único com Double Q-Learning Tabular e Comportamentos Pré-Programados}
 
