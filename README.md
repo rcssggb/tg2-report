@@ -16,7 +16,7 @@ Repo for writing the report for TG2
 - [ ] Revisar resumo
 - [ ] Escrever abstract
 - [x] Lista de símbolos
-- [ ] Lista de algoritmos
+- [x] Lista de algoritmos
 - [ ] Refazer gráficos
 - [ ] Escrever conclusão
 - [ ] Escrever agradecimentos
