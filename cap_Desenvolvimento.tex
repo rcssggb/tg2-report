@@ -21,55 +21,44 @@ Os dois clientes desenvolvidos possuem as funcionalidades necessárias para se c
 % lexer -> analisador léxico
 % parser -> analisador sintático
 A decodificação de mensagens, por sua vez, foi feita em duas camadas: um analisador léxico e um analisador sintático. O analisador léxico passa pelas mensagens em formato \textit{string} e identifica os símbolos que ela contém. O analisador sintático extrai desses símbolos as informações e as organiza em estruturas de dados para que possam ser utilizadas fora da biblioteca. As informações recebidas e decodificadas são, em sua maioria, dados dos sensores do jogador.
-\begin{center}
-
-\begin{tabular}{c}
-\begin{lstlisting}
-(see 37 ((f c b) 16.6 -1 -0 -0.8))
-\end{lstlisting}
-\end{tabular}
-
-Exemplo de mensagem codificada.
-
-\hfill
 
 
 \begin{tabular}{c}
-\begin{lstlisting}
-SightSymbols{
-	Time: 37,
-	ObjMap: map[string][]string{
-		"f c b":    {"16.6", "-1", "-0", "-0.8"},
-	},
-}
-\end{lstlisting}
+				\begin{lstlisting}[caption={Exemplo de mensagem codificada} , captionpos=b,label=code:message]
+				(see 37 ((f c b) 16.6 -1 -0 -0.8))
+				\end{lstlisting}
 \end{tabular}
 
-Mensagem após passar pelo analisador léxico.
-
-\hfill
+\begin{tabular}{c}
+				\begin{lstlisting}[caption={Mensagem após passar pelo analisador léxico} , captionpos=b,label=code:message-decoded]
+				SightSymbols{
+					Time: 37,
+					ObjMap: map[string][]string{
+						"f c b":    {"16.6", "-1", "-0", "-0.8"},
+					},
+				}
+				\end{lstlisting}
+\end{tabular}
 
 
 \begin{tabular}{c}
-\begin{lstlisting}
-SightData{
-	Time: 37,
-	Ball: nil,
-	Lines: LineArray{},
-	Flags: FlagArray{
-		{
-			ID:        rcsscommon.FlagCenterBot,
-			Distance:  16.6,
-			Direction: -1,
-		},
-	},
-}
-\end{lstlisting}
+				\begin{lstlisting}[caption={Mensagem após passar pelo analisador sintático} , captionpos=b,label=code:message-syntax]
+				SightData{
+					Time: 37,
+					Ball: nil,
+					Lines: LineArray{},
+					Flags: FlagArray{
+						{
+							ID:        rcsscommon.FlagCenterBot,
+							Distance:  16.6,
+							Direction: -1,
+						},
+					},
+				}
+				\end{lstlisting}
 \end{tabular}
 
-Mensagem após passar pelo analisador sintático.
 
-\end{center}
 
 \section{Definição dos Estados}
 \par As informações de estado são fornecidas pelos sensores do jogador. Há três sensores presentes que entregam informações em forma de mensagens para o agente: sensor auditivo, sensor visual e sensor corporal.
@@ -278,7 +267,7 @@ Os comportamentos pré-programados foram desenvolvidos de forma a cobrir ações
 	
 \end{itemize}
 
-Nos Algoritmos \ref{code:walktoball}, \ref{code:leadball} e \ref{code:shootball} são descritos os algoritmos dos comportamentos de forma geral. Com poucas adaptações chega-se aos comportamentos específicos para direita ou esquerda do campo.
+Nos Códigos \ref{code:walktoball}, \ref{code:leadball} e \ref{code:shootball} são descritos os algoritmos dos comportamentos de forma geral. Com poucas adaptações chega-se aos comportamentos específicos para direita ou esquerda do campo.
 
 
 	\begin{tabular}{c}
