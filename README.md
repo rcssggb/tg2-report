@@ -2,6 +2,17 @@
 Repo for writing the report for TG2 
 
 ## Tarefas
+- [ ] Escrever agradecimentos
+- [ ] Revisar resumo
+- [ ] Escrever abstract
+- [ ] Revisar resultados
+- [ ] Refazer gráficos
+- [ ] Escrever conclusão
+- [ ] Descrever transformações trigonométricas dos sensores
+- [ ] Adicionar ficha catalográfica (depois de aprovado imagino)
+- [ ] Retirar subsubseções
+- [ ] Conferir palavras informais que podem ser substituidas por formais
+- [ ] Corrigir equações e formatos de mensagens para incorporar ao texto (`mensagem é da forma: (see 23), onde ...`)
 - [x] Escrever Sarsa na fundamentação teórica
 - [x] Revisar Sarsa na fundamentação teórica
 - [x] Escrever Sarsa no desenvolvimento
@@ -9,18 +20,11 @@ Repo for writing the report for TG2
 - [x] Inverter a ordem dos experimentos nos Resultados
 - [x] Produzir imagens do campo e jogador
 - [x] Escrever Sarsa nos resultados
-- [ ] Revisar resultados
 - [x] Mudar título do trabalho ❗️
-- [ ] Validar mudança do título do trabalho ❗️
+- [x] Validar mudança do título do trabalho ❗️
 - [x] Escrever resumo
-- [ ] Revisar resumo
-- [ ] Escrever abstract
 - [x] Lista de símbolos
 - [x] Lista de algoritmos
-- [ ] Refazer gráficos
-- [ ] Escrever conclusão
-- [ ] Escrever agradecimentos
 - [x] Terminar a revisão do cap. 3
 - [x] Migrar descrição de figuras para o texto
-- [ ] Descrever transformações trigonométricas dos sensores
-- [ ] Adicionar ficha catalográfica (depois de aprovado imagino)
+
