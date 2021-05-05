@@ -10,7 +10,8 @@ Repo for writing the report for TG2
 - [ ] Escrever conclusão
 - [ ] Descrever transformações trigonométricas dos sensores
 - [ ] Adicionar ficha catalográfica (depois de aprovado imagino)
-- [ ] Retirar subsubseções
+- [x] Retirar subsubseções
+- [x] Corrigir os trechos de código sem legendas
 - [ ] Conferir palavras informais que podem ser substituidas por formais
 - [ ] Corrigir equações e formatos de mensagens para incorporar ao texto (`mensagem é da forma: (see 23), onde ...`)
 - [x] Escrever Sarsa na fundamentação teórica
