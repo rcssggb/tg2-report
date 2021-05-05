@@ -74,11 +74,9 @@ Mensagem após passar pelo analisador sintático.
 \section{Definição dos Estados}
 \par As informações de estado são fornecidas pelos sensores do jogador. Há três sensores presentes que entregam informações em forma de mensagens para o agente: sensor auditivo, sensor visual e sensor corporal.
 \par Além de ser necessário decodificar as mensagens recebidas, como demonstrado na Subseção \ref{sec:messages}, é necessário processar os dados dos sensores para extrair mais características do estado atual do agente. 
-
-\subsection{Sensores}
 \par Os sensores são responsáveis por todas as informações que o jogador tem do ambiente. Eles são modelados de forma a emular características de sensores reais, portanto um sensor pode ``perder'' informações caso o objeto da variável medida esteja longe, como será evidenciado no modelo do sensor visual.
 
-\subsubsection{Sensor Auditivo}
+\subsection{Sensor Auditivo}
 
 As mensagens do sensor auditivo são do seguinte formato:
 
@@ -88,7 +86,7 @@ Onde \textit{Tempo} é o número do ciclo em que a mensagem foi ouvida e \textit
 
 No escopo deste trabalho, apenas as mensagens do árbitro serão consideradas, não sendo implementada nenhuma forma de comunicação direta entre os agentes.
 
-\subsubsection{Sensor Visual}
+\subsection{Sensor Visual}
 \label{sec:visual}
 As mensagens do sensor visual contém as posições relativas referentes a cada objeto dentro do campo de visão do jogador. Esses objetos podem ser outros jogadores, marcadores como bandeiras e linhas (Figura \ref{fig:flags}) e a bola. O formato genérico é este:
 
@@ -111,7 +109,7 @@ O campo é marcado com vários indicadores com posição fixa conhecida para que
 
 A riqueza de detalhes a respeito das informações obtidas depende da distância entre o objeto e o jogador. Por exemplo, caso um outro jogador esteja sendo visto a uma distância muito grande, pode ser impossível determinar o número de sua camisa ou até mesmo a qual time ele pertence. Em contrapartida, para jogadores próximos, é fornecido até mesmo a direção para a qual ele está olhando.
 
-\subsubsection{Sensor Corporal}
+\subsection{Sensor Corporal}
 
 O sensor corporal contém informações sobre o estado físico do jogador. Entre elas sua energia, que é consumida a cada ação tomada como chute ou arrancada (Subseção \ref{sec:actions}), sua própria velocidade e direção de movimento, a direção de sua cabeça e a quantidade de cartões de advertência recebidos.
 
@@ -187,13 +185,11 @@ Não será implementada nenhuma comunicação entre os jogadores neste trabalho.
 
 O ambiente de treinamento consiste em uma base de código que importa a biblioteca detalhada na Seção \ref{sec:lib}. Um formato geral foi definido e desenvolvido a fim de tornar os experimentos fáceis de adaptar, bastando mudar alguns trechos do código.
 
-\subsection{Laço de Treinamento}
-
-De forma geral o laço de treinamento obedece ao pseudo-código apresentado.
+O laço de treinamento obedece ao pseudo-código apresentado no Algoritmo \ref{code:training-loop}.
 
 \begin{tabular}{c}
-	\label{code:training-loop}
-	\begin{lstlisting}[caption={Pseudo-código que descreve a rotina de treinamento} , captionpos=b]
+	\begin{lstlisting}[caption={Pseudo-código que descreve a rotina de treinamento} , captionpos=b,label=code:training-loop]
+		
 		definir par'â'metros
 		inicializar pesos de treinamento
 		enquanto o estado n'ã'o 'é' terminal:
@@ -206,12 +202,9 @@ De forma geral o laço de treinamento obedece ao pseudo-código apresentado.
 	\end{lstlisting}
 \end{tabular}
 
-O laço interno é onde efetivamente os algoritmos de treinamento são implementados, portanto este trecho é alterado a depender da técnica de aprendizagem por reforço utilizada.
+O laço interno é onde efetivamente os algoritmos de treinamento são implementados, portanto este trecho é alterado a depender da técnica de aprendizagem por reforço utilizada.t
 
-
-\section{Experimentos}
-
-O objetivo inicial para teste do sistema como um todo foi o de realizar o treinamento de um agente único capaz de executar gols estando sozinho em campo.
+O objetivo inicial para teste do sistema como um todo foi o de realizar o treinamento de um agente capaz de executar gols estando sozinho em campo.
 
 Para isso foram realizadas três abordagens diferentes.
 
@@ -221,7 +214,7 @@ Para isso foram realizadas três abordagens diferentes.
 	\item Double Q-Learning tabular e ações puras
 \end{itemize}
 
-\subsection{Sarsa Aproximado e Comportamentos Pré-Programados}
+\section{Sarsa Aproximado e Comportamentos Pré-Programados}
 \label{subsec:sarsadev}
 \par Inicialmente, desejou-se realizar um treinamento utilizando um método aproximado, devido ao grande número de estados contínuos possíveis para o agente. Portanto, foi usada uma rede neural multicamada com estrutura detalhada na Tabela \ref{table:ann}.
 
@@ -250,7 +243,7 @@ Para isso foram realizadas três abordagens diferentes.
 
 A utilização de comportamentos permite que sejam inseridos conhecimentos prévios a respeito do que é esperado de um agente jogador de futebol, ou seja, é possível simplificar o aprendizado substituindo as ações puras como chutar ou correr por ações abstratas como perseguir a bola e chutar para o gol.
 
-\subsubsection{Codificação dos Estados}
+\subsection{Codificação dos Estados}
 \label{subsubsec:state-approx}
 \begin{itemize}
 	\item \textbf{Coordenada X do Jogador}: dentro do intervalo $[-1, 1]$ e normalizada em relação ao comprimento do campo.
@@ -261,7 +254,7 @@ A utilização de comportamentos permite que sejam inseridos conhecimentos prév
 	
 \end{itemize}
 
-\subsubsection{Codificação dos Comportamentos}
+\subsection{Codificação dos Comportamentos}
 \label{subsubsec:behaviors-mapping}
 Os comportamentos pré-programados foram desenvolvidos de forma a cobrir ações que permitissem a realização de gols, que é o objetivo do treinamento.
 
@@ -285,12 +278,11 @@ Os comportamentos pré-programados foram desenvolvidos de forma a cobrir ações
 	
 \end{itemize}
 
-A seguir, são descritos os algoritmos dos comportamentos de forma geral. Com poucas adaptações chega-se aos comportamentos específicos para direita ou esquerda do campo.
+Nos Algoritmos \ref{code:walktoball}, \ref{code:leadball} e \ref{code:shootball} são descritos os algoritmos dos comportamentos de forma geral. Com poucas adaptações chega-se aos comportamentos específicos para direita ou esquerda do campo.
 
 
 	\begin{tabular}{c}
-		\label{code:walktoball}
-		\begin{lstlisting}[caption={Algoritmo do comportamento de se aproximar da bola} , captionpos=b]
+		\begin{lstlisting}[caption={Algoritmo do comportamento de se aproximar da bola} , captionpos=b,label=code:walktoball]
 				fun'ç''ã'o AproximarBola(s):
 						se s.BolaVis'í'vel:
 								'â'ngulo da bola <- s.Dire'ç''ã'oBola + s.Dire'ç''ã'oPesco'ç'o
@@ -300,8 +292,7 @@ A seguir, são descritos os algoritmos dos comportamentos de forma geral. Com po
 	\end{tabular}
 
 	\begin{tabular}{c}
-		\label{code:leadball}
-		\begin{lstlisting}[caption={Algoritmo geral do comportamento de carregar bola} , captionpos=b]
+		\begin{lstlisting}[caption={Algoritmo geral do comportamento de carregar bola} , captionpos=b,label=code:leadball]
 			fun'ç''ã'o CarregarBola(s):
 					se s.Dist'â'nciaBola < 0.7:
 							'â'ngulo <- -s.Orienta'ç''ã'o
@@ -311,8 +302,7 @@ A seguir, são descritos os algoritmos dos comportamentos de forma geral. Com po
 	\end{tabular}
 	
 	\begin{tabular}{c}
-		\label{code:shootball}
-		\begin{lstlisting}[caption={Algoritmo geral do comportamento de chutar bola para o gol} , captionpos=b]
+		\begin{lstlisting}[caption={Algoritmo geral do comportamento de chutar bola para o gol} , captionpos=b,label=code:shootball]
 			fun'ç''ã'o CarregarBola(s):
 					Xgol, Ygol <- Gol.Posição 
 					se s.Dist'â'nciaBola < 0.7:
@@ -324,7 +314,7 @@ A seguir, são descritos os algoritmos dos comportamentos de forma geral. Com po
 
 
 
-\subsubsection{Parâmetros}
+\subsection{Parâmetros}
 \label{subsubsec:sarsa-params}
 
 % TODO: mudar os parâmetros dependendo do Sarsa utilizado
@@ -336,7 +326,7 @@ A seguir, são descritos os algoritmos dos comportamentos de forma geral. Com po
 	\item \textbf{Fator de exploração ($\epsilon$)}: Para incentivar a exploração das possibilidades, o fator de exploração foi definido inicialmente como 0.9 e reduzido exponencialmente multiplicando-o por $0.99996$ ao final de cada partida. A cada ação tomada, o agente tem probabilidade $\epsilon$ de escolher uma ação aleatória. Além disso, para favorecer a exploração, no início de cada partida era também sorteada uma posição inicial para o agente em seu lado do campo.
 \end{itemize}
 
-\subsubsection{Recompensa}
+\subsection{Recompensa}
 \label{subsubsec:reward}
 
 A recompensa foi definida em 3 partes a fim de guiar o agente na direção do aprendizado desejado. Todas as medições de recompensa foram feitas utilizando dados da simulação e não da percepção do agente.
@@ -362,13 +352,13 @@ A recompensa foi definida em 3 partes a fim de guiar o agente na direção do ap
 
 Deste modo, a cada instante de tempo foi atribuída uma recompensa $R = R_1 + R_2 + R_3$.
 
-\subsection{Double Q-Learning Tabular e Comportamentos Pré-Programados}
+\section{Double Q-Learning Tabular e Comportamentos Pré-Programados}
 
 Além da solução através de um aproximador de funções, foi testada uma solução utilizando o método tabular com os mesmos comportamentos e uma discretização dos estados descrita abaixo.
 
 A codificação dos comportamentos, parâmetros $\alpha$, $\epsilon$ e $\gamma$ e a recompensa foram mantidos como descrito nas subseções \ref{subsubsec:behaviors-mapping}, \ref{subsubsec:sarsa-params} e \ref{subsubsec:reward} respectivamente.
 
-\subsubsection{Codificação dos Estados}
+\subsection{Codificação dos Estados}
 \label{subsubsec:state-encoding}
 
 O estado percebido pelo agente é dado pela combinação dos seguintes fatores:
@@ -403,7 +393,7 @@ O estado percebido pelo agente é dado pela combinação dos seguintes fatores:
 
 Com isso, temos que o número total de estados possíveis é dado pelo produtório da quantidade de possibilidades em cada um dos itens acima totalizando 282240 estados.
 
-\subsection{Double Q-Learning Tabular e Ações Puras}
+\section{Double Q-Learning Tabular e Ações Puras}
 % Inicialmente, deseja-se realizar o treinamento de um agente único que, com as informações de seus sensores, consiga com sucesso levar a bola ao gol. Essa proposta tem como objetivo fundamentar os conhecimentos e validar a base de código para a realização de um treinamento de um time de múltiplos agentes em um estágio posterior.
 
 % O desenvolvimento de um agente único, inicialmente, permite adquirir o entendimento necessário para a definição do vetor de estados e ajuste das técnicas de treinamento. Além disso, busca-se uma maior agilidade na substituição e teste na estrutura do vetor de estados e no algoritmo de treinamento, uma vez que o custo computacional deste cenário é consideravelmente menor que o custo do treinamento de um time completo.
@@ -416,7 +406,7 @@ Após o resultado positivo obtido utilizando comportamentos pré-programados, fo
 
 % Foi utilizado o algoritmo Double Q-Learning tabular, possível através da discretização de diversas métricas obtidas através dos sensores do agente.
 
-\subsubsection{Codificação das Ações}
+\subsection{Codificação das Ações}
 
 Para simplificar o vasto espaço de ações disponíveis, foi selecionado um conjunto discreto de 13 ações:
 
@@ -430,7 +420,7 @@ Para simplificar o vasto espaço de ações disponíveis, foi selecionado um con
 	\item \textbf{Chutar}: Caso a distância até a bola seja menor ou igual a 0.7 metros, o jogador tem a opção de chutá-la em frente ou em um ângulo de $45^{\circ}$ em ambas as direções, totalizando 3 ações de chute possíveis. Caso a bola não esteja próxima o suficiente, nada acontece.
 \end{itemize}
 
-\subsubsection{Parâmetros}
+\subsection{Parâmetros}
 \label{subsubsec:tabular-params}
 
 \begin{itemize}
