@@ -69,9 +69,9 @@ A decodificação de mensagens, por sua vez, foi feita em duas camadas: um anali
 
 As mensagens do sensor auditivo são do seguinte formato:
 
-\textit{(hear Tempo Remetente "mensagem")}
+\noindent \textit{(hear Tempo Remetente "mensagem")},
 
-Onde \textit{Tempo} é o número do ciclo em que a mensagem foi ouvida e \textit{Remetente} é descrição de quem enviou a mensagem. O \textit{Remetente} pode ser o árbitro, outros jogadores, um dos treinadores ou o próprio jogador.
+\noindent onde \textit{Tempo} é o número do ciclo em que a mensagem foi ouvida e \textit{Remetente} é descrição de quem enviou a mensagem. O \textit{Remetente} pode ser o árbitro, outros jogadores, um dos treinadores ou o próprio jogador.
 
 No escopo deste trabalho, apenas as mensagens do árbitro serão consideradas, não sendo implementada nenhuma forma de comunicação direta entre os agentes.
 
@@ -79,13 +79,13 @@ No escopo deste trabalho, apenas as mensagens do árbitro serão consideradas, n
 \label{sec:visual}
 As mensagens do sensor visual contém as posições relativas referentes a cada objeto dentro do campo de visão do jogador. Esses objetos podem ser outros jogadores, marcadores como bandeiras e linhas (Figura \ref{fig:flags}) e a bola. O formato genérico é este:
 
-\textit{(see (Objeto1)(Objeto2)(Objeto3)...(ObjetoN))}
+\noindent \textit{(see (Objeto1)(Objeto2)(Objeto3)...(ObjetoN))},
 
-Onde cada objeto tem o seguinte formato:
+\noindent onde cada objeto tem o seguinte formato:
 
-\textit{((NomeDoObjeto) Distância Direção VariaçãoDeDistância VariaçãoDeDireção DireçãoDoCorpo DireçãoDaCabeça)}
+\noindent \textit{((NomeDoObjeto) Distância Direção VariaçãoDeDistância VariaçãoDeDireção DireçãoDoCorpo DireçãoDaCabeça)},
 
-Sendo a distância e a direção dados em coordenadas polares, assim como suas variações. As informações de direção do corpo e da cabeça só aparecem quando o objeto em questão é um outro jogador.
+\noindent sendo a distância e a direção dados em coordenadas polares, assim como suas variações. As informações de direção do corpo e da cabeça só aparecem quando o objeto em questão é um outro jogador.
 
 O campo é marcado com vários indicadores com posição fixa conhecida para que o agente possa estimar sua posição absoluta, como vista na Figura \ref{fig:flags}.
 
@@ -198,9 +198,9 @@ O objetivo inicial para teste do sistema como um todo foi o de realizar o treina
 Para isso foram realizadas três abordagens diferentes.
 
 \begin{itemize}
-	\item Sarsa com método aproximado e comportamentos pré-programados
-	\item Double Q-Learning tabular e comportamentos pré-programados
-	\item Double Q-Learning tabular e ações puras
+	\item Sarsa com método aproximado e comportamentos pré-programados;
+	\item Double Q-Learning tabular e comportamentos pré-programados;
+	\item Double Q-Learning tabular e ações puras.
 \end{itemize}
 
 \section{Sarsa Aproximado e Comportamentos Pré-Programados}
@@ -331,9 +331,9 @@ A recompensa foi definida em 3 partes a fim de guiar o agente na direção do ap
 	R_3 =
 	\left\{
 	\begin{array}{ll}
-		\ \ 1  & \mbox{se foi feito um gol no ciclo} \\
-		-1  & \mbox{se foi feito um gol contra no ciclo} \\
-		\ \ 0  & \mbox{caso não houver gol no ciclo} \\
+		\ \ 1  & \mbox{se foi feito um gol no ciclo}; \\
+		-1  & \mbox{se foi feito um gol contra no ciclo}; \\
+		\ \ 0  & \mbox{caso não houver gol no ciclo}. \\
 	\end{array}
 	\right.
 	$
@@ -358,15 +358,14 @@ O estado percebido pelo agente é dado pela combinação dos seguintes fatores:
 		\label{eq:balldist}
 		\left\{
 		\begin{array}{ll}
-			0  & \mbox{se } D < 0.7 \\
-			\lfloor\log_2 (\frac{D}{0.7})\rfloor & \mbox{se } 0.7 \leq D \mbox{ e } D < 0.7 \times 2^6 \\
-			6  & \mbox{se } D \geq 0.7 \times 2^6 \\
-			
+			0  & \mbox{se } D < 0.7; \\
+			\lfloor\log_2 (\frac{D}{0.7})\rfloor & \mbox{se } 0.7 \leq D \mbox{ e } D < 0.7 \times 2^6; \\
+			6  & \mbox{se } D \geq 0.7 \times 2^6; \\
 		\end{array}
 		\right.
 	\end{equation}
 	
-	Ou seja, a distância percebida até a bola varia entre 0 e 6 com resolução cada vez menor à medida que o agente se afasta da bola. O fator 0.7 foi inserido na função devido ao fato de que esta é a distância mínima que permite que o agente chute a bola.
+	ou seja, a distância percebida até a bola varia entre 0 e 6 com resolução cada vez menor à medida que o agente se afasta da bola. O fator 0.7 foi inserido na função devido ao fato de que esta é a distância mínima que permite que o agente chute a bola.
 	
 	Caso o jogador possa enxergar a bola, a distância D é recebida diretamente do sensor. Caso contrário, a distância D é estimada com base na última posição percebida da bola.
 	
