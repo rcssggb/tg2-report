@@ -174,7 +174,7 @@ Não será implementada nenhuma comunicação entre os jogadores neste trabalho.
 
 O ambiente de treinamento consiste em uma base de código que importa a biblioteca detalhada na Seção \ref{sec:lib}. Um formato geral foi definido e desenvolvido a fim de tornar os experimentos fáceis de adaptar, bastando mudar alguns trechos do código.
 
-O laço de treinamento obedece ao pseudo-código apresentado no Algoritmo \ref{code:training-loop}.
+O laço de treinamento obedece ao pseudo-código apresentado no Código \ref{code:training-loop}.
 
 \begin{tabular}{c}
 	\begin{lstlisting}[caption={Pseudo-código que descreve a rotina de treinamento} , captionpos=b,label=code:training-loop]
@@ -306,13 +306,12 @@ Nos Códigos \ref{code:walktoball}, \ref{code:leadball} e \ref{code:shootball} s
 \subsection{Parâmetros}
 \label{subsubsec:sarsa-params}
 
-% TODO: mudar os parâmetros dependendo do Sarsa utilizado
 \begin{itemize}
 	\item \textbf{Fator de desconto ($\gamma$)}: Apesar do ambiente ser episódico, foi utilizado um fator de desconto de 0.99 devido ao fato de que a condição de término do episódio (fim de jogo) não ser observável através da discretização do estado utilizada.  
 	
 	\item \textbf{Fator de aprendizagem ($\alpha$)}: O fator de aprendizagem foi definido inicialmente como 0.1 e foi reduzido exponencialmente multiplicando-o por $0.99999$ ao final de cada partida. 
 	
-	\item \textbf{Fator de exploração ($\epsilon$)}: Para incentivar a exploração das possibilidades, o fator de exploração foi definido inicialmente como 0.9 e reduzido exponencialmente multiplicando-o por $0.99996$ ao final de cada partida. A cada ação tomada, o agente tem probabilidade $\epsilon$ de escolher uma ação aleatória. Além disso, para favorecer a exploração, no início de cada partida era também sorteada uma posição inicial para o agente em seu lado do campo.
+	\item \textbf{Fator de exploração ($\epsilon$)}: Para incentivar a exploração das possibilidades, o fator de exploração foi definido inicialmente como 0.9 e reduzido exponencialmente multiplicando-o por $0.99990$ ao final de cada partida. A cada ação tomada, o agente tem probabilidade $\epsilon$ de escolher uma ação aleatória. Além disso, para favorecer a exploração, no início de cada partida era também sorteada uma posição inicial para o agente em seu lado do campo.
 \end{itemize}
 
 \subsection{Recompensa}
@@ -345,7 +344,7 @@ Deste modo, a cada instante de tempo foi atribuída uma recompensa $R = R_1 + R_
 
 Além da solução através de um aproximador de funções, foi testada uma solução utilizando o método tabular com os mesmos comportamentos e uma discretização dos estados descrita abaixo.
 
-A codificação dos comportamentos, parâmetros $\alpha$, $\epsilon$ e $\gamma$ e a recompensa foram mantidos como descrito nas subseções \ref{subsubsec:behaviors-mapping}, \ref{subsubsec:sarsa-params} e \ref{subsubsec:reward} respectivamente.
+A codificação dos comportamentos, parâmetros $\alpha$ e $\gamma$ e a recompensa foram mantidos como descrito nas subseções \ref{subsubsec:behaviors-mapping}, \ref{subsubsec:sarsa-params} e \ref{subsubsec:reward} respectivamente. O parâmetro $\epsilon$ foi mantido em $0.9$ porém com um decaimento mais lento, sendo multiplicado por $0.99996$ ao final de cada partida.
 
 \subsection{Codificação dos Estados}
 \label{subsubsec:state-encoding}
