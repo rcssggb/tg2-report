@@ -6,7 +6,8 @@ Repo for writing the report for TG2
 - [x] Revisar resumo
 - [ ] Escrever abstract
 - [ ] Revisar resultados
-- [ ] Refazer gráficos
+- [x] Refazer gráficos
+- [ ] Gráfico Sarsa
 - [ ] Escrever conclusão
 - [ ] Descrever transformações trigonométricas dos sensores
 - [x] Mudar parâmetros usados no Sarsa

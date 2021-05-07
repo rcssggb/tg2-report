@@ -98,8 +98,11 @@ Infelizmente em diversas aplicações a quantidade de estados possíveis é gran
 
 A ferramenta matemática utilizada para viabilizar soluções aproximadas é o conceito de aproximadores de função, muito utilizados na aprendizagem supervisionada. Entre os aproximadores mais utilizados estão os aproximadores lineares e as redes neurais multicamada.
 
-\paragraph{A Tríade da Morte} Sutton e Barto definem um cenário denominado a tríade da morte (\textit{the deadly triad}) como um cenário onde a presença de três elementos causa instabilidade e divergência em treinamentos: aproximação de funções, \textit{bootstrapping} e treinamentos off-policy \cite{sutton2018reinforcement}.
-\par Existe, portanto, a decisão do projetista de definir treinamentos de forma a evitar o conjunto desses três elementos. O aproximador de funções pode ser evitado com técnicas tabulares em ambiente menos complexos e ao custo de uso de memória. Para métodos TD, \textit{bootstrapping} é um requerimento, entretanto outros métodos permitem realizar o treinamento sem o uso de estimativas. Métodos off-policy são considerados mais poderosos, porém introduzem mais variância, como descrito na Subseção \ref{subsec:on-off-policy}.
+\subsection{A Tríade da Morte}
+
+Sutton e Barto definem um cenário denominado a tríade da morte (\textit{the deadly triad}) como um cenário onde a presença de três elementos causa instabilidade e divergência em treinamentos: aproximação de funções, \textit{bootstrapping} e treinamentos off-policy \cite{sutton2018reinforcement}.
+
+Existe, portanto, a decisão do projetista de definir treinamentos de forma a evitar o conjunto desses três elementos. O aproximador de funções pode ser evitado com técnicas tabulares em ambientes menos complexos e ao custo de uso de memória. Para métodos TD, \textit{bootstrapping} é um requerimento. Entretanto, outros métodos permitem realizar o treinamento sem o uso de estimativas. Métodos off-policy são considerados mais poderosos e versáteis porém introduzem mais variância como descrito na Subseção \ref{subsec:on-off-policy} portanto nem sempre são a melhor escolha.
 
 \subsection{Sarsa}
 \label{subsec:sarsa-theory}

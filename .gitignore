@@ -19,8 +19,10 @@
 
 *.ind
 
-relatorio.dvi
+*.dvi
 
 .DS_Store
 
 *.lof
+
+*.lot
