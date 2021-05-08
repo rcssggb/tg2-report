@@ -25,7 +25,7 @@ Essa abordagem é bastante flexível e torna possível modelar a dinâmica do fu
 
 \subsection{MDP Episódico e Contínuo}
 
-Um MDP pode ser caracterizado quanto à presença de um estado terminal. Caso o MDP tenha um ou mais estados que determinem o fim do processo, ele é dito episódico, e a totalidade do processo até o estado que determina o fim é chamada de episódio. A simulação de futebol de robôs tratada neste trabalho é um exemplo de MDP episódico, uma vez que o MDP termina ao se encerrar o tempo de jogo.
+Um MDP pode ser caracterizado quanto à presença de um estado terminal. Caso o MDP tenha um ou mais estados que determinem o fim do processo, ele é dito episódico e a totalidade do processo até o estado que determina o fim é chamada de episódio. A simulação de futebol de robôs tratada neste trabalho é um exemplo de MDP episódico, uma vez que o MDP termina ao se encerrar o tempo de jogo.
 
 Em contrapartida, há MDPs onde não está bem definido nenhum estado terminal. Nesses casos, o MDP pode continuar indefinidamente até que uma ação externa ao MDP determine a sua parada. Um exemplo disso é um MDP que controle um robô numa linha de produção. Caso o sistema de automação supervisor desse robô não determine sua parada (por falta de insumos, por exemplo), o MDP pode seguir operando indefinidamente.
 
@@ -62,7 +62,7 @@ Similarmente, existe uma função $q_\pi: (S, A) \to \mathbb{R}$ que, para cada 
 
 Sempre há ao menos uma política melhor ou igual a todas as outras, denominada política ótima. Qualquer política que cumpra esse requisito é denominada $\pi_*$ e, caso haja mais de uma, todas devem possuir a mesma função $q$ denominada $q_*$ \cite{sutton2018reinforcement}. No decorrer deste trabalho serão utilizadas técnicas que buscam estimar $q_*$. % chap 3.6 
 
-Uma política que toma sempre o caminho de maior retorno é denominada gulosa, e uma política que toma o caminho de maior retorno mas escolhe uma ação aleatoriamente com probabilidade parametrizada $\epsilon$ é denominada $\epsilon$-gulosa.
+Uma política que toma sempre o caminho de maior retorno é denominada gulosa e uma política que toma o caminho de maior retorno mas escolhe uma ação aleatoriamente com probabilidade parametrizada $\epsilon$ é denominada $\epsilon$-gulosa.
 
 
 \section{Aprendizagem por Reforço}
@@ -76,7 +76,7 @@ Ela também se diferencia da Aprendizagem Não-Supervisionada, que tradicionalme
 Desse modo, as técnicas de Aprendizagem por Reforço serão aplicadas a fim de buscar políticas capazes de maximizar o desempenho dos jogadores virtuais, ou seja, obter políticas que tornem os agentes capazes de fazer gols e evitar que os jogadores do time adversário façam gols.
 
 \subsection{Aprendizagem com Diferença Temporal}
-\par A aprendizagem com diferença temporal (\textit{temporal-difference learning}, ou TD) é uma das ideias centrais de RL \cite{sutton2018reinforcement}. Esse tipo de aprendizado é importante pois permite o aprendizado sem um modelo prévio do MDP do ambiente, e também permite o uso de estimativas aprendidas durante o treinamento, conhecido como \textit{bootstrapping}, acelerando dramaticamente o tempo de convergência. 
+\par A aprendizagem com diferença temporal (\textit{temporal-difference learning}, ou TD) é uma das ideias centrais de RL \cite{sutton2018reinforcement}. Esse tipo de aprendizado é importante pois permite o aprendizado sem um modelo prévio do MDP do ambiente e também permite o uso de estimativas aprendidas durante o treinamento, conhecido como \textit{bootstrapping}, acelerando dramaticamente o tempo de convergência. 
 \par A diferença temporal se apoia na ideia de que a política aproximada e a função de valor devem se relacionar de forma que ambas convirjam para seus valores ótimos, conhecida como iteração generalizada da política (\textit{generalized policy iteration} ou GPI) \cite{sutton2018reinforcement}. 
 \par As técnicas \textit{Sarsa}, \textit{Q-learning} e \textit{Double Q-learning} apresentadas nas Subseções \ref{subsec:sarsa-theory}, \ref{subsec:q-theory} e \ref{subsec:dq-theory} são exemplos de aprendizagem com diferença temporal.
 

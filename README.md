@@ -8,14 +8,15 @@ Repo for writing the report for TG2
 - [ ] Revisar resultados
 - [x] Refazer gráficos
 - [ ] Gráfico Sarsa
-- [ ] Escrever conclusão
+- [x] Escrever conclusão
+- [ ] Revisar conclusão
 - [ ] Descrever transformações trigonométricas dos sensores
 - [x] Mudar parâmetros usados no Sarsa
 - [ ] Adicionar ficha catalográfica (depois de aprovado)
 - [x] Retirar subsubseções
 - [x] Corrigir os trechos de código sem legendas
 - [x] Conferir palavras informais que podem ser substituidas por formais
-- [ ] Corrigir equações e formatos de mensagens para incorporar ao texto (`mensagem é da forma: (see 23), onde ...`)
+- [x] Corrigir equações e formatos de mensagens para incorporar ao texto (`mensagem é da forma: (see 23), onde ...`)
 - [x] Escrever Sarsa na fundamentação teórica
 - [x] Revisar Sarsa na fundamentação teórica
 - [x] Escrever Sarsa no desenvolvimento

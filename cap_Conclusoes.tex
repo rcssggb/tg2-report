@@ -1,19 +1,32 @@
 
 \chapter{Conclusões}
 \label{chap:Conclusoes}
-\par Este projeto teve como objetivo a implementação de uma plataforma para desenvolvimento de aprendizagem por reforço em futebol de robôs 2D e a utilização de técnicas de RL para realizar treinamentos de seleção de comportamentos e ações puras para maximizar o número de gols feitos por um agente.
-\par Ao pesquisar sobre a comunidade e equipes participantes das edições nacionais da competição, notou-se que a biblioteca de interfaceamento com o servidor \textit{librcsc} e o time base \textit{agent2d} - ambos desenvolvidos no Japão por acadêmicos relacionados à equipe \textit{HELIOS} - são amplamente utilizados. Entretanto, a documentação da biblioteca é escassa e há dificuldade de utilização dela, evidenciado por conversas com os participantes da comunidade.
-\par A plataforma desenvolvida no decorrer deste trabalho ajuda a modernizar e diversificar a base de código utilizada pelas equipes. A plataforma desenvolvida se encontra disponível em um repositório do GitHub: \textit{rcssggb/ggb-lib}, para ser utilizada livremente. A plataforma se conecta via protocolo UDP ao servidor que executa a partida e abstrai a codificação e decodificação de mensagens enviadas ao servidor. Algoritmos de RL implementados no decorrer do trabalho validaram o funcionamento da plataforma.
-\par Foram realizados três treinamentos distintos seus resultados foram analisados conforme o retorno alcançado pelo agente. Inicialmente, o algoritmo Sarsa com comportamentos pré-programados e aproximador de funções mostrou um retorno crescente com o passar dos episódios, mas o custo computacional do treinamento se mostrou muito alto. 
-\par A fim de aumentar o número de amostras, o estado foi discretizado e foi implementado o algoritmo Double Q-Learning com os mesmos comportamentos e utilizando um método tabular. O número de amostras possíveis de serem coletadas aumentaram consideravelmente, e o treinamento se mostrou mais estável, além de retornos mais altos.
-\par Por fim, foi realizado um treinamento com ações puras, permitindo que o agente aprendesse estratégias por si só. O treinamento demonstrou retornos menores que o anterior.
+
+Este projeto teve como objetivo a implementação de uma plataforma para desenvolvimento de aprendizagem por reforço em futebol de robôs, mais especificamente na categoria RoboCup Soccer Simulation 2D, e a utilização de técnicas de RL para realizar treinamentos de seleção de comportamentos e ações puras para maximizar o número de gols feitos por um agente.
+
+Ao pesquisar sobre a comunidade e equipes participantes das edições nacionais da competição, notou-se que a biblioteca de interfaceamento com o servidor \textit{librcsc} e o time base \textit{agent2d} - ambos desenvolvidos no Japão por acadêmicos da equipe \textit{HELIOS} - são amplamente utilizados. Apesar de ser uma plataforma bastante completa, sua dominância acaba limitando a inovação na categoria, mantendo as equipes dentro da arquitetura de solução proposta no \textit{agent2d}.
+
+A plataforma desenvolvida no decorrer deste trabalho ajuda a modernizar e diversificar a base de código utilizada pelas equipes. A plataforma desenvolvida se encontra disponível em um repositório do GitHub: \textit{rcssggb/ggb-lib}, para ser utilizada livremente. A plataforma se conecta via protocolo UDP ao servidor que executa a partida e abstrai a codificação e decodificação de mensagens enviadas ao servidor. Algoritmos de RL implementados no decorrer do trabalho validaram o funcionamento da plataforma.
+
+Foram realizados três treinamentos distintos e seus resultados foram analisados conforme o retorno alcançado pelo agente. Inicialmente, o algoritmo Sarsa com comportamentos pré-programados e aproximador de funções mostrou um retorno crescente com o passar dos episódios, porém o custo computacional do treinamento se mostrou muito alto, tornando difícil a testagem de soluções desse tipo.
+
+A fim de aumentar o número de amostras, o estado foi discretizado e foi implementado o algoritmo Double Q-Learning com os mesmos comportamentos e utilizando um método tabular. O número de amostras possíveis de serem coletadas aumentaram consideravelmente e o treinamento se mostrou mais estável, além de obter retornos mais altos.
+
+Por fim, foi realizado um treinamento com ações puras, permitindo que o agente aprendesse estratégias por si só. O treinamento demonstrou retornos menores que o anterior porém a aprendizagem pareceu continuar por mais tempo, o que sugere que abordagens \textit{end-to-end} são capazes de aproveitar melhor quantidades maiores de amostras.
 
 \section{Trabalhos Futuros}
-%TODO
 
-% \par Esse cenário demonstra a necessidade de modernização da base de código utilizada pelas equipes. É proposto, então, a reimplementação da interface de comunicação com o servidor da partida utilizando a linguagem Go.
+A plataforma desenvolvida abre muitas possibilidades para pesquisa e desenvolvimento dentro do contexto da RoboCup Soccer Simulation 2D. É possível estudar diversas técnicas de RL a fim de cummprir a proposta da competição: desenvolver um time de futebol completo com agentes capazes de cooperar entre si e disputar contra outras equipes participantes.
 
-% \section{Treinamento de Equipe para Participação em Competições}
-% \par Este projeto propõe o treinamento de um time capaz de competir contra as principais equipes nacionais e internacionais da categoria. Serão estudados, avaliados e implementados métodos de inteligência computacional para o treinamento do time a fim de obter comportamentos adequados para os jogadores de modo que eles consigam atuar colaborativamente para vencer o time adversário.
+Apesar da abordagem simplificada feita neste trabalho, o formato oficial da competição envolve um ambiente multiagente e adversarial que introduz diversos desafios ao aprendizado uma vez que o ambiente se torna mais dinâmico e com isso mais imprevisível.
 
-% A participação em competições proporciona um ambiente perfeito para validação do sistema, uma vez que é possível comparar qualitativa e quantitativamente seu desempenho contra as diversas equipes do país.
+Além disso, a família de técnicas de RL ideais para um cenário como a RCSS é a família métodos de gradientes de políticas, ou seja, o agente busca estimar a política em si e não a função de valor de ação $Q$. Com essas técnicas, é possível parametrizar a política de modo a cobrir todo o espaço de ações e não apenas um subconjunto discreto dele.
+
+Por fim, em um cenário competitivo é importante manter a plataforma atualizada e capaz de abstrair todas as funcionalidades do servidor. Uma das funcionalidades faltantes, por exemplo, é a da investida, também conhecida coloquialmente como "carrinho".
+
+As equipes acadêmicas são um ambiente propício para o aprendizado prático de diversas técnicas aprendidas durante a graduação e a Universidade de Brasília tem uma longa tradição de equipes participantes em diversas categorias de robótica, incluindo outras categorias de futebol de robôs. A organização de uma equipe para desenvolvimento utilizando a plataforma a fim de participar da RCSS criaria diversas oportunidades de aprendizado e pesquisa.
+
+% multiagente
+% expandir as funcionalidades da plataforma
+% adversarial
+% algoritmos que tratem ações contínuas
