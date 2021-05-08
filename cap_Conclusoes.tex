@@ -2,10 +2,11 @@
 \chapter{Conclusões}
 \label{chap:Conclusoes}
 \par Este projeto teve como objetivo a implementação de uma plataforma para desenvolvimento de aprendizagem por reforço em futebol de robôs 2D e a utilização de técnicas de RL para realizar treinamentos de seleção de comportamentos e ações puras para maximizar o número de gols feitos por um agente.
-
-\section{Plataforma para futebol de robôs}
 \par Ao pesquisar sobre a comunidade e equipes participantes das edições nacionais da competição, notou-se que a biblioteca de interfaceamento com o servidor \textit{librcsc} e o time base \textit{agent2d} - ambos desenvolvidos no Japão por acadêmicos relacionados à equipe \textit{HELIOS} - são amplamente utilizados. Entretanto, a documentação da biblioteca é escassa e há dificuldade de utilização dela, evidenciado por conversas com os participantes da comunidade.
-\par A plataforma desenvolvida no decorrer deste trabalho ajuda a modernizar e diversificar a base de código utilizada pelas equipes. A plataforma desenvolvida se encontra disponível em um repositório do GitHub: \textit{rcssggb/ggb-lib}, para ser utilizada livremente.
+\par A plataforma desenvolvida no decorrer deste trabalho ajuda a modernizar e diversificar a base de código utilizada pelas equipes. A plataforma desenvolvida se encontra disponível em um repositório do GitHub: \textit{rcssggb/ggb-lib}, para ser utilizada livremente. A plataforma se conecta via protocolo UDP ao servidor que executa a partida e abstrai a codificação e decodificação de mensagens enviadas ao servidor. Algoritmos de RL implementados no decorrer do trabalho validaram o funcionamento da plataforma.
+\par Foram realizados três treinamentos distintos seus resultados foram analisados conforme o retorno alcançado pelo agente. Inicialmente, o algoritmo Sarsa com comportamentos pré-programados e aproximador de funções mostrou um retorno crescente com o passar dos episódios, mas o custo computacional do treinamento se mostrou muito alto. 
+\par A fim de aumentar o número de amostras, o estado foi discretizado e foi implementado o algoritmo Double Q-Learning com os mesmos comportamentos e utilizando um método tabular. O número de amostras possíveis de serem coletadas aumentaram consideravelmente, e o treinamento se mostrou mais estável, além de retornos mais altos.
+\par Por fim, foi realizado um treinamento com ações puras, permitindo que o agente aprendesse estratégias por si só. O treinamento demonstrou retornos menores que o anterior.
 
 % \par Esse cenário demonstra a necessidade de modernização da base de código utilizada pelas equipes. É proposto, então, a reimplementação da interface de comunicação com o servidor da partida utilizando a linguagem Go.
 
