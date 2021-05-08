@@ -10,7 +10,7 @@
 
 \section{Sarsa Aproximado e Comportamentos Pré-Programados}
 
-O treinamento de Sarsa realizado contou com XXXXX partidas utilizando a rede neural multicamadas descrita na Subseção \ref{subsec:sarsadev} e salvando os retornos obtidos em cada partida.
+O treinamento de Sarsa realizado contou com 30.000 partidas utilizando a rede neural multicamadas descrita na Subseção \ref{subsec:sarsadev} e salvando os retornos obtidos em cada partida.
 
 O gráfico da Figura \ref{fig:single-agent-sarsa-behaviors} mostra em conjunto o retorno a cada partida e a média do retorno a cada 100 partidas. É possível observar que há um tendência de subida do retorno com o passar dos episódios experienciados, porém em grande parte das partidas o agente não realizou nenhum gol, refletido pelo baixo valor da média de 100 partidas.
 
@@ -19,7 +19,7 @@ O gráfico da Figura \ref{fig:single-agent-sarsa-behaviors} mostra em conjunto o
 A utilização de métodos aproximados posa um problema de duplo aprendizado: deseja-se aprender a política ótima enquanto se aprende a aproximar esta política ótima desconhecida por meio de uma rede neural. Esse fator contribui negativamente no tempo para convergência da política. Em métodos tabulares, apesar do maior custo de memória, esse problema é inexistente.
 
 \begin{figure}[H]
-	\includegraphics[width=0.9\linewidth]{figs/placekitty4-3.jpg}
+	\includegraphics[width=0.9\linewidth]{figs/sarsa-tmp.png}
 	\centering
 	\caption{Curva de aprendizado do agente com comportamentos pré-programados utilizando Sarsa aproximado.}
 	\label{fig:single-agent-sarsa-behaviors}
