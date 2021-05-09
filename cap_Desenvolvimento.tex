@@ -123,6 +123,13 @@ De posse do ângulo absoluto do jogador, sua posição absoluta (X, Y) em campo 
 % 
 sendo $D_{sensor}$ e $\theta_{sensor}$ a distância e ângulo medidos pelo sensor, $\theta_{j \to f}$ o vetor que leva do jogador à bandeira e $(X_f, Y_f)$ a posição absoluta da bandeira. Uma média é feita a partir das estimativas obtidas com cada uma das bandeiras vistas. 
 
+\begin{figure}[H]
+	\includegraphics[width=0.6\linewidth]{figs/trig-transf.png}
+	\centering
+	\caption{Visualização do cálculo da posição absoluta do jogador}
+	\label{fig:trig}
+\end{figure}
+
 \par A partir da informação de posição absoluta do próprio jogador é possível calcular as posições absolutas para o resto das entidades observadas.
 
 % \par É possível também extrair estados úteis a partir das informações dos sensores, como por exemplo um estado que representa há quantos ciclos de simulação o jogador não vê a bola. Este estado pode ser determinante para que o jogador escolha, por exemplo, tomar a decisão de buscar a bola para atualizar a informação que possui sobre ela.
