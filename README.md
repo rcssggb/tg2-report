@@ -3,16 +3,16 @@ Repo for writing the report for TG2
 
 ## Tarefas
 - [ ] Escrever agradecimentos
-- [x] Revisar resumo
 - [ ] Escrever abstract
 - [ ] Revisar resultados
-- [x] Refazer gráficos
 - [ ] Gráfico Sarsa
-- [x] Escrever conclusão
 - [ ] Revisar conclusão
-- [ ] Descrever transformações trigonométricas dos sensores
-- [x] Mudar parâmetros usados no Sarsa
 - [ ] Adicionar ficha catalográfica (depois de aprovado)
+- [x] Revisar resumo
+- [x] Refazer gráficos
+- [x] Escrever conclusão
+- [x] Descrever transformações trigonométricas dos sensores
+- [x] Mudar parâmetros usados no Sarsa
 - [x] Retirar subsubseções
 - [x] Corrigir os trechos de código sem legendas
 - [x] Conferir palavras informais que podem ser substituidas por formais

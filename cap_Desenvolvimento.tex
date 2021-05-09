@@ -106,9 +106,24 @@ O sensor corporal contém informações sobre o estado físico do jogador. Entre
 
 \par Os sensores do jogador fornecem somente informações em coordenadas polares relativas ao próprio jogador. Desta forma, ele possui informações de distância e direção para a bola, demais jogadores, bandeiras do campo e linhas do campo.
 
-\par Com esses dados é possível estimar as coordenadas cartesianas absolutas no campo de todas as entidades de interesse. As bandeiras do campo são fixas e possuem coordenadas conhecidas, detalhado na subseção \ref{sec:visual}. Logo, a transformação da informação polar e relativa para uma cartesiana e absoluta da posição do próprio jogador é direta utilizando trigonometria básica. 
+\par Com esses dados é possível estimar as coordenadas cartesianas absolutas no campo de todas as entidades de interesse. As bandeiras do campo são fixas e possuem coordenadas conhecidas, como detalhado na subseção \ref{sec:visual}. Logo, a transformação da informação polar e relativa para uma cartesiana e absoluta da posição do próprio jogador pode ser realizada.
 
-\par A partir da informação de posição absoluta do próprio jogador é possível calcular as posições absolutas para o resto das entidades.
+Inicialmente, obtém-se o ângulo $\theta_j$ do jogador em relação ao eixo X a partir do ângulo das linhas no perímetro do campo. Basta subtrair o ângulo absoluto da linha em relação ao ângulo medido pelo sensor.
+
+De posse do ângulo absoluto do jogador, sua posição absoluta (X, Y) em campo é calculada da seguinte forma a partir das bandeiras vistas:
+
+\begin{equation}
+	\label{eq:playerpos}
+	\begin{array}{ll}
+		\theta_{j \to f} = \theta_{sensor} + \theta_j; \\
+		X = X_f - D_{sensor} \cos(\theta_{j \to f}); \\
+		Y = Y_f - D_{sensor} \sin(\theta_{j \to f}); \\
+	\end{array}
+\end{equation}
+% 
+sendo $D_{sensor}$ e $\theta_{sensor}$ a distância e ângulo medidos pelo sensor, $\theta_{j \to f}$ o vetor que leva do jogador à bandeira e $(X_f, Y_f)$ a posição absoluta da bandeira. Uma média é feita a partir das estimativas obtidas com cada uma das bandeiras vistas. 
+
+\par A partir da informação de posição absoluta do próprio jogador é possível calcular as posições absolutas para o resto das entidades observadas.
 
 % \par É possível também extrair estados úteis a partir das informações dos sensores, como por exemplo um estado que representa há quantos ciclos de simulação o jogador não vê a bola. Este estado pode ser determinante para que o jogador escolha, por exemplo, tomar a decisão de buscar a bola para atualizar a informação que possui sobre ela.
 

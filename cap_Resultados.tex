@@ -65,20 +65,20 @@ Substituindo os comportamentos pré-programados por uma seleção de ações pur
 A Figura \ref{fig:single-agent-curva} mostra esse histórico. É interessante observar que com o decaimento dos fatores de exploração e de aprendizagem, após 100000 partidas ambos eram $\epsilon \approx 0.074074$ e $\alpha \approx 0.056604$, ou seja, o agente já executava na maior parte dos ciclos a política aprendida. Para cada jogo foi feita a média entre os 3 retornos observados em cada um dos treinamentos.
 
 \begin{figure}[H]
-	\includegraphics[width=0.9\linewidth]{figs/curva-qtabular.jpg}
+	\includegraphics[width=0.93\linewidth]{figs/curva-qtabular.jpg}
 	\centering
 	\caption{Curva de aprendizado do agente com ações puras. }
 	\label{fig:single-agent-curva}
 \end{figure}
 
-Além disso, assim como na Seção \ref{sec:behaviors-tabular}, foi executado um treinamento de 200000 partidas a fim de observar a aprendizagem por um período mais longo. Na Figura \ref{fig:single-agent-curvalonga} observa-se que o agente continua melhorando seu desempenho até próximo do fim do treinamento, o que pode ser indício de que o aprendizado com ações puras de fato permite mais flexibilidade na política aprendida.
-
 \begin{figure}[H]
-	\includegraphics[width=0.9\linewidth]{figs/curvalonga-qtabular.jpg}
+	\includegraphics[width=0.93\linewidth]{figs/curvalonga-qtabular.jpg}
 	\centering
 	\caption{Curva de aprendizado para treinamento longo.}
 	\label{fig:single-agent-curvalonga}
 \end{figure}
+
+Além disso, assim como na Seção \ref{sec:behaviors-tabular}, foi executado um treinamento de 200000 partidas a fim de observar a aprendizagem por um período mais longo. Na Figura \ref{fig:single-agent-curvalonga} observa-se que o agente continua melhorando seu desempenho até próximo do fim do treinamento, o que pode ser indício de que o aprendizado com ações puras de fato permite mais flexibilidade na política aprendida.
 
 Apesar da grande quantidade de experiência a que o agente teve acesso, nota-se na Figura \ref{fig:single-agent-curvalonga} que o crescimento de seu desempenho é bastante limitado, sequer atingindo a média de 1 gol por partida. Isso é um indicativo do altíssimo custo computacional de soluções \textit{end-to-end} como a utilizada no experimento.
 
