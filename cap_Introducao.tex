@@ -4,6 +4,9 @@
 % Resumo opcional. Comentar se não usar.
 % \resumodocapitulo{Resumo opcional}
 
+% TODO: revisar o parágrafo abaixo (feito por pedido do prof. Romariz)
+O treinamento de agentes, sejam eles máquinas físicas ou simuladas, para realizar certas tarefas é um campo de estudo crescente em meio a academia e setor privado. Em um ambiente de robôs jogadores de futebol simulados, este trabalho tem como alvo estruturar o procedimento de treinamento desses jogadores autônomos.
+
 \par O interesse humano em criar artefatos para facilitar seu próprio trabalho ou realizar uma tarefa sem interferência remonta os tempos mais antigos. No Egito Ptolomaico, Ctesíbio (285-222 AC) descreveu um relógio d`água com a presença de um sistema de engrenagens, um indicador e o primeiro sistema de retroalimentação registrado. Por volta de 1495, Leonardo da Vinci, concebeu o projeto de um autômato mecânico de um guerreiro em armadura medieval que podia ficar em pé, sentar-se, levantar o visor e mover os braços \cite{guarnieri2010}. 
 \par O estudo da união de sistemas eletromecânicos e inteligência teve início há pelo menos 70 anos. A \textit{cibernética}, área inaugurada por Norbert Wiener na década de 1950, descreve o estudo científico de controle e comunicação no animal e na máquina. Wiener começou, então, a desenvolver sistemas que replicassem comportamentos animais \cite{wiener1950}. Somado a isso, a teoria da informação de Claude Shannon e a teoria de computação de Alan Turing abriram espaço para pesquisas que iriam desenvolver Inteligências Artificiais (IA) \cite{pamela2004}.
 
@@ -61,17 +64,12 @@ Desde 2005, a RCSS está presente na maior competição de robótica da América
 	\label{fig:system}
 \end{figure}
 
-\subsection{Sensores}
+\subsection{Sensores e Ações}
+\label{sec:actions}
 \par Cada jogador presente na partida possui um conjunto de sensores de onde são tiradas todas as informações sobre o ambiente. Em uma partida usual, um jogador tem informações visuais dos jogadores do seu time e do time adversário, da bola e de uma série de marcadores fixos no campo, como bandeiras e linhas, que servem para situar o jogador em coordenadas absolutas do campo. O jogador possui também informações ``sonoras'', onde pode ouvir mensagem do árbitro, treinador e de outros jogadores. Por último, tem acesso a informações do próprio corpo, como orientação do corpo e pescoço \cite{rcssmanual2003}.
 \par Os sensores possuem características que os aproximam de sensores reais como perda de resolução da informação conforme a variável medida se afasta do sensor.
 
-
-\subsection{Ações}
-\label{sec:actions}
-
-A cada ciclo de simulação, cada cliente conectado ao servidor pode realizar ações que terão efeito no ambiente \cite{rcssmanual2003}.
-
-As ações englobam mover-se, virar-se, chutar a bola e até falar, permitindo troca de mensagens entre os jogadores. As ações disponíveis serão detalhadas no decorrer do texto.
+Adicionalmente, a cada ciclo de simulação, cada cliente conectado ao servidor pode realizar ações que terão efeito no ambiente \cite{rcssmanual2003}. As ações englobam mover-se, virar-se, chutar a bola e até falar, permitindo troca de mensagens entre os jogadores. As ações disponíveis serão detalhadas no decorrer do texto.
 
 
 \subsection{Abordagens utilizadas na categoria}
@@ -85,11 +83,10 @@ Os não-chutadores, por sua vez, não têm conhecimento do planejamento feito pe
 \par Muitas equipes, ainda, desenvolvem seus agentes utilizando o agente base da equipe \textit{HELIOS}, \textit{Agent2d} com a biblioteca \textit{Librcsc}, escritas em C++. Por isso, é comum que haja semelhança na construção dos agentes dessas equipes.
 
 \section{Caracterização do Problema}
-\par Deseja-se, então, explorar o problema de se fazer gols com um agente único no ambiente descrito utilizando-se de técnicas de aprendizagem por reforço.
-\par Para isso, foi desenvolvida uma biblioteca de interfaceamento com o servidor da partida como adaptação do ambiente. Após isso, o agente foi treinado com a utilização de técnicas de RL em duas abordagens - ações puras e comportamentos - de forma a compará-las.
-\par No Capítulo 2, descrevem-se os fundamentos teóricos da aprendizagem por reforço, com destaque para os algoritmos de \textit{Sarsa}, \textit{Q-learning} e \textit{Q-learning} duplo. No Capítulo 3, descrevem-se o desenvolvimento da biblioteca e a definição de ações e comportamentos. Além disso, propõem-se o algoritmo de treinamento e os experimentos a serem realizados. No Capítulo 4, os resultados desses experimentos e suas análises são apresentados. Finalmente, o Capítulo 5 expõe conclusões e trabalhos futuros.
+\par Deseja-se, então, explorar o problema de se fazer gols com um agente único no ambiente descrito utilizando-se de técnicas de aprendizagem por reforço. Para isso, foi desenvolvida uma biblioteca de interfaceamento com o servidor da partida como adaptação do ambiente. Após isso, o agente foi treinado com a utilização de técnicas de RL em duas abordagens - ações puras e comportamentos - de forma a compará-las.
 
-\subsection{Objetivos}
+
+\subsection{Objetivos Específicos}
 \par De acordo com o contexto apresentado, o presente trabalho se propõe a cumprir as seguintes etapas:
 \begin{itemize}
 	\item Implementar uma plataforma para desenvolvimento de aprendizagem por reforço no âmbito da categoria RCSS;
@@ -97,4 +94,7 @@ Os não-chutadores, por sua vez, não têm conhecimento do planejamento feito pe
 	\item Utilizar técnicas de aprendizagem por reforço para treinar a escolha de ações puras;
 	\item Comparar as diferentes configurações de treinamento e seus resultados.
 \end{itemize}
+
+\section{Estrutura do Trabalho}
+\par Este documento está organizado em cinco capítulos: Introdução, Fundamentação Teórica, Desenvolvimento, Resultados e Conclusões. No Capítulo 2, descrevem-se os fundamentos teóricos da aprendizagem por reforço, com destaque para os algoritmos de \textit{Sarsa}, \textit{Q-learning} e \textit{Q-learning} duplo. No Capítulo 3, descrevem-se o desenvolvimento da biblioteca e a definição de ações e comportamentos. Além disso, propõem-se o algoritmo de treinamento e os experimentos a serem realizados. No Capítulo 4, os resultados desses experimentos e suas análises são apresentados. Finalmente, o Capítulo 5 expõe conclusões e trabalhos futuros.
 
