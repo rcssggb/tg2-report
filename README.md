@@ -2,7 +2,7 @@
 Repo for writing the report for TG2 
 
 ## Tarefas
-- [ ] Adicionar introdução do capítulo seguinte no final do capítulo atual
+- [x] Adicionar introdução do capítulo seguinte no final do capítulo atual
 - [ ] Escrever agradecimentos
 - [ ] Escrever dedicatória
 - [x] Revisar primeira versão do abstract (inglês)
