@@ -12,16 +12,16 @@
 
 O treinamento utilizando o algoritmo Sarsa realizado contou com 30.000 partidas utilizando a rede neural multicamadas descrita na Subseção \ref{subsec:sarsadev} e salvando os retornos obtidos em cada partida.
 
-O gráfico da Figura \ref{fig:single-agent-sarsa-behaviors} mostra em conjunto o retorno a cada partida e a média móvel do retorno com janela de 1000 partidas. É possível observar que há um tendência de subida do retorno com o passar dos episódios experienciados, porém em grande parte das partidas o agente não realizou nenhum gol, refletido pelo baixo valor da média de 100 partidas.
+O gráfico da Figura \ref{fig:single-agent-sarsa-behaviors} mostra em conjunto o retorno a cada partida e a média móvel do retorno com janela de 1000 partidas. É possível observar que há um tendência de subida do retorno com o passar dos episódios experienciados, porém em grande parte das partidas o agente não realizou nenhum gol, refletido pelo baixo valor da média de 100 partidas, que precisou ser multiplicado por 10 para melhor visualização gráfica.
 
 É interessante ressaltar o alto custo computacional deste tipo de treinamento devido à utilização de redes neurais. Dessa forma, a quantidade de amostras possíveis de serem coletadas em tempo hábil foram drasticamente reduzidas.
 
 Além disso, a utilização de métodos aproximados posa um problema de duplo aprendizado: deseja-se aprender a política ótima enquanto se aprende a aproximar esta política ótima desconhecida por meio de uma rede neural. Esse fator contribui negativamente no tempo para convergência da política. Em métodos tabulares, apesar do maior custo de memória, esse problema é inexistente.
 
 \begin{figure}[H]
-	\includegraphics[width=0.9\linewidth]{figs/sarsa-tmp.png}
+	\includegraphics[width=0.9\linewidth]{figs/curva-sarsa-1.jpg}
 	\centering
-	\caption{\textbf{[PLACEHOLDER]} Curva de aprendizado do agente com comportamentos pré-programados utilizando Sarsa aproximado.}
+	\caption{Curva de aprendizado do agente com comportamentos pré-programados utilizando Sarsa aproximado.}
 	\label{fig:single-agent-sarsa-behaviors}
 \end{figure}
 
