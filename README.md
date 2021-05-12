@@ -2,15 +2,15 @@
 Repo for writing the report for TG2 
 
 ## Tarefas
-- [x] Adicionar introdução do capítulo seguinte no final do capítulo atual
 - [ ] Escrever agradecimentos
 - [ ] Escrever dedicatória
-- [x] Revisar primeira versão do abstract (inglês)
 - [ ] Revisar resultados
-- [x] Gráfico Sarsa
-- [ ] Alterar resultado Sarsa com novo gráfico
 - [ ] Revisar conclusão
 - [ ] Adicionar ficha catalográfica (depois de aprovado)
+- [x] Revisar primeira versão do abstract (inglês)
+- [x] Gráfico Sarsa
+- [x] Alterar resultado Sarsa com novo gráfico
+- [x] Adicionar introdução do capítulo seguinte no final do capítulo atual
 - [x] Revisar resumo
 - [x] Escrever abstract
 - [x] Refazer gráficos
