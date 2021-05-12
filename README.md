@@ -5,13 +5,14 @@ Repo for writing the report for TG2
 - [ ] Adicionar introdução do capítulo seguinte no final do capítulo atual
 - [ ] Escrever agradecimentos
 - [ ] Escrever dedicatória
-- [x] Escrever abstract
-- [ ] Revisar primeira versão do abstract (inglês)
+- [x] Revisar primeira versão do abstract (inglês)
 - [ ] Revisar resultados
-- [ ] Gráfico Sarsa
+- [x] Gráfico Sarsa
+- [ ] Alterar resultado Sarsa com novo gráfico
 - [ ] Revisar conclusão
 - [ ] Adicionar ficha catalográfica (depois de aprovado)
 - [x] Revisar resumo
+- [x] Escrever abstract
 - [x] Refazer gráficos
 - [x] Escrever conclusão
 - [x] Descrever transformações trigonométricas dos sensores
