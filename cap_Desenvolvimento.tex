@@ -12,9 +12,7 @@
 \par Uma biblioteca própria foi desenvolvida em linguagem Go como forma de modernização e diversificação da base de código utilizada pelas equipes. A biblioteca cobre uma parte considerável das possibilidades previstas no protocolo de comunicação e foi programada de modo a ser facilmente expansível de acordo com o lançamento de atualizações do servidor.
 
 \subsection{Arquitetura do código}
-A biblioteca possui três pacotes internos: \textit{playerclient}, \textit{trainerclient} e \textit{rcsscommon}. Os dois primeiros dizem respeito aos dois tipos de programas que podem se conectar ao servidor da partida: jogadores e treinadores. O terceiro engloba todas as funcionalidades utilizadas por ambos clientes, além de informações gerais sobre parâmetros da partida, como coordenadas de bandeiras do campo e modos de jogo.
-
-Os dois clientes desenvolvidos possuem as funcionalidades necessárias para se conectar ao servidor, ouvir mensagens via protocolo UDP, decodificá-las e então executar uma ação em forma de mensagem codificada e enviada ao servidor.
+A biblioteca possui três pacotes internos: \textit{playerclient}, \textit{trainerclient} e \textit{rcsscommon}. Os dois primeiros dizem respeito aos dois tipos de programas que podem se conectar ao servidor da partida: jogadores e treinadores. O terceiro engloba todas as funcionalidades utilizadas por ambos clientes, além de informações gerais sobre parâmetros da partida, como coordenadas de bandeiras do campo e modos de jogo. Os dois clientes desenvolvidos possuem as funcionalidades necessárias para se conectar ao servidor, ouvir mensagens via protocolo UDP, decodificá-las e então executar uma ação em forma de mensagem codificada e enviada ao servidor.
 
 \subsection{Decodificação e Codificação de Mensagens}
 \label{sec:messages}
@@ -117,7 +115,7 @@ De posse do ângulo absoluto do jogador, sua posição absoluta (X, Y) em campo 
 	\begin{array}{ll}
 		\theta_{j \to f} = \theta_{sensor} + \theta_j; \\
 		X = X_f - D_{sensor} \cos(\theta_{j \to f}); \\
-		Y = Y_f - D_{sensor} \sin(\theta_{j \to f}); \\
+		Y = Y_f - D_{sensor} \sin(\theta_{j \to f}), \\
 	\end{array}
 \end{equation}
 % 
@@ -130,7 +128,7 @@ sendo $D_{sensor}$ e $\theta_{sensor}$ a distância e ângulo medidos pelo senso
 	\label{fig:trig}
 \end{figure}
 
-\par A partir da informação de posição absoluta do próprio jogador é possível calcular as posições absolutas para o resto das entidades observadas.
+\par A partir da informação de posição absoluta do próprio jogador, é possível calcular as posições absolutas para o resto das entidades observadas.
 
 % \par É possível também extrair estados úteis a partir das informações dos sensores, como por exemplo um estado que representa há quantos ciclos de simulação o jogador não vê a bola. Este estado pode ser determinante para que o jogador escolha, por exemplo, tomar a decisão de buscar a bola para atualizar a informação que possui sobre ela.
 
@@ -167,16 +165,14 @@ O jogador pode virar seu pescoço de maneira semi-independente de seu corpo. O �
 \subsection{Mover-se}
 \label{sec:move}
 
-O comando ``mover-se'' é utilizado para mover diretamente jogadores para coordenadas. Não pode ser utilizado no decorrer de uma partida, exceto quando o goleiro tem a posse da bola. O comando fica disponível no início dos tempos da partida para posicionamento dos jogadores.
-
-Para movimentar os jogadores durante a partida, o arranque (Subseção \ref{sec:dash}) deve ser utilizado.
+O comando ``mover-se'' é utilizado para mover diretamente jogadores para coordenadas. Não pode ser utilizado no decorrer de uma partida, exceto quando o goleiro tem a posse da bola. O comando fica disponível no início dos tempos da partida para posicionamento dos jogadores. Para movimentar os jogadores durante a partida, o arranque (Subseção \ref{sec:dash}) deve ser utilizado.
 
 % TODO: remover essa seção? nem falamos nada direito do goleiro o artigo inteiro...
 \subsection{Agarrar}
 
 O único jogador com permissão para agarrar ou pegar a bola é o goleiro. O goleiro pode pegar a bola em qualquer direção, desde que ela esteja dentro da área agarrável (Figura \ref{fig:catch}), definida como um retângulo com comprimento 2.0 e largura 1.0 na direção em que se deseja tentar agarrar.
 
-Se o comando de agarrar falhar o goleiro fica incapacitado de agarrar a bola durante um número pré-determinados de ciclos do jogo. Se o comando tiver sucesso o goleiro pode usar o comando "mover-se" (Seção \ref{sec:move}) para se mover segurando a bola até um limite máximo de vezes estabelecido nas configurações do servidor.
+Se o comando de agarrar falhar, o goleiro fica incapacitado de agarrar a bola durante um número pré-determinado de ciclos do jogo. Se o comando tiver sucesso o goleiro pode usar o comando "mover-se" (Seção \ref{sec:move}) para se mover segurando a bola até um limite máximo de vezes estabelecido nas configurações do servidor.
 
 \begin{figure}[H]
 	\includegraphics[width=0.5\linewidth]{figs/catch.png}
@@ -213,21 +209,21 @@ O laço de treinamento obedece ao pseudo-código apresentado no Código \ref{cod
 	\end{lstlisting}
 \end{tabular}
 
-O laço interno é onde efetivamente os algoritmos de treinamento são implementados, portanto este trecho é alterado a depender da técnica de aprendizagem por reforço utilizada.t
+O laço interno é onde efetivamente os algoritmos de treinamento são implementados, portanto este trecho é alterado a depender da técnica de aprendizagem por reforço utilizada.
 
 O objetivo inicial para teste do sistema como um todo foi o de realizar o treinamento de um agente capaz de executar gols estando sozinho em campo.
 
-Para isso foram realizadas três abordagens diferentes.
+Para isso, foram realizadas três abordagens diferentes.
 
 \begin{itemize}
-	\item \textit{Sarsa} com método aproximado e comportamentos pré-programados;
+	\item \textit{Sarsa} com aproximador de funções e comportamentos pré-programados;
 	\item \textit{Q-Learning} duplo tabular e comportamentos pré-programados;
 	\item \textit{Q-Learning} duplo tabular e ações puras.
 \end{itemize}
 
-\section{Sarsa Aproximado e Comportamentos Pré-Programados}
+\section{Sarsa Com Aproximador de Funções e Comportamentos Pré-Programados}
 \label{subsec:sarsadev}
-\par Inicialmente, desejou-se realizar um treinamento utilizando um método aproximado, devido ao grande número de estados contínuos possíveis para o agente. Portanto, foi usada uma rede neural multicamada com estrutura detalhada na Tabela \ref{table:ann}.
+\par Inicialmente, desejou-se realizar um treinamento utilizando um método aproximado, devido ao grande número de estados contínuos possíveis para o agente. Portanto, foi usada uma rede neural multicamada com estrutura detalhada na Tabela \ref{table:ann}. A camada de entrada da rede apresenta 5 neurônios, cada um relativo a um dos estados descritos na Subseção \ref{subsubsec:state-approx}, e a camada de saída apresenta 8 neurônios, cada um relativo a um dos comportamentos descritos na Subseção \ref{subsubsec:behaviors-mapping}.
 
 \begin{table}[h]
 	\centering
@@ -400,7 +396,7 @@ O estado percebido pelo agente é dado pela combinação dos seguintes fatores:
 	
 \end{itemize}
 
-Com isso, temos que o número total de estados possíveis é dado pelo produtório da quantidade de possibilidades em cada um dos itens acima totalizando 282240 estados.
+Com isso, o número total de estados possíveis é dado pelo produtório da quantidade de possibilidades em cada um dos itens acima totalizando 282240 estados.
 
 \section{\textit{Q-Learning} duplo Tabular e Ações Puras}
 % Inicialmente, deseja-se realizar o treinamento de um agente único que, com as informações de seus sensores, consiga com sucesso levar a bola ao gol. Essa proposta tem como objetivo fundamentar os conhecimentos e validar a base de código para a realização de um treinamento de um time de múltiplos agentes em um estágio posterior.
@@ -426,7 +422,7 @@ Para simplificar o vasto espaço de ações disponíveis, foi selecionado um con
 	
 	\item \textbf{Correr}: É possível correr em frente ($0^{\circ}$) ou a $30^{\circ}$ em ambas as direções, sempre com potência 50, totalizando 3 ações de corrida possíveis.
 	
-	\item \textbf{Chutar}: Caso a distância até a bola seja menor ou igual a 0.7 metros, o jogador tem a opção de chutá-la em frente ou em um ângulo de $45^{\circ}$ em ambas as direções, totalizando 3 ações de chute possíveis. Caso a bola não esteja próxima o suficiente, nada acontece.
+	\item \textbf{Chutar}: Caso a distância até a bola seja menor ou igual a 0.7 metros, o jogador tem a opção de chutá-la para frente ou em um ângulo de $45^{\circ}$ para esquerda ou direita, totalizando 3 ações de chute possíveis. Caso a bola não esteja próxima o suficiente, nada acontece.
 \end{itemize}
 
 \subsection{Parâmetros}
@@ -440,4 +436,4 @@ Para simplificar o vasto espaço de ações disponíveis, foi selecionado um con
 	\item \textbf{Fator de exploração ($\epsilon$)}: O fator de aprendizagem foi definido como $\frac{8000}{8000+N}$ sendo $N$ o número de partidas experienciadas pelo jogador. 
 \end{itemize}
 
-No capítulo seguinte é feita a análise dos resultados dos experimentos descritos neste capítulo.
+No capítulo seguinte, é feita a análise dos resultados dos experimentos descritos neste capítulo.
