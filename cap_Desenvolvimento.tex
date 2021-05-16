@@ -223,7 +223,9 @@ Para isso, foram realizadas três abordagens diferentes.
 
 \section{Sarsa Com Aproximador de Funções e Comportamentos Pré-Programados}
 \label{subsec:sarsadev}
-\par Inicialmente, desejou-se realizar um treinamento utilizando um método aproximado, devido ao grande número de estados contínuos possíveis para o agente. Portanto, foi usada uma rede neural multicamada com estrutura detalhada na Tabela \ref{table:ann}. A camada de entrada da rede apresenta 5 neurônios, cada um relativo a um dos estados descritos na Subseção \ref{subsubsec:state-approx}, e a camada de saída apresenta 8 neurônios, cada um relativo a um dos comportamentos descritos na Subseção \ref{subsubsec:behaviors-mapping}.
+\par Inicialmente, desejou-se realizar um treinamento utilizando um método aproximado, devido ao grande número de estados contínuos possíveis para o agente. Portanto, foi usada uma rede neural multicamada com estrutura detalhada na Tabela \ref{table:ann}.
+ % A inicialização dos pesos foi feita de acordo com o algoritmo de Glorot, que define um distribuição gaussiana para inicialização \cite{pmlr-v9-glorot10a}. 
+ A função de ativação utilizada foi \textit{ReLU}. A camada de entrada da rede apresenta 5 neurônios, cada um relativo a um dos estados descritos na Subseção \ref{subsubsec:state-approx}, e a camada de saída apresenta 8 neurônios, cada um relativo a um dos comportamentos descritos na Subseção \ref{subsubsec:behaviors-mapping}.
 
 \begin{table}[h]
 	\centering
