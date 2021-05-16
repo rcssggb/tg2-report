@@ -2,11 +2,11 @@
 Repo for writing the report for TG2 
 
 ## Tarefas
-- [ ] Escrever agradecimentos
-- [ ] Escrever dedicatória
 - [ ] Revisar resultados
 - [ ] Revisar conclusão
 - [ ] Adicionar ficha catalográfica (depois de aprovado)
+- [x] Escrever agradecimentos
+- [x] Escrever dedicatória
 - [x] Revisar primeira versão do abstract (inglês)
 - [x] Gráfico Sarsa
 - [x] Alterar resultado Sarsa com novo gráfico
