@@ -225,7 +225,8 @@ Para isso, foram realizadas três abordagens diferentes.
 \label{subsec:sarsadev}
 \par Inicialmente, desejou-se realizar um treinamento utilizando um método aproximado, devido ao grande número de estados contínuos possíveis para o agente. Portanto, foi usada uma rede neural multicamada com estrutura detalhada na Tabela \ref{table:ann}.
  % A inicialização dos pesos foi feita de acordo com o algoritmo de Glorot, que define um distribuição gaussiana para inicialização \cite{pmlr-v9-glorot10a}. 
- A função de ativação utilizada foi \textit{ReLU}. A camada de entrada da rede apresenta 5 neurônios, cada um relativo a um dos estados descritos na Subseção \ref{subsubsec:state-approx}, e a camada de saída apresenta 8 neurônios, cada um relativo a um dos comportamentos descritos na Subseção \ref{subsubsec:behaviors-mapping}.
+ 
+ A função de ativação utilizada foi \textit{ReLU}. A camada de entrada da rede apresenta 5 neurônios, cada um relativo a um dos estados descritos na Subseção \ref{subsubsec:state-approx}, e a camada de saída apresenta 8 neurônios, cada um relativo a um dos comportamentos descritos na Subseção \ref{subsubsec:behaviors-mapping}. A cada ciclo $t$, o agente toma uma ação $A_t$ no estado $S_t$ e recebe o próximo estado $S_{t+1}$ e recompensa $R_{t+1}$. A partir disso, o valor $Q(S_t,A_t)$ é calculado de acordo com a equação \ref{eq:sarsa} e, então, o treinamento dos pesos da rede é realizado de forma a aproximar o valor calculado.
 
 \begin{table}[h]
 	\centering
