@@ -12,7 +12,7 @@
 
 O treinamento com o algoritmo Sarsa contou com 30.000 partidas com a utilização da rede neural multicamadas descrita na Subseção \ref{subsec:sarsadev} e salvando os retornos obtidos em cada partida.
 
-O gráfico da Figura \ref{fig:single-agent-sarsa-behaviors} mostra em conjunto o retorno a cada partida e a média móvel do retorno com janela de 1000 partidas. É possível observar que há um tendência de subida do retorno com o passar dos episódios experienciados, porém, em grande parte das partidas, o agente não realizou nenhum gol, refletido pelo baixo valor da média de 100 partidas, que precisou ser multiplicado por 10 para melhor visualização gráfica.
+O gráfico da Figura \ref{fig:single-agent-sarsa-behaviors} mostra em conjunto o retorno a cada partida e a média móvel do retorno com janela de 1000 partidas. É possível observar que há um tendência de subida do retorno com o passar dos episódios experienciados. Porém, em grande parte das partidas, o agente não realizou nenhum gol, refletido pelo baixo valor da média de 100 partidas, que precisou ser multiplicado por 10 para melhor visualização gráfica.
 
 É interessante ressaltar o alto custo computacional deste tipo de treinamento devido à utilização de redes neurais. Dessa forma, a quantidade de amostras possíveis de serem coletadas em tempo hábil foi drasticamente reduzida.
 
@@ -30,9 +30,10 @@ Além disso, a utilização de métodos aproximados apresenta um problema de dup
 
 Para este experimento, o aproximador de função foi substituído por uma tabela e o algoritmo Sarsa pelo Q-Learning. Foram executados 3 treinamentos de 100000 partidas e a tabela Q completa e o histórico dos retornos obtidos pelo agente ao longo do treinamento foram salvos.
 
-O gráfico da Figura \ref{fig:single-agent-tabular-behaviors} mostra o histórico médio dos 3 treinamentos. Observa-se que
-% o desempenho dessa abordagem supera o da abordagem anterior rapidamente, com poucas amostras. Em contrapartida, 
-há uma estagnação do retorno por volta das 60.000 amostras, o que pode indicar a necessidade de ajuste no decaimento do fator de exploração para que o agente explore novas possibilidades por mais partidas.  A estagnação pode indicar, também, existência de um limite superior para o desempenho do agente devido à menor flexibilidade da política aprendida, ou seja, o agente só é capaz de construir a política a partir dos comportamentos pré-programados.
+O gráfico da Figura \ref{fig:single-agent-tabular-behaviors} mostra o histórico médio dos 3 treinamentos.
+Observa-se que há uma estagnação do retorno por volta das 60.000 amostras, o que pode indicar a necessidade de ajuste no decaimento do fator de exploração para que o agente explore novas possibilidades por mais partidas. Isso mostra a importância de buscar equilíbrio no dilema da exploração e aproveitamento, discutido na Seção \ref{subsec:exploration-exploitation}.
+
+A estagnação pode indicar, também, existência de um limite superior para o desempenho do agente devido à menor flexibilidade da política aprendida, ou seja, o agente só é capaz de construir a política a partir dos comportamentos pré-programados.
 
 \begin{figure}[H]
 	\includegraphics[width=0.9\linewidth]{figs/curva-behaviors-tabular.jpg}

@@ -51,6 +51,7 @@ Caso o MDP seja contínuo, $G_t$ pode divergir, uma vez que é uma soma infinita
 Observa-se que, para $ 0 \leq \gamma < 1$, o somatório converge. Para $\gamma = 0$, o retorno leva em consideração apenas a recompensa imediata $R_{t+1}$. Em contrapartida, para $\gamma \to 1$, as recompensas mais distantes no futuro são cada vez menos descontadas, ou seja, o agente tende a levar mais em consideração os ganhos futuros.
 
 \subsection{Políticas e Funções de Valor}
+\label{subsec:policies}
 
 É dado o nome de política para qualquer função $\pi: (S, A) \to \mathbb{R}$ que associe um estado qualquer do MDP e uma ação a uma probabilidade de se tomar essa ação diante desse estado, ou seja, $\pi(A|S) = p$ onde $p$ é a probabilidade de selecionar a ação A diante do estado S.
 
@@ -104,13 +105,16 @@ Sutton e Barto definem um cenário denominado a tríade da morte (\textit{the de
 
 Existe, portanto, a decisão do projetista de definir treinamentos de forma a evitar o conjunto desses três elementos. O aproximador de funções pode ser evitado com técnicas tabulares em ambientes menos complexos e ao custo de uso de memória. Para métodos TD, \textit{bootstrapping} é um requerimento. Entretanto, outros métodos permitem realizar o treinamento sem o uso de estimativas. Métodos off-policy são considerados mais poderosos e versáteis, porém introduzem mais variância como descrito na Subseção \ref{subsec:on-off-policy} e, portanto, nem sempre são a melhor escolha.
 
-\subsection{\textit{Exploration} e \textit{Exploitation}}
+\subsection{Exploração e Aproveitamento}
+\label{subsec:exploration-exploitation}
 
-A realização do treinamento de um agente por RL tem como principal pilar a visita desse agente a estados diferentes e escolha de ações para que seja adquirido conhecimento sobre quais recompensas são maiores para o par $(S,A)$. A exploração desses estados desconhecidos (\textit{exploration}, em inglês) tem sentido de pesquisa ou estudo com o objetivo de obter novas informações sobre o ambiente.
+Na realização do treinamento de um agente por RL, surge o dilema da exploração e do aproveitamento (na literatura em inglês chamados de \textit{exploration} e \textit{exploitation} respectivamente). Para que o agente descubra as ações que geram os maiores retornos, é necessária a ampla experimentação de pares $(S,A)$ disponíveis no MDP. Sem experimentar novas ações e visitar novos estados, não é possível que o agente descubra o melhor caminho.
 
-Oposto a isso, após obter-se conhecimento suficiente sobre o ambiente, o treinamento deve mudar seu foco para tirar proveito do que foi aprendido, passando a revisitar os estados e tomar as ações que maximizem a recompensa. Nesse caso, exploração (\textit{exploitation}, em inglês) tem sentido de tirar vantagem ou proveito de uma situação já conhecida.
+Oposto a isso, para obter um maior retorno, o agente deve dar preferência às ações já visitadas nas quais se sabe que produz recompensas maiores, aproveitando o conhecimento adquirido anteriormente.
 
-É necessário, então, balancear os dois tipos de exploração de forma a direcionar o treinamento. Isso pode ser feito, simplesmente, com uma probabilidade de se tomar uma ação aleatória adicionada à política de decisão: o fator de exploração $\epsilon$. Esse fator está no intervalo $[0, 1]$, onde $1$ representa $100\%$ de chance de uma ação aleatória ser escolhida. O fator $\epsilon$ é inicializado arbitrariamente alto, para encorajar a exploração de estados desconhecidos e decai de acordo com alguma parametrização para que o agente passe a tirar proveito de situações já conhecidas.
+É necessário, portanto, balancear a exploração e o aproveitamento a fim de direcionar o treinamento. Uma das técnicas utilizadas para isso é a adoção de uma política $\epsilon$-gulosa, descrita na Seção \ref{subsec:policies}, que permite ajustar o equilíbrio entre exploração e aproveitamento através do parâmetro $\epsilon$.
+
+Além disso, alguns ambientes permitem que se escolha o estado inicial do agente. Nesse caso, desde que o ambiente seja episódico, é possível selecionar aleatoriamente o estado inicial a cada novo episódio e dessa forma garantir que o agente visite novos estados independentemente da política adotada.
 
 \subsection{Sarsa}
 \label{subsec:sarsa-theory}
