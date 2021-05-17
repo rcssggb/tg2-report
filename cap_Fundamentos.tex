@@ -104,6 +104,14 @@ Sutton e Barto definem um cenário denominado a tríade da morte (\textit{the de
 
 Existe, portanto, a decisão do projetista de definir treinamentos de forma a evitar o conjunto desses três elementos. O aproximador de funções pode ser evitado com técnicas tabulares em ambientes menos complexos e ao custo de uso de memória. Para métodos TD, \textit{bootstrapping} é um requerimento. Entretanto, outros métodos permitem realizar o treinamento sem o uso de estimativas. Métodos off-policy são considerados mais poderosos e versáteis, porém introduzem mais variância como descrito na Subseção \ref{subsec:on-off-policy} e, portanto, nem sempre são a melhor escolha.
 
+\subsection{\textit{Exploration} e \textit{Exploitation}}
+
+A realização do treinamento de um agente por RL tem como principal pilar a visita desse agente a estados diferentes e escolha de ações para que seja adquirido conhecimento sobre quais recompensas são maiores para o par $(S,A)$. A exploração desses estados desconhecidos (\textit{exploration}, em inglês) tem sentido de pesquisa ou estudo com o objetivo de obter novas informações sobre o ambiente.
+
+Oposto a isso, após obter-se conhecimento suficiente sobre o ambiente, o treinamento deve mudar seu foco para tirar proveito do que foi aprendido, passando a revisitar os estados e tomar as ações que maximizem a recompensa. Nesse caso, exploração (\textit{exploitation}, em inglês) tem sentido de tirar vantagem ou proveito de uma situação já conhecida.
+
+É necessário, então, balancear os dois tipos de exploração de forma a direcionar o treinamento. Isso pode ser feito, simplesmente, com uma probabilidade de se tomar uma ação aleatória adicionada à política de decisão: o fator de exploração $\epsilon$. Esse fator está no intervalo $[0, 1]$, onde $1$ representa $100\%$ de chance de uma ação aleatória ser escolhida. O fator $\epsilon$ é inicializado arbitrariamente alto, para encorajar a exploração de estados desconhecidos e decai de acordo com alguma parametrização para que o agente passe a tirar proveito de situações já conhecidas.
+
 \subsection{Sarsa}
 \label{subsec:sarsa-theory}
 Entre os algoritmos de aprendizagem on-policy está o Sarsa. Seu nome é derivado da quíntupla $(S_t, A_t, R_{t+1}, S_{t+1}, A_{t+1})$ utilizada como entrada da sua fórmula de atualização:
