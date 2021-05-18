@@ -19,7 +19,7 @@ O gráfico da Figura \ref{fig:single-agent-sarsa-behaviors} mostra em conjunto o
 Além disso, a utilização de métodos aproximados apresenta um problema de duplo aprendizado: deseja-se aprender a política ótima enquanto se aprende a aproximar esta política ótima desconhecida por meio de uma rede neural. Esse fator contribui negativamente no tempo para convergência da política. Em métodos tabulares, apesar do maior custo de memória, esse problema é inexistente.
 
 \begin{figure}[H]
-	\includegraphics[width=0.9\linewidth]{figs/curva-sarsa-1.jpg}
+	\includegraphics[width=1\linewidth]{figs/curva-sarsa-1.jpg}
 	\centering
 	\caption{Curva de aprendizado do agente com comportamentos pré-programados utilizando Sarsa aproximado.}
 	\label{fig:single-agent-sarsa-behaviors}
@@ -36,7 +36,7 @@ Observa-se que há uma estagnação do retorno por volta das 60.000 amostras, o 
 A estagnação pode indicar, também, existência de um limite superior para o desempenho do agente devido à menor flexibilidade da política aprendida, ou seja, o agente só é capaz de construir a política a partir dos comportamentos pré-programados.
 
 \begin{figure}[H]
-	\includegraphics[width=0.9\linewidth]{figs/curva-behaviors-tabular.jpg}
+	\includegraphics[width=0.95\linewidth]{figs/curva-behaviors-tabular.jpg}
 	\centering
 	\caption{Curva de aprendizado do agente com comportamentos pré-programados.}
 	\label{fig:single-agent-tabular-behaviors}
@@ -54,20 +54,21 @@ A Figura \ref{fig:goal-seq} ilustra o agente conduzindo a bola e realizando um g
 A Figura \ref{fig:curvalonga-bhv} mostra o histórico de retornos para um treinamento mais longo, de 200.000 partidas. Nela percebe-se que, após a cessação da exploração, o agente estabiliza seu desempenho um pouco abaixo do máximo obtido.
 
 \begin{figure}[H]
-	\includegraphics[width=0.9\linewidth]{figs/curvalonga-behaviors-tabular.jpg}
+	\includegraphics[width=1\linewidth]{figs/curvalonga-behaviors-tabular.jpg}
 	\centering
 	\caption{Curva de aprendizado do agente com comportamentos pré-programados para treinamento longo.}
 	\label{fig:curvalonga-bhv}
 \end{figure}
 
-Utilizando os pesos obtidos em uma das execuções do treinamento é possível observar comportamentos variados da política aprendida. A Figura \ref{fig:behaviors-result} ilustra quatro situações distintas construídas com sobreposição de imagens a cada 50 ciclos. Em três delas, o agente marcou um gol em tempos variados, ora tocando a bola até a área do gol, ora chutando de uma distância maior. A quarta situação, no canto inferior direito, ilustra uma situação em que o agente não realizou gols e ficou parado após tocar a bola para trás.
+Utilizando os pesos obtidos em uma das execuções do treinamento é possível observar cenários variados da política aprendida. A Figura \ref{fig:behaviors-result} ilustra quatro situações distintas construídas com sobreposição de imagens a cada 50 ciclos. Em três delas, o agente marcou um gol em tempos variados, ora tocando a bola até a área do gol, ora chutando de uma distância maior. A quarta situação, no canto inferior direito, ilustra uma situação em que o agente não realizou gols e ficou parado após tocar a bola para trás.
 
 \begin{figure}[H]
 	\includegraphics[width=1\linewidth]{figs/behaviors-result.jpg}
 	\centering
-	\caption{Montagem ilustrando 4 comportamentos da política aprendida.}
+	\caption{Montagem ilustrando 4 exemplos da política aprendida.}
 	\label{fig:behaviors-result}
 \end{figure}
+
 
 \section{\textit{Q-Learning} Duplo Tabular e Ações Puras}
 

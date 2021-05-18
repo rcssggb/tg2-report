@@ -2,8 +2,8 @@
 Repo for writing the report for TG2 
 
 ## Tarefas
-- [ ] Revisar resultados
 - [ ] Adicionar ficha catalográfica (depois de aprovado)
+- [x] Revisar resultados
 - [x] Revisar conclusão
 - [x] Escrever agradecimentos
 - [x] Escrever dedicatória
