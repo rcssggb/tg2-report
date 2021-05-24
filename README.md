@@ -5,7 +5,7 @@ Repo for writing the report for TG2
 
 - [ ] Descrever na introdução o que são os comportamentos e as ações elementares
 - [ ] Mudar nome de ações puras para ações elementares
-- [ ] Reescrever parágrafo da Propriedade de Markov
+- [ ] Reescrever parágrafo da Propriedade de Markov (e termo 'dinâmica futura')
 - [ ] Reescrever parte de bootstrapping na Seçãop 2.2.1 de acordo com comentários do João Paulo (consultar vídeo)
 - [ ] Adicionar referência nas fórmulas
 - [ ] Pontuar legendas das figuras, códigos...
@@ -22,6 +22,10 @@ Repo for writing the report for TG2
 - [ ] Clarificar que sensor adiciona ruído e 'perde' informações com a distância
 - [ ] Mudar termo end-to-end a não ser que encontremos uma fonte que usa
 - [ ] Referanciar a vitória do AlphaGo sobre o campeão mundial de Go (não somente o europeu)
+- [ ] Corrigir referências (nomes, locais, edição do Sutton)
+- [ ] Retirar ação de agarrar?
+- [ ] Typo 'Poda' em 2.2.3
+
 
 ## Tarefas
 - [ ] Adicionar ficha catalográfica (depois de aprovado)
