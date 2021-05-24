@@ -1,6 +1,23 @@
 # tg2-report
 Repo for writing the report for TG2 
 
+## Correções da Banca
+
+- [ ] Descrever na introdução o que são os comportamentos e as ações elementares
+- [ ] Mudar nome de ações puras para ações elementares
+- [ ] Reescrever parágrafo da Propriedade de Markov
+- [ ] Reescrever parte de bootstrapping na Seçãop 2.2.1 de acordo com comentários do João Paulo (consultar vídeo)
+- [ ] Adicionar referência nas fórmulas
+- [ ] Pontuar legendas das figuras, códigos...
+- [ ] Trocar 'fatias' e 'janelas' por termos mais formais
+- [ ] Mostrar resultados específicos sobre o melhor treinamento (quantos gols faz?)
+- [ ] Mudar título para: Aprendizagem Por Reforço no Contexto de Futebol de Robôs: RoboCup Soccer Simulation 2D
+- [ ] Colocar 'theta_d' e 'theta_f' na Lista da Símbolos
+- [ ] Esclarecer trecho sobre velocidade de simulação
+- [ ] Tradução de Exploração e Aproveitamento (vamos mudar? eu acho muito mais claro que 'busca em largura' e 'busca em profundidade')
+- [ ] Mudar o termo 'ações abstratas'
+- [ ] Detalhar mais como chegamos na recompensa
+
 ## Tarefas
 - [ ] Adicionar ficha catalográfica (depois de aprovado)
 - [x] Revisar resultados
