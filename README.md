@@ -6,7 +6,7 @@ Repo for writing the report for TG2
 - [ ] Descrever na introdução o que são os comportamentos e as ações elementares
 - [ ] Mudar nome de ações puras para ações elementares
 - [ ] Reescrever parágrafo da Propriedade de Markov (e termo 'dinâmica futura')
-- [ ] Reescrever parte de bootstrapping na Seçãop 2.2.1 de acordo com comentários do João Paulo (consultar vídeo)
+- [ ] Reescrever parte de bootstrapping na Seção 2.2.1 de acordo com comentários do João Paulo, utilização da própria estimativa durante o treinamento 
 - [ ] Adicionar referência nas fórmulas
 - [ ] Pontuar legendas das figuras, códigos...
 - [ ] Trocar 'fatias' e 'janelas' por termos mais formais
@@ -30,7 +30,9 @@ Repo for writing the report for TG2
 - [ ] Deixar claro que não é uma partida é um treino de partida, tempo de simulação (6000 ciclos)
 - [ ] Colocar termos em inglês em itálico
 - [ ] Tirar DOIs das referências 
-
+- [ ] Deixar mais claro no dota são números ponto flutuante contínuos
+- [ ] Corrigir a explicação da função q pi no final da Seção 2.1
+- [ ] Deixar claro que o número de gols é refletido com maior peso no retorno
 
 ## Tarefas
 - [ ] Adicionar ficha catalográfica (depois de aprovado)
