@@ -10,9 +10,9 @@ Repo for writing the report for TG2
 - [ ] Adicionar referência nas fórmulas
 - [ ] Pontuar legendas das figuras, códigos...
 - [ ] Trocar 'fatias' e 'janelas' por termos mais formais
-- [ ] Mostrar resultados específicos sobre o melhor treinamento (quantos gols faz?)
+- [ ] Mostrar resultados específicos sobre o melhor treinamento (quantos gols faz?), comportamento final do jogador
 - [ ] Mudar título para: Aprendizagem Por Reforço no Contexto de Futebol de Robôs: RoboCup Soccer Simulation 2D
-- [ ] Colocar 'theta_d' e 'theta_f' na Lista da Símbolos
+- [ ] Colocar 'theta_j ' e 'theta_f' na Lista da Símbolos
 - [ ] Esclarecer trecho sobre velocidade de simulação
 - [ ] Tradução de Exploração e Aproveitamento (vamos mudar? eu acho muito mais claro que 'busca em largura' e 'busca em profundidade')
 - [ ] Mudar o termo 'ações abstratas'
@@ -25,6 +25,11 @@ Repo for writing the report for TG2
 - [ ] Corrigir referências (nomes, locais, edição do Sutton)
 - [ ] Retirar ação de agarrar?
 - [ ] Typo 'Poda' em 2.2.3
+- [ ] Mudar Contínuo para Continuada (Continuing), 2.1.1
+- [ ] Mudar imagem do arco na estimação de estados
+- [ ] Deixar claro que não é uma partida é um treino de partida, tempo de simulação (6000 ciclos)
+- [ ] Colocar termos em inglês em itálico
+- [ ] Tirar DOIs das referências 
 
 
 ## Tarefas
