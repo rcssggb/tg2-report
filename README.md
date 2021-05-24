@@ -17,6 +17,11 @@ Repo for writing the report for TG2
 - [ ] Tradução de Exploração e Aproveitamento (vamos mudar? eu acho muito mais claro que 'busca em largura' e 'busca em profundidade')
 - [ ] Mudar o termo 'ações abstratas'
 - [ ] Detalhar mais como chegamos na recompensa
+- [ ] Mudar * para superscrito? Sutton e Barto usam subscrito.
+- [ ] 2D vs 2d? Não acho que tenha nada para mudar, mas vamos conferir
+- [ ] Clarificar que sensor adiciona ruído e 'perde' informações com a distância
+- [ ] Mudar termo end-to-end a não ser que encontremos uma fonte que usa
+- [ ] Referanciar a vitória do AlphaGo sobre o campeão mundial de Go (não somente o europeu)
 
 ## Tarefas
 - [ ] Adicionar ficha catalográfica (depois de aprovado)
