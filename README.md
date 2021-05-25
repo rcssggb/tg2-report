@@ -6,30 +6,30 @@ Repo for writing the report for TG2
 - [ ] Descrever na introdução o que são os comportamentos e as ações elementares (termos apareceram jogados na seção 1.5)
 - [ ] Reescrever parágrafo da Propriedade de Markov mais similar à apresentação (e termo 'dinâmica futura') (página 8)
 - [ ] Reescrever parte de bootstrapping na Seção 2.2.1 de acordo com comentários do João Paulo, utilização da própria estimativa durante o treinamento 
-- [ ] Trocar 'fatias' e 'janelas' por termos mais formais
 - [ ] Mostrar resultados específicos sobre o melhor treinamento (quantos gols faz?), comportamento final do jogador
-- [ ] Tradução de Exploração e Aproveitamento (vamos mudar? eu acho muito mais claro que 'busca em largura' e 'busca em profundidade') talvez mudar pra exploração e refinamento
+- [ ] Tradução de Exploração e Aproveitamento (vamos mudar? eu acho muito mais claro que 'busca em largura' e 'busca em profundidade') talvez mudar pra exploração e refinamento. -- acho ok, mas ainda acho pior que aproveitamento, até porque ninguém traduz exploit para refinar, o sentido em inglês é outro, mais próximo de se aproveitar.
 - [ ] Detalhar mais como chegamos na recompensa
 - [ ] Mudar * para superscrito? Sutton e Barto usam subscrito.
-- [ ] Clarificar que sensor adiciona ruído e 'perde' informações com a distância
-- [ ] Retirar ação de agarrar
-- [ ] Deixar claro que não é uma partida é um treino de partida, tempo de simulação (6000 ciclos)
-- [ ] Deixar mais claro no dota são números ponto flutuante contínuos (página 2)
 - [ ] Melhorar a explicação da função q pi e v pi no final da Seção 2.1 página 10
 - [ ] Deixar claro que o número de gols é refletido com maior peso no retorno
 - [ ] Referenciar a vitória do AlphaGo sobre o campeão mundial de Go (não somente o europeu) **não achei a ref pra isso, talvez deixemos só europeu que tem ref em todo lugar**
-- [ ] Referenciar Sutton e Barto nas formulações do capítulo 2 (especialmente no double Q-learning)
-- [ ] Adicionar o ggb-single na conclusão
 - [ ] Revisar exemplo episódico x continuado
-- [ ] Corrigir tabela da rede neural (entradas não são neurônios)
-- [ ] Deixar claro que é agente único (especialmente nas montagens onde o jogador aparece várias vezes)
-- [ ] Substituir Wiener 1950 pelo artigo original de 1948 nas referências
+- [ ] Referenciar Sutton e Barto nas formulações do capítulo 2 (especialmente no double Q-learning) (já fiz mas confere lá)
+- [x] Adicionar referência nas fórmulas (aqui)
+- [x] Adicionar o ggb-single na conclusão
+- [x] Corrigir tabela da rede neural (entradas não são neurônios)
+- [x] Trocar 'fatias' e 'janelas' por termos mais formais (traduzi para 'setores' por que existe 'setor circular' e 'intervalos')
+- [x] Deixar claro que é agente único (especialmente nas montagens onde o jogador aparece várias vezes)
+- [x] Retirar ação de agarrar
+- [x] Clarificar que sensor adiciona ruído e 'perde' informações com a distância
+- [x] Substituir Wiener 1950 pelo artigo original de 1948 nas referências
+- [x] Deixar claro que não é uma partida é um treino de partida, tempo de simulação (6000 ciclos)
 - [x] Esclarecer trecho sobre velocidade de simulação
+- [x] Deixar mais claro no dota são números ponto flutuante contínuos (página 2)
 - [x] Mudar imagem do arco na estimação de estados
 - [x] Pontuar legendas das figuras, códigos...
 - [x] Mudar título para: Aprendizagem Por Reforço no Contexto de Futebol de Robôs: RoboCup Soccer Simulation 2D
 - [x] 2D vs 2d? Não acho que tenha nada para mudar, mas vamos conferir
-- [x] Adicionar referência nas fórmulas
 - [x] Colocar 'theta_j ' e 'theta_f' na Lista da Símbolos
 - [x] Mudar o termo 'ações abstratas'
 - [x] Corrigir referências (nomes, locais, edição do Sutton)

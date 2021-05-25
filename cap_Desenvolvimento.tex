@@ -61,7 +61,7 @@ A decodificação de mensagens, por sua vez, foi feita em duas camadas: um anali
 \section{Definição dos Estados}
 \par As informações de estado são fornecidas pelos sensores do jogador. Há três sensores presentes que entregam informações em forma de mensagens para o agente: sensor auditivo, sensor visual e sensor corporal.
 \par Além de ser necessário decodificar as mensagens recebidas, como demonstrado na Subseção \ref{sec:messages}, é necessário processar os dados dos sensores para extrair mais características do estado atual do agente. 
-\par Os sensores são responsáveis por todas as informações que o jogador tem do ambiente. Eles são modelados de forma a emular características de sensores reais, portanto um sensor pode ``perder'' informações caso o objeto da variável medida esteja longe, como será evidenciado no modelo do sensor visual.
+\par Os sensores são responsáveis por todas as informações que o jogador tem do ambiente. Eles são modelados de forma a emular características de sensores reais, portanto um sensor pode ``perder'' informações caso o objeto da variável medida esteja longe e, além disso, ruído é injetado ao valor medido dessa variável, como será evidenciado no modelo do sensor visual.
 
 \subsection{Sensor Auditivo}
 
@@ -168,18 +168,18 @@ O jogador pode virar seu pescoço de maneira semi-independente de seu corpo. O �
 O comando ``mover-se'' é utilizado para mover diretamente jogadores para coordenadas. Não pode ser utilizado no decorrer de uma partida, exceto quando o goleiro tem a posse da bola. O comando fica disponível no início dos tempos da partida para posicionamento dos jogadores. Para movimentar os jogadores durante a partida, o arranque (Subseção \ref{sec:dash}) deve ser utilizado.
 
 % TODO: remover essa seção? nem falamos nada direito do goleiro o artigo inteiro...
-\subsection{Agarrar}
-
-O único jogador com permissão para agarrar ou pegar a bola é o goleiro. O goleiro pode pegar a bola em qualquer direção, desde que ela esteja dentro da área agarrável (Figura \ref{fig:catch}), definida como um retângulo com comprimento 2.0 e largura 1.0 na direção em que se deseja tentar agarrar.
-
-Se o comando de agarrar falhar, o goleiro fica incapacitado de agarrar a bola durante um número pré-determinado de ciclos do jogo. Se o comando tiver sucesso o goleiro pode usar o comando "mover-se" (Seção \ref{sec:move}) para se mover segurando a bola até um limite máximo de vezes estabelecido nas configurações do servidor.
-
-\begin{figure}[H]
-	\includegraphics[width=0.5\linewidth]{figs/catch.png}
-	\centering
-	\caption{Visualização da área agarrável pelo goleiro \cite{rcssmanual2003}.}
-	\label{fig:catch}
-\end{figure}
+%\subsection{Agarrar}
+%
+%O único jogador com permissão para agarrar ou pegar a bola é o goleiro. O goleiro pode pegar a bola em qualquer direção, desde que ela esteja dentro da área agarrável (Figura \ref{fig:catch}), definida como um retângulo com comprimento 2.0 e largura 1.0 na direção em que se deseja tentar agarrar.
+%
+%Se o comando de agarrar falhar, o goleiro fica incapacitado de agarrar a bola durante um número pré-determinado de ciclos do jogo. Se o comando tiver sucesso o goleiro pode usar o comando "mover-se" (Seção \ref{sec:move}) para se mover segurando a bola até um limite máximo de vezes estabelecido nas configurações do servidor.
+%
+%\begin{figure}[H]
+%	\includegraphics[width=0.5\linewidth]{figs/catch.png}
+%	\centering
+%	\caption{Visualização da área agarrável pelo goleiro \cite{rcssmanual2003}.}
+%	\label{fig:catch}
+%\end{figure}
 
 \subsection{Falar}
 
@@ -190,7 +190,7 @@ Não será implementada nenhuma comunicação entre os jogadores neste trabalho.
 
 \section{Ambiente de Treinamento}
 
-O ambiente de treinamento consiste em uma base de código que importa a biblioteca detalhada na Seção \ref{sec:lib}. Um formato geral foi definido e desenvolvido a fim de tornar os experimentos fáceis de adaptar, bastando mudar alguns trechos do código.
+O ambiente de treinamento consiste em uma base de código que importa a biblioteca detalhada na Seção \ref{sec:lib}. Um formato geral foi definido e desenvolvido a fim de tornar os experimentos fáceis de adaptar, bastando mudar alguns trechos do código. No contexto desse trabalho, o treino de partida representa 6.000 ciclos com um único jogador e a bola em campo. 
 
 O laço de treinamento obedece ao pseudo-código apresentado no Código \ref{code:training-loop}.
 
@@ -201,7 +201,7 @@ O laço de treinamento obedece ao pseudo-código apresentado no Código \ref{cod
 		inicializar pesos de treinamento
 		enquanto o estado n'ã'o 'é' terminal:
 			conectar jogador
-			para cada ciclo da partida:
+			para cada ciclo do treino de partida:
 				escolher a'ç''ã'o de acordo com a pol'í'tica e o estado
 				observar novo estado e recompensa
 				treinar pesos
@@ -226,13 +226,13 @@ Para isso, foram realizadas três abordagens diferentes.
 \par Inicialmente, desejou-se realizar um treinamento utilizando um método aproximado, devido ao grande número de estados contínuos possíveis para o agente. Portanto, foi usada uma rede neural multicamada com estrutura detalhada na Tabela \ref{table:ann}.
  % A inicialização dos pesos foi feita de acordo com o algoritmo de Glorot, que define um distribuição gaussiana para inicialização \cite{pmlr-v9-glorot10a}. 
  
- A função de ativação utilizada foi \textit{ReLU}. A camada de entrada da rede apresenta 5 neurônios, cada um relativo a um dos estados descritos na Subseção \ref{subsubsec:state-approx}, e a camada de saída apresenta 8 neurônios, cada um relativo a um dos comportamentos descritos na Subseção \ref{subsubsec:behaviors-mapping}. A cada ciclo $t$, o agente toma uma ação $A_t$ no estado $S_t$ e recebe o próximo estado $S_{t+1}$ e recompensa $R_{t+1}$. A partir disso, o valor $Q(S_t,A_t)$ é calculado de acordo com a equação \ref{eq:sarsa} e, então, o treinamento dos pesos da rede é realizado de forma a aproximar o valor calculado.
+ A função de ativação utilizada foi \textit{ReLU}. A camada de entrada da rede apresenta 5 nós, cada um relativo a um dos estados descritos na Subseção \ref{subsubsec:state-approx}, e a camada de saída apresenta 8 nós, cada um relativo a um dos comportamentos descritos na Subseção \ref{subsubsec:behaviors-mapping}. A cada ciclo $t$, o agente toma uma ação $A_t$ no estado $S_t$ e recebe o próximo estado $S_{t+1}$ e recompensa $R_{t+1}$. A partir disso, o valor $Q(S_t,A_t)$ é calculado de acordo com a equação \ref{eq:sarsa} e, então, o treinamento dos pesos da rede é realizado de forma a aproximar o valor calculado.
 
 \begin{table}[h]
 	\centering
 	\begin{tabular}{||c c||} 
 		\hline
-		camada & nº neurônios  \\ [0.5ex] 
+		camada & nº nós  \\ [0.5ex] 
 		\hline\hline
 		1 & 5  \\ 
 		\hline
@@ -330,9 +330,9 @@ Nos Códigos \ref{code:walktoball}, \ref{code:leadball} e \ref{code:shootball} s
 \begin{itemize}
 	\item \textbf{Fator de desconto ($\gamma$)}: Apesar do ambiente ser episódico, foi utilizado um fator de desconto de 0.99 devido ao fato de que a condição de término do episódio (fim de jogo) não ser observável através da discretização do estado utilizada.  
 	
-	\item \textbf{Fator de aprendizagem ($\alpha$)}: O fator de aprendizagem foi definido inicialmente como 0.1 e foi reduzido exponencialmente multiplicando-o por $0.99999$ ao final de cada partida. 
+	\item \textbf{Fator de aprendizagem ($\alpha$)}: O fator de aprendizagem foi definido inicialmente como 0.1 e foi reduzido exponencialmente multiplicando-o por $0.99999$ ao final de cada treino de partida. 
 	
-	\item \textbf{Fator de exploração ($\epsilon$)}: Para incentivar a exploração das possibilidades, o fator de exploração foi definido inicialmente como 0.9 e reduzido exponencialmente multiplicando-o por $0.99990$ ao final de cada partida. A cada ação tomada, o agente tem probabilidade $\epsilon$ de escolher uma ação aleatória. Além disso, para favorecer a exploração, no início de cada partida era também sorteada uma posição inicial para o agente em seu lado do campo.
+	\item \textbf{Fator de exploração ($\epsilon$)}: Para incentivar a exploração das possibilidades, o fator de exploração foi definido inicialmente como 0.9 e reduzido exponencialmente multiplicando-o por $0.99990$ ao final de cada treino de partida. A cada ação tomada, o agente tem probabilidade $\epsilon$ de escolher uma ação aleatória. Além disso, para favorecer a exploração, no início de cada treino de partida era também sorteada uma posição inicial para o agente em seu lado do campo.
 \end{itemize}
 
 \subsection{Recompensa}
@@ -365,7 +365,7 @@ Deste modo, a cada instante de tempo foi atribuída uma recompensa $R = R_1 + R_
 
 Além da solução através de um aproximador de funções, foi testada uma solução utilizando o método tabular com os mesmos comportamentos e uma discretização dos estados descrita abaixo.
 
-A codificação dos comportamentos, parâmetros $\alpha$ e $\gamma$ e a recompensa foram mantidos como descrito nas subseções \ref{subsubsec:behaviors-mapping}, \ref{subsubsec:sarsa-params} e \ref{subsubsec:reward} respectivamente. O parâmetro $\epsilon$ foi mantido em $0.9$ porém com um decaimento mais lento, sendo multiplicado por $0.99996$ ao final de cada partida.
+A codificação dos comportamentos, parâmetros $\alpha$ e $\gamma$ e a recompensa foram mantidos como descrito nas subseções \ref{subsubsec:behaviors-mapping}, \ref{subsubsec:sarsa-params} e \ref{subsubsec:reward} respectivamente. O parâmetro $\epsilon$ foi mantido em $0.9$ porém com um decaimento mais lento, sendo multiplicado por $0.99996$ ao final de cada treino de partida.
 
 \subsection{Codificação dos Estados}
 \label{subsubsec:state-encoding}
@@ -389,13 +389,13 @@ O estado percebido pelo agente é dado pela combinação dos seguintes fatores:
 	
 	Caso o jogador possa enxergar a bola, a distância D é recebida diretamente do sensor. Caso contrário, a distância D é estimada com base na última posição percebida da bola.
 	
-	\item \textbf{Direção da bola}: A direção da bola foi dividida em 24 fatias de $15^{\circ}$ cada. O ângulo de visão do jogador é de $\pm30^{\circ}$. Caso a bola não esteja visível, a direção da bola é estimada com base na última posição percebida.
+	\item \textbf{Direção da bola}: A direção da bola foi dividida em 24 setores de $15^{\circ}$ cada. O ângulo de visão do jogador é de $\pm30^{\circ}$. Caso a bola não esteja visível, a direção da bola é estimada com base na última posição percebida.
 	
-	\item \textbf{Posição do jogador em X}: A posição estimada do jogador em X foi discretizada em 10 janelas de tamanho $11.5$.
+	\item \textbf{Posição do jogador em X}: A posição estimada do jogador em X foi discretizada em 10 intervalos de tamanho $11.5$.
 	
-	\item \textbf{Posição do jogador em Y}: A posição estimada do jogador em Y foi discretizada em 7 janelas de tamanho aproximado $11.14$.
+	\item \textbf{Posição do jogador em Y}: A posição estimada do jogador em Y foi discretizada em 7 intervalos de tamanho aproximado $11.14$.
 	
-	\item \textbf{Direção do jogador}: A direção estimada do jogador em relação ao eixo horizontal foi discretizada em 24 fatias de $15^{\circ}$ cada.
+	\item \textbf{Direção do jogador}: A direção estimada do jogador em relação ao eixo horizontal foi discretizada em 24 setores de $15^{\circ}$ cada.
 	
 \end{itemize}
 
@@ -434,9 +434,9 @@ Para simplificar o vasto espaço de ações disponíveis, foi selecionado um con
 \begin{itemize}
 	\item \textbf{Fator de desconto ($\gamma$)}: Foi mantido tal como descrito na subseção \ref{subsubsec:sarsa-params}.
 	
-	\item \textbf{Fator de aprendizagem ($\alpha$)}: O fator de aprendizagem foi definido como $\frac{6000}{6000+N}$ sendo $N$ o número de partidas experienciadas pelo jogador. 
+	\item \textbf{Fator de aprendizagem ($\alpha$)}: O fator de aprendizagem foi definido como $\frac{6000}{6000+N}$ sendo $N$ o número de treino de partidas experienciadas pelo jogador. 
 	
-	\item \textbf{Fator de exploração ($\epsilon$)}: O fator de aprendizagem foi definido como $\frac{8000}{8000+N}$ sendo $N$ o número de partidas experienciadas pelo jogador. 
+	\item \textbf{Fator de exploração ($\epsilon$)}: O fator de aprendizagem foi definido como $\frac{8000}{8000+N}$ sendo $N$ o número de treino de partidas experienciadas pelo jogador. 
 \end{itemize}
 
 No capítulo seguinte, é feita a análise dos resultados dos experimentos descritos neste capítulo.
