@@ -77,7 +77,10 @@ Ela também se diferencia da Aprendizagem Não-Supervisionada, que tradicionalme
 Desse modo, as técnicas de Aprendizagem por Reforço serão aplicadas a fim de buscar políticas capazes de maximizar o desempenho dos jogadores virtuais, ou seja, obter políticas que tornem os agentes capazes de fazer gols e evitar que os jogadores do time adversário façam gols.
 
 \subsection{Aprendizagem com Diferença Temporal}
-\par A aprendizagem com diferença temporal (\textit{temporal-difference learning}, ou TD) é uma das ideias centrais de RL \cite{sutton2018reinforcement}. Esse tipo de aprendizado é importante pois permite o aprendizado sem um modelo prévio do MDP do ambiente e também permite o uso de estimativas aprendidas durante o treinamento, conhecido como \textit{bootstrapping}, acelerando dramaticamente o tempo de convergência. 
+\par A aprendizagem com diferença temporal (\textit{temporal-difference learning}, ou TD) é uma das ideias centrais de RL \cite{sutton2018reinforcement}. Esse tipo de aprendizado é importante pois permite o aprendizado sem um modelo prévio do MDP do ambiente e também permite que se atualize estimativas das funções de valor utilizando outras estimativas, conhecido como \textit{bootstrapping}, acelerando dramaticamente o tempo de treinamento, por ser possível treinar a cada ciclo.  
+
+% permite o uso de estimativas aprendidas durante o treinamento, conhecido como \textit{bootstrapping}, acelerando dramaticamente o tempo de convergência. 
+
 \par A diferença temporal se apoia na ideia de que a política aproximada e a função de valor devem se relacionar de forma que ambas convirjam para seus valores ótimos, conhecida como iteração generalizada da política (\textit{generalized policy iteration} ou GPI) \cite{sutton2018reinforcement}. 
 \par As técnicas \textit{Sarsa}, \textit{Q-learning} e \textit{Double Q-learning} apresentadas nas Subseções \ref{subsec:sarsa-theory}, \ref{subsec:q-theory} e \ref{subsec:dq-theory} são exemplos de aprendizagem com diferença temporal.
 
