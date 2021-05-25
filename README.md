@@ -3,21 +3,27 @@ Repo for writing the report for TG2
 
 ## Correções da Banca
 
-- [ ] Descrever na introdução o que são os comportamentos e as ações elementares
-- [ ] Reescrever parágrafo da Propriedade de Markov (e termo 'dinâmica futura')
+- [ ] Descrever na introdução o que são os comportamentos e as ações elementares (termos apareceram jogados na seção 1.5)
+- [ ] Reescrever parágrafo da Propriedade de Markov mais similar à apresentação (e termo 'dinâmica futura') (página 8)
 - [ ] Reescrever parte de bootstrapping na Seção 2.2.1 de acordo com comentários do João Paulo, utilização da própria estimativa durante o treinamento 
 - [ ] Trocar 'fatias' e 'janelas' por termos mais formais
 - [ ] Mostrar resultados específicos sobre o melhor treinamento (quantos gols faz?), comportamento final do jogador
-- [ ] Tradução de Exploração e Aproveitamento (vamos mudar? eu acho muito mais claro que 'busca em largura' e 'busca em profundidade')
+- [ ] Tradução de Exploração e Aproveitamento (vamos mudar? eu acho muito mais claro que 'busca em largura' e 'busca em profundidade') talvez mudar pra exploração e refinamento
 - [ ] Detalhar mais como chegamos na recompensa
 - [ ] Mudar * para superscrito? Sutton e Barto usam subscrito.
 - [ ] Clarificar que sensor adiciona ruído e 'perde' informações com a distância
-- [ ] Retirar ação de agarrar?
+- [ ] Retirar ação de agarrar
 - [ ] Deixar claro que não é uma partida é um treino de partida, tempo de simulação (6000 ciclos)
-- [ ] Deixar mais claro no dota são números ponto flutuante contínuos
-- [ ] Corrigir a explicação da função q pi no final da Seção 2.1
+- [ ] Deixar mais claro no dota são números ponto flutuante contínuos (página 2)
+- [ ] Melhorar a explicação da função q pi e v pi no final da Seção 2.1 página 10
 - [ ] Deixar claro que o número de gols é refletido com maior peso no retorno
 - [ ] Referenciar a vitória do AlphaGo sobre o campeão mundial de Go (não somente o europeu) **não achei a ref pra isso, talvez deixemos só europeu que tem ref em todo lugar**
+- [ ] Referenciar Sutton e Barto nas formulações do capítulo 2 (especialmente no double Q-learning)
+- [ ] Adicionar o ggb-single na conclusão
+- [ ] Revisar exemplo episódico x continuado
+- [ ] Corrigir tabela da rede neural (entradas não são neurônios)
+- [ ] Deixar claro que é agente único (especialmente nas montagens onde o jogador aparece várias vezes)
+- [ ] Substituir Wiener 1950 pelo artigo original de 1948 nas referências
 - [x] Esclarecer trecho sobre velocidade de simulação
 - [x] Mudar imagem do arco na estimação de estados
 - [x] Pontuar legendas das figuras, códigos...
