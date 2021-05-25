@@ -122,9 +122,9 @@ De posse do ângulo absoluto do jogador, sua posição absoluta (X, Y) em campo 
 sendo $D_{sensor}$ e $\theta_{sensor}$ a distância e ângulo medidos pelo sensor, $\theta_{j \to f}$ o vetor que leva do jogador à bandeira e $(X_f, Y_f)$ a posição absoluta da bandeira. Uma média é feita a partir das estimativas obtidas com cada uma das bandeiras vistas. 
 
 \begin{figure}[H]
-	\includegraphics[width=0.7\linewidth]{figs/trig-transf.png}
+	\includegraphics[width=0.7\linewidth]{figs/trig-transf.jpg}
 	\centering
-	\caption{Visualização do cálculo da posição absoluta do jogador}
+	\caption{Visualização do cálculo da posição absoluta do jogador.}
 	\label{fig:trig}
 \end{figure}
 
@@ -218,7 +218,7 @@ Para isso, foram realizadas três abordagens diferentes.
 \begin{itemize}
 	\item \textit{Sarsa} com aproximador de funções e comportamentos pré-programados;
 	\item \textit{Q-Learning} duplo tabular e comportamentos pré-programados;
-	\item \textit{Q-Learning} duplo tabular e ações puras.
+	\item \textit{Q-Learning} duplo tabular e ações elementares.
 \end{itemize}
 
 \section{Sarsa Com Aproximador de Funções e Comportamentos Pré-Programados}
@@ -247,11 +247,11 @@ Para isso, foram realizadas três abordagens diferentes.
 		6 & 8 \\ [1ex] 
 		\hline
 	\end{tabular}
-	\caption{Estrutura da rede neural utilizada no experimento}
+	\caption{Estrutura da rede neural utilizada no experimento.}
 	\label{table:ann}
 \end{table}
 
-A utilização de comportamentos permite que sejam inseridos conhecimentos prévios a respeito do que é esperado de um agente jogador de futebol, ou seja, é possível simplificar o aprendizado substituindo as ações puras como chutar ou correr por ações abstratas como perseguir a bola e chutar para o gol.
+A utilização de comportamentos permite que sejam inseridos conhecimentos prévios a respeito do que é esperado de um agente jogador de futebol, ou seja, é possível simplificar o aprendizado substituindo as ações elementares como chutar ou correr por ações mais alto nível, os comportamentos, como perseguir a bola e chutar para o gol.
 
 \subsection{Codificação dos Estados}
 \label{subsubsec:state-approx}
@@ -314,7 +314,7 @@ Nos Códigos \ref{code:walktoball}, \ref{code:leadball} e \ref{code:shootball} s
 	\begin{tabular}{c}
 		\begin{lstlisting}[caption={Algoritmo geral do comportamento de chutar bola para o gol} , captionpos=b,label=code:shootball]
 			fun'ç''ã'o CarregarBola(s):
-					Xgol, Ygol <- Gol.Posição 
+					Xgol, Ygol <- Gol.Posi'ç''ã'o 
 					se s.Dist'â'nciaBola < 0.7:
 							'â'ngulo <- atan2(s.Y - Ygol, s.X - Xgol) - s.Orienta'ç''ã'o
 							comando <- Chutar(60, 'â'ngulo)
@@ -401,7 +401,7 @@ O estado percebido pelo agente é dado pela combinação dos seguintes fatores:
 
 Com isso, o número total de estados possíveis é dado pelo produtório da quantidade de possibilidades em cada um dos itens acima totalizando 282240 estados.
 
-\section{\textit{Q-Learning} Duplo Tabular e Ações Puras}
+\section{\textit{Q-Learning} Duplo Tabular e Ações Elementares}
 % Inicialmente, deseja-se realizar o treinamento de um agente único que, com as informações de seus sensores, consiga com sucesso levar a bola ao gol. Essa proposta tem como objetivo fundamentar os conhecimentos e validar a base de código para a realização de um treinamento de um time de múltiplos agentes em um estágio posterior.
 
 % O desenvolvimento de um agente único, inicialmente, permite adquirir o entendimento necessário para a definição do vetor de estados e ajuste das técnicas de treinamento. Além disso, busca-se uma maior agilidade na substituição e teste na estrutura do vetor de estados e no algoritmo de treinamento, uma vez que o custo computacional deste cenário é consideravelmente menor que o custo do treinamento de um time completo.

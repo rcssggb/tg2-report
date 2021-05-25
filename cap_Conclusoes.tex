@@ -2,7 +2,7 @@
 \chapter{Conclusões}
 \label{chap:Conclusoes}
 
-Este projeto teve como objetivo a implementação de uma plataforma para desenvolvimento de aprendizagem por reforço em futebol de robôs, mais especificamente na categoria RoboCup Soccer Simulation 2D, e a utilização de técnicas de RL para realizar treinamentos de seleção de comportamentos e ações puras para maximizar o número de gols feitos por um agente.
+Este projeto teve como objetivo a implementação de uma plataforma para desenvolvimento de aprendizagem por reforço em futebol de robôs, mais especificamente na categoria RoboCup Soccer Simulation 2D, e a utilização de técnicas de RL para realizar treinamentos de seleção de comportamentos e ações elementares para maximizar o número de gols feitos por um agente.
 
 Ao pesquisar sobre a comunidade e equipes participantes das edições nacionais da competição, notou-se que a biblioteca de interfaceamento com o servidor \textit{librcsc} e o time base \textit{agent2d} - ambos desenvolvidos no Japão por acadêmicos da equipe \textit{HELIOS} - são amplamente utilizados. Apesar de ser uma plataforma bastante completa, sua dominância acaba limitando a inovação na categoria, mantendo as equipes dentro da arquitetura de solução proposta no \textit{agent2d}.
 
@@ -12,7 +12,7 @@ Foram realizados três treinamentos distintos e seus resultados foram analisados
 
 A fim de aumentar o número de amostras, o estado foi discretizado e implementou-se o algoritmo \textit{Q-Learning} duplo com os mesmos comportamentos e utilizando um método tabular. O número de amostras possíveis de serem coletadas aumentou consideravelmente e o treinamento se mostrou mais estável, além de obter retornos mais altos.
 
-Por fim, foi realizado um treinamento com ações puras, permitindo que o agente aprendesse estratégias por si só. O treinamento demonstrou retornos menores que o anterior, porém a aprendizagem pareceu continuar por mais tempo, o que sugere que abordagens \textit{end-to-end} são capazes de aproveitar melhor quantidades maiores de amostras.
+Por fim, foi realizado um treinamento com ações elementares, permitindo que o agente aprendesse estratégias por si só. O treinamento demonstrou retornos menores que o anterior, porém a aprendizagem pareceu continuar por mais tempo, o que sugere que abordagens com comportamentos são capazes de aproveitar melhor quantidades maiores de amostras.
 
 \section{Trabalhos Futuros}
 

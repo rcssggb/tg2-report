@@ -4,35 +4,35 @@ Repo for writing the report for TG2
 ## Correções da Banca
 
 - [ ] Descrever na introdução o que são os comportamentos e as ações elementares
-- [ ] Mudar nome de ações puras para ações elementares
 - [ ] Reescrever parágrafo da Propriedade de Markov (e termo 'dinâmica futura')
 - [ ] Reescrever parte de bootstrapping na Seção 2.2.1 de acordo com comentários do João Paulo, utilização da própria estimativa durante o treinamento 
-- [ ] Adicionar referência nas fórmulas
-- [ ] Pontuar legendas das figuras, códigos...
 - [ ] Trocar 'fatias' e 'janelas' por termos mais formais
 - [ ] Mostrar resultados específicos sobre o melhor treinamento (quantos gols faz?), comportamento final do jogador
-- [ ] Mudar título para: Aprendizagem Por Reforço no Contexto de Futebol de Robôs: RoboCup Soccer Simulation 2D
-- [ ] Colocar 'theta_j ' e 'theta_f' na Lista da Símbolos
-- [ ] Esclarecer trecho sobre velocidade de simulação
 - [ ] Tradução de Exploração e Aproveitamento (vamos mudar? eu acho muito mais claro que 'busca em largura' e 'busca em profundidade')
-- [ ] Mudar o termo 'ações abstratas'
 - [ ] Detalhar mais como chegamos na recompensa
 - [ ] Mudar * para superscrito? Sutton e Barto usam subscrito.
-- [ ] 2D vs 2d? Não acho que tenha nada para mudar, mas vamos conferir
 - [ ] Clarificar que sensor adiciona ruído e 'perde' informações com a distância
-- [ ] Mudar termo end-to-end a não ser que encontremos uma fonte que usa
-- [ ] Referanciar a vitória do AlphaGo sobre o campeão mundial de Go (não somente o europeu)
-- [ ] Corrigir referências (nomes, locais, edição do Sutton)
 - [ ] Retirar ação de agarrar?
-- [ ] Typo 'Poda' em 2.2.3
-- [ ] Mudar Contínuo para Continuada (Continuing), 2.1.1
-- [ ] Mudar imagem do arco na estimação de estados
 - [ ] Deixar claro que não é uma partida é um treino de partida, tempo de simulação (6000 ciclos)
-- [ ] Colocar termos em inglês em itálico
-- [ ] Tirar DOIs das referências 
 - [ ] Deixar mais claro no dota são números ponto flutuante contínuos
 - [ ] Corrigir a explicação da função q pi no final da Seção 2.1
 - [ ] Deixar claro que o número de gols é refletido com maior peso no retorno
+- [ ] Referenciar a vitória do AlphaGo sobre o campeão mundial de Go (não somente o europeu) **não achei a ref pra isso, talvez deixemos só europeu que tem ref em todo lugar**
+- [x] Esclarecer trecho sobre velocidade de simulação
+- [x] Mudar imagem do arco na estimação de estados
+- [x] Pontuar legendas das figuras, códigos...
+- [x] Mudar título para: Aprendizagem Por Reforço no Contexto de Futebol de Robôs: RoboCup Soccer Simulation 2D
+- [x] 2D vs 2d? Não acho que tenha nada para mudar, mas vamos conferir
+- [x] Adicionar referência nas fórmulas
+- [x] Colocar 'theta_j ' e 'theta_f' na Lista da Símbolos
+- [x] Mudar o termo 'ações abstratas'
+- [x] Corrigir referências (nomes, locais, edição do Sutton)
+- [x] Mudar Contínuo para Continuada (Continuing), 2.1.1
+- [x] Mudar termo end-to-end a não ser que encontremos uma fonte que usa
+- [x] Typo 'Poda' em 2.2.3
+- [x] Colocar termos em inglês em itálico
+- [x] Tirar DOIs das referências 
+- [x] Mudar nome de ações puras para ações elementares
 
 ## Tarefas
 - [ ] Adicionar ficha catalográfica (depois de aprovado)

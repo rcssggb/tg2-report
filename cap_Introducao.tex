@@ -42,14 +42,14 @@ Desde 2005, a RCSS está presente na maior competição de robótica da América
 \subsection{Servidor da partida}
 \label{subsec:server}
 \par Um servidor que executa a partida é disponibilizado pelos organizadores da competição e este pode ser utilizado, também, para desenvolvimento. O servidor, portanto, apresenta, internamente, algumas das regras da partida bem como um juiz autônomo que age para determinar gols, faltas e demais situações de uma partida de futebol. Caso necessário, um juiz humano poderá intervir em situações não contempladas pelas regras do servidor.
-\par O servidor simula todos os movimentos e ações dos jogadores e da bola. Clientes externos se conectam ao servidor e cada cliente controla um único jogador. A comunição entre o cliente e o servidor é feita a partir do protocolo UDP por meio de mensagens com sintaxe específica e definida pelo servidor.
+\par O servidor simula todos os movimentos e ações dos jogadores e da bola. Clientes externos se conectam ao servidor e cada cliente controla um único jogador. Uma partida usual tem 6.000 ciclos de 100 milisegundos, totalizando 10 minutos. A comunição entre o cliente e o servidor é feita a partir do protocolo UDP por meio de mensagens com sintaxe específica e definida pelo servidor.
 \par De forma a permitir o acompanhamento visual da partida, um monitor também é disponibilizado, porém não é necessário para que uma partida ocorra com sucesso.
-\par O servidor possui, ainda, o modo \textit{trainer} para utilização durante treinamentos de algoritmos de inteligência computacional. Este modo permite a conexão de um cliente do tipo treinador que tem acesso absoluto às informações da partida e pode mudar modos de jogo e ainda mover arbitrariamente jogadores e bola. Adicionalmente, é possível acelerar os ciclos da partida permitindo o treinamento em tempo hábil.
+\par O servidor possui, ainda, o modo \textit{trainer} para utilização durante treinamentos de algoritmos de inteligência computacional. Este modo permite a conexão de um cliente do tipo treinador que tem acesso absoluto às informações da partida e pode mudar modos de jogo e ainda mover arbitrariamente jogadores e bola. Adicionalmente, é possível acelerar os ciclos da partida simulando o mais rápido possível e permitindo o treinamento em tempo hábil.
 
 \begin{figure}[h]
 	\includegraphics[width=0.9\linewidth]{figs/server.png}
 	\centering
-	\caption{Visualização de uma partida em andamento}
+	\caption{Visualização de uma partida em andamento.}
 	\label{fig:rcssserver}
 \end{figure}
 
@@ -90,7 +90,7 @@ Muitas equipes, ainda, desenvolvem seus agentes utilizando o agente base da equi
 
 \section{Caracterização do Problema}
 
-Deseja-se, então, explorar o problema de se fazer gols com um agente único no ambiente descrito utilizando-se de técnicas de aprendizagem por reforço. Para isso, foi desenvolvida uma biblioteca de interfaceamento com o servidor da partida como adaptação do ambiente. Após isso, o agente foi treinado com a utilização de técnicas de RL em duas abordagens - ações puras e comportamentos - de forma a compará-las.
+Deseja-se, então, explorar o problema de se fazer gols com um agente único no ambiente descrito utilizando-se de técnicas de aprendizagem por reforço. Para isso, foi desenvolvida uma biblioteca de interfaceamento com o servidor da partida como adaptação do ambiente. Após isso, o agente foi treinado com a utilização de técnicas de RL em duas abordagens - ações elementares e comportamentos - de forma a compará-las.
 
 
 \subsection{Objetivos Específicos}
@@ -98,7 +98,7 @@ Deseja-se, então, explorar o problema de se fazer gols com um agente único no 
 \begin{itemize}
 	\item Implementar uma plataforma para desenvolvimento de aprendizagem por reforço no âmbito da categoria RCSS;
 	\item Utilizar técnicas de aprendizagem por reforço para treinar a escolha de comportamentos;
-	\item Utilizar técnicas de aprendizagem por reforço para treinar a escolha de ações puras;
+	\item Utilizar técnicas de aprendizagem por reforço para treinar a escolha de ações elementares;
 	\item Comparar as diferentes configurações de treinamento e seus resultados.
 \end{itemize}
 

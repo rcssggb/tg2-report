@@ -23,7 +23,7 @@ Assim, dado um espaço de estados $\mathcal{S}$, um espaço de ações $\mathcal
 
 Essa abordagem é bastante flexível e torna possível modelar a dinâmica do futebol virtual de robôs de diversas maneiras de modo que cada agente possa construir um estado percebido a partir de seus sensores e tomar decisões acerca de qual a melhor ação a fim de maximizar a recompensa recebida.
 
-\subsection{MDP Episódico e Contínuo}
+\subsection{MDP Episódico e Continuado}
 
 Um MDP pode ser caracterizado quanto à presença de um estado terminal. Caso o MDP tenha um ou mais estados que determinem o fim do processo, ele é dito episódico e a totalidade do processo até o estado que determina o fim é chamada de episódio. A simulação de futebol de robôs tratada neste trabalho é um exemplo de MDP episódico, uma vez que o MDP termina ao se encerrar o tempo de jogo.
 
@@ -81,19 +81,19 @@ Desse modo, as técnicas de Aprendizagem por Reforço serão aplicadas a fim de 
 \par A diferença temporal se apoia na ideia de que a política aproximada e a função de valor devem se relacionar de forma que ambas convirjam para seus valores ótimos, conhecida como iteração generalizada da política (\textit{generalized policy iteration} ou GPI) \cite{sutton2018reinforcement}. 
 \par As técnicas \textit{Sarsa}, \textit{Q-learning} e \textit{Double Q-learning} apresentadas nas Subseções \ref{subsec:sarsa-theory}, \ref{subsec:q-theory} e \ref{subsec:dq-theory} são exemplos de aprendizagem com diferença temporal.
 
-\subsection{Aprendizagem On-policy e Off-policy}
+\subsection{Aprendizagem \textit{On-policy} e \textit{Off-policy}}
 \label{subsec:on-off-policy}
-Entre as técnicas de aprendizagem por reforço, existe uma divisão entre a aprendizagem on-policy e a aprendizagem off-policy, referentes à relação entre a política executada durante o aprendizado e a política sobre a qual se quer aprender.
+Entre as técnicas de aprendizagem por reforço, existe uma divisão entre a aprendizagem \textit{on-policy} e a aprendizagem \textit{off-policy}, referentes à relação entre a política executada durante o aprendizado e a política sobre a qual se quer aprender.
 
-Nos algoritmos de aprendizagem on-policy o agente aprende a respeito da política $\pi$ enquanto navega o MDP de acordo com a própria política $\pi$, ou seja, a política executada durante a aprendizagem é a mesma que se quer estudar.
+Nos algoritmos de aprendizagem \textit{on-policy} o agente aprende a respeito da política $\pi$ enquanto navega o MDP de acordo com a própria política $\pi$, ou seja, a política executada durante a aprendizagem é a mesma que se quer estudar.
 
-Em contrapartida, nos algoritmos de aprendizagem off-policy o agente aprende a respeito da política alvo $\pi$ enquanto navega o MDP de acordo com a política $b$, ou seja, ele estima a função $q_{\pi}$ enquanto executa a política $b$. Esses métodos costumam introduzir variância no processo, tornando o aprendizado ruidoso e muitas vezes divergente.
+Em contrapartida, nos algoritmos de aprendizagem \textit{off-policy} o agente aprende a respeito da política alvo $\pi$ enquanto navega o MDP de acordo com a política $b$, ou seja, ele estima a função $q_{\pi}$ enquanto executa a política $b$. Esses métodos costumam introduzir variância no processo, tornando o aprendizado ruidoso e muitas vezes divergente.
 
-Além disso, é possível observar que a aprendizagem on-policy é apenas um caso particular da aprendizagem off-policy em que $b = \pi$.
+Além disso, é possível observar que a aprendizagem \textit{on-policy} é apenas um caso particular da aprendizagem \textit{off-policy} em que $b = \pi$.
 
 \subsection{Soluções Tabulares e Aproximadas}
 
-A maioria dos métodos de aprendizagem por reforço são testados e validados em MDPs cujos espaços de estados $\mathcal{S}$ e de ações $\mathcal{A}$ são suficientemente pequenos. Para esses MDPs é possível utilizar uma solução tabular, ou seja, a função $Q$ poda ser armazenada em uma tabela de tamanho razoável e sua imagem para cada par estado-ação pode ser atualizado individualmente.
+A maioria dos métodos de aprendizagem por reforço são testados e validados em MDPs cujos espaços de estados $\mathcal{S}$ e de ações $\mathcal{A}$ são suficientemente pequenos. Para esses MDPs é possível utilizar uma solução tabular, ou seja, a função $Q$ pode ser armazenada em uma tabela de tamanho razoável e sua imagem para cada par estado-ação pode ser atualizado individualmente.
 
 Infelizmente, em diversas aplicações a quantidade de estados possíveis é grande demais ou até mesmo infinita, como é o caso de sistemas em que determinada característica do estado é medida como uma grandeza contínua. Nesses casos, é impossível esperar que se obtenham soluções ótimas mesmo com tempo infinito, portanto o objetivo é obter uma solução aproximada que seja boa o suficiente para a aplicação desejada.
 
@@ -101,9 +101,9 @@ A ferramenta matemática utilizada para viabilizar soluções aproximadas é o c
 
 \subsection{A Tríade da Morte}
 
-Sutton e Barto definem um cenário denominado a tríade da morte (\textit{the deadly triad}) como um cenário onde a presença de três elementos causa instabilidade e divergência em treinamentos: aproximação de funções, \textit{bootstrapping} e treinamentos off-policy \cite{sutton2018reinforcement}.
+Sutton e Barto definem um cenário denominado a tríade da morte (\textit{the deadly triad}) como um cenário onde a presença de três elementos causa instabilidade e divergência em treinamentos: aproximação de funções, \textit{bootstrapping} e treinamentos \textit{off-policy} \cite{sutton2018reinforcement}.
 
-Existe, portanto, a decisão do projetista de definir treinamentos de forma a evitar o conjunto desses três elementos. O aproximador de funções pode ser evitado com técnicas tabulares em ambientes menos complexos e ao custo de uso de memória. Para métodos TD, \textit{bootstrapping} é um requerimento. Entretanto, outros métodos permitem realizar o treinamento sem o uso de estimativas. Métodos off-policy são considerados mais poderosos e versáteis, porém introduzem mais variância como descrito na Subseção \ref{subsec:on-off-policy} e, portanto, nem sempre são a melhor escolha.
+Existe, portanto, a decisão do projetista de definir treinamentos de forma a evitar o conjunto desses três elementos. O aproximador de funções pode ser evitado com técnicas tabulares em ambientes menos complexos e ao custo de uso de memória. Para métodos TD, \textit{bootstrapping} é um requerimento. Entretanto, outros métodos permitem realizar o treinamento sem o uso de estimativas. Métodos \textit{off-policy} são considerados mais poderosos e versáteis, porém introduzem mais variância como descrito na Subseção \ref{subsec:on-off-policy} e, portanto, nem sempre são a melhor escolha.
 
 \subsection{Exploração e Aproveitamento}
 \label{subsec:exploration-exploitation}
@@ -118,7 +118,7 @@ Além disso, alguns ambientes permitem que se escolha o estado inicial do agente
 
 \subsection{Sarsa}
 \label{subsec:sarsa-theory}
-Entre os algoritmos de aprendizagem on-policy está o Sarsa. Seu nome é derivado da quíntupla $(S_t, A_t, R_{t+1}, S_{t+1}, A_{t+1})$ utilizada como entrada da sua fórmula de atualização:
+Entre os algoritmos de aprendizagem \textit{on-policy} está o Sarsa. Seu nome é derivado da quíntupla $(S_t, A_t, R_{t+1}, S_{t+1}, A_{t+1})$ utilizada como entrada da sua fórmula de atualização \cite{sutton2018reinforcement}: 
 
 \begin{equation}
 	\label{eq:sarsa}
@@ -127,13 +127,13 @@ Entre os algoritmos de aprendizagem on-policy está o Sarsa. Seu nome é derivad
 
 Uma vez que a política adotada pelo agente não pode ser gulosa, pois inibiria a exploração do espaço de estados e de ações, é interessante que o agente siga uma política $\epsilon$-gulosa baseada na estimativa de $Q$. Nesse caso, para Q tabular, a convergência para a política ótima é garantida desde que todos os pares $(S, A)$ sejam visitados infinitas vezes e a política convirja para a política gulosa em $t \to \infty$.
 
-Para o caso em que se usa um aproximador para estimar Q não há garantias, porém a natureza on-policy do Sarsa reduz a variância da aprendizagem. Isso pode tornar essa abordagem mais estável do que o Q-learning, descrito a seguir.
+Para o caso em que se usa um aproximador para estimar Q não há garantias, porém a natureza \textit{on-policy} do Sarsa reduz a variância da aprendizagem. Isso pode tornar essa abordagem mais estável do que o Q-learning, descrito a seguir.
 
 \subsection{Q-Learning}
 \label{subsec:q-theory}
-Um dos algoritmos mais populares no campo da aprendizagem por reforço é o Q-Learning. Trata-se de um método off-policy que aproxima diretamente a função $q_*$ independente da política que estiver sendo adotada pelo agente durante o treinamento.
+Um dos algoritmos mais populares no campo da aprendizagem por reforço é o Q-Learning. Trata-se de um método \textit{off-policy} que aproxima diretamente a função $q_*$ independente da política que estiver sendo adotada pelo agente durante o treinamento.
 
-O algoritmo é também muito simples. Dada uma representação tabular $Q: (\mathcal{S},\mathcal{A}) \to \mathbb{R}$ da função $q_*$, para cada instante de tempo $t$ é realizada a seguinte atualização a fim de aproximar $Q$ de $q_*$:
+O algoritmo é também muito simples. Dada uma representação tabular $Q: (\mathcal{S},\mathcal{A}) \to \mathbb{R}$ da função $q_*$, para cada instante de tempo $t$ é realizada a seguinte atualização a fim de aproximar $Q$ de $q_*$ \cite{sutton2018reinforcement}:
 
 \begin{equation}
 Q(S_t, A_t) \leftarrow Q(S_t, A_t) + \alpha[R_{t+1} + \gamma\max_{a} Q(S_{t+1}, a) - Q(S_t, A_t)],
@@ -155,7 +155,7 @@ A_{t} = \max_{a} q_*(S_t, a).
 \label{subsec:dq-theory}
 Apesar de popular, o Q-Learning possui um problema de viés de maximização. Uma vez que a aproximação $Q$ é imprecisa no início do treinamento, é possível que o retorno esperado estimado seja enviesado para um valor maior do que o real.
 
-Como solução para esse problema, é utilizada a abordagem do Q-Learning Duplo. Nela são utilizadas duas aproximações, $Q_1$ e $Q_2$, e a atualização de $Q$ é dada da seguinte forma:
+Como solução para esse problema, é utilizada a abordagem do Q-Learning Duplo. Nela são utilizadas duas aproximações, $Q_1$ e $Q_2$, e a atualização de $Q$ é dada da seguinte forma \cite{sutton2018reinforcement}:
 
 \begin{equation}
 \label{eq:doubleq}
