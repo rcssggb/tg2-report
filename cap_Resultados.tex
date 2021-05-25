@@ -12,7 +12,9 @@
 
 O treinamento com o algoritmo Sarsa contou com 30.000 treinos de partida com a utilização da rede neural multicamadas descrita na Subseção \ref{subsec:sarsadev} e salvando os retornos obtidos em cada treino de partida.
 
-O gráfico da Figura \ref{fig:single-agent-sarsa-behaviors} mostra em conjunto o retorno a cada treino de partida e a média móvel do retorno com janela de 1000 treinamentos de  partidas. É possível observar que há um tendência de subida do retorno com o passar dos episódios experienciados. Porém, em grande parte dos treinos de partida, o agente não realizou nenhum gol, refletido pelo baixo valor da média de 1000 treinos de partida, que precisou ser multiplicado por 10 para melhor visualização gráfica.
+O gráfico da Figura \ref{fig:single-agent-sarsa-behaviors} mostra em conjunto o retorno a cada treino de partida e a média móvel do retorno com janela de 1000 treinamentos de  partidas. Como a recompensa definida aprensenta parcelas $R_1$ e $R_2$ com ordem de grandeza muito menores que $R_1$, que corresponde ao gol contra ou a favor, o retorno pode ser interpretado como o número de gols realizados durante o treino de partida.
+
+É possível observar que há um tendência de subida do retorno com o passar dos episódios experienciados. Porém, em grande parte dos treinos de partida, o agente não realizou nenhum gol, refletido pelo baixo valor da média de 1000 treinos de partida, que precisou ser multiplicado por 10 para melhor visualização gráfica.
 
 É interessante ressaltar o alto custo computacional deste tipo de treinamento devido à utilização de redes neurais. Dessa forma, a quantidade de amostras possíveis de serem coletadas em tempo hábil foi drasticamente reduzida.
 
