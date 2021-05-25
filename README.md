@@ -3,7 +3,7 @@ Repo for writing the report for TG2
 
 ## Correções da Banca
 
-- [ ] Descrever na introdução o que são os comportamentos e as ações elementares (termos apareceram jogados na seção 1.5)
+- [x] Descrever na introdução o que são os comportamentos e as ações elementares (termos apareceram jogados na seção 1.5)
 - [ ] Reescrever parágrafo da Propriedade de Markov mais similar à apresentação (e termo 'dinâmica futura') (página 8)
 - [ ] Reescrever parte de bootstrapping na Seção 2.2.1 de acordo com comentários do João Paulo, utilização da própria estimativa durante o treinamento 
 - [ ] Mostrar resultados específicos sobre o melhor treinamento (quantos gols faz?), comportamento final do jogador
@@ -11,7 +11,7 @@ Repo for writing the report for TG2
 - [ ] Detalhar mais como chegamos na recompensa
 - [ ] Mudar * para superscrito? Sutton e Barto usam subscrito.
 - [ ] Melhorar a explicação da função q pi e v pi no final da Seção 2.1 página 10
-- [ ] Deixar claro que o número de gols é refletido com maior peso no retorno
+- [x] Deixar claro que o número de gols é refletido com maior peso no retorno
 - [ ] Referenciar a vitória do AlphaGo sobre o campeão mundial de Go (não somente o europeu) **não achei a ref pra isso, talvez deixemos só europeu que tem ref em todo lugar**
 - [ ] Revisar exemplo episódico x continuado
 - [ ] Referenciar Sutton e Barto nas formulações do capítulo 2 (especialmente no double Q-learning) (já fiz mas confere lá)
