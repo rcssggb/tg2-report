@@ -338,7 +338,7 @@ Nos Códigos \ref{code:walktoball}, \ref{code:leadball} e \ref{code:shootball} s
 \subsection{Recompensa}
 \label{subsubsec:reward}
 
-A recompensa foi definida em 3 partes a fim de guiar o agente na direção do aprendizado desejado. Todas as medições de recompensa foram feitas utilizando dados da simulação e não da percepção do agente.
+A recompensa foi definida em 3 partes a fim de guiar o agente na direção do aprendizado desejado, ou seja, permitir que ele aprenda gradativamente a se aproximar da bola, em seguida a chutar na direção correta e finalmente a marcar gols. Todas as medições de recompensa foram feitas utilizando dados da simulação e não da percepção do agente.
 
 \begin{itemize}
 	\item \textbf{Proximidade da bola $R_1$}: Para que o agente tenha tendência a se aproximar da bola, foi definida uma recompensa negativa proporcional à distância $d$ do agente em relação à bola, ou seja: $R_1 = -d*0.001/6000$.

@@ -5,7 +5,7 @@ Repo for writing the report for TG2
 
 - [x] Reescrever parágrafo da Propriedade de Markov mais similar à apresentação (e termo 'dinâmica futura') (página 8)
 - [ ] Mostrar resultados específicos sobre o melhor treinamento (quantos gols faz?), comportamento final do jogador
-<!-- - [ ] Detalhar mais como chegamos na recompensa -->
+- [x] Detalhar mais como chegamos na recompensa
 - [x] Melhorar a explicação da função q pi e v pi no final da Seção 2.1 página 10
 - [x] Revisar exemplo episódico x continuado
 <!-- - [ ] Tradução de Exploração e Aproveitamento (vamos mudar? eu acho muito mais claro que 'busca em largura' e 'busca em profundidade') talvez mudar pra exploração e refinamento. -- acho ok, mas ainda acho pior que aproveitamento, até porque ninguém traduz exploit para refinar, o sentido em inglês é outro, mais próximo de se aproveitar. -->
