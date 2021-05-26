@@ -27,7 +27,9 @@ Essa abordagem é bastante flexível e torna possível modelar a dinâmica do fu
 
 Um MDP pode ser caracterizado quanto à presença de um estado terminal. Caso o MDP tenha um ou mais estados que determinem o fim do processo, ele é dito episódico e a totalidade do processo até o estado que determina o fim é chamada de episódio. A simulação de futebol de robôs tratada neste trabalho é um exemplo de MDP episódico, uma vez que o MDP termina ao se encerrar o tempo de jogo.
 
-Em contrapartida, há MDPs nos quais não está bem definido nenhum estado terminal. Nesses casos, o MDP pode continuar indefinidamente até uma ação externa ao MDP determinar a sua parada. Um exemplo disso é um MDP que controle um robô numa linha de produção. Caso o sistema de automação supervisor desse robô não determine sua parada (por falta de insumos, por exemplo), o MDP pode seguir operando indefinidamente.
+Em contrapartida, há MDPs nos quais não está bem definido nenhum estado terminal. Nesses casos, o MDP pode continuar indefinidamente até uma ação externa ao MDP determinar a sua parada. Um exemplo disso é um MDP que ajusta os parâmetros de uma refinaria de combustível. Caso o sistema não seja interrompido pelo operador, o MDP pode seguir indefinidamente otimizando os parâmetros a fim de maximizar sua recompensa e, consequentemente, a eficiência da refinaria.
+
+% Um exemplo disso é um MDP que controle um robô numa linha de produção. Caso o sistema de automação supervisor desse robô não determine sua parada (por falta de insumos, por exemplo), o MDP pode seguir operando indefinidamente.
 
 % Nesta fundamentação, será tratado com mais atenção o caso episódico uma vez que é o caso que interessa para aplicação na simulação de futebol de robôs.
 % (comentei fora essa parte porque a gente acabou fazendo o algoritmo contínuo usando o gamma lá porque a gente não codificou o tempo de jogo no estado)
