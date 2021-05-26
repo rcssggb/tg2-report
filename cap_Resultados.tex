@@ -12,7 +12,7 @@
 
 O treinamento com o algoritmo Sarsa contou com 30.000 episódios com a utilização da rede neural multicamadas descrita na Subseção \ref{subsec:sarsadev} e salvando os retornos obtidos em cada episódio.
 
-O gráfico da Figura \ref{fig:single-agent-sarsa-behaviors} mostra em conjunto o retorno a cada episódio e a média móvel do retorno com janela de 1000 treinamentos de  partidas. Como a recompensa definida aprensenta parcelas $R_1$ e $R_2$ com ordem de grandeza muito menores que $R_1$, que corresponde ao gol contra ou a favor, o retorno pode ser interpretado como o número de gols realizados durante o episódio.
+O gráfico da Figura \ref{fig:single-agent-sarsa-behaviors} mostra em conjunto o retorno a cada episódio e a média móvel do retorno com janela de 1000 treinamentos de  partidas. Como a recompensa definida apresenta parcelas $R_1$ e $R_2$ com ordem de grandeza muito menores que $R_3$, que corresponde ao gol contra ou a favor, o retorno pode ser interpretado como aproximadamente o número de gols realizados durante o episódio.
 
 É possível observar que há um tendência de subida do retorno com o passar dos episódios experienciados. Porém, em grande parte dos episódios, o agente não realizou nenhum gol, refletido pelo baixo valor da média de 1000 episódios, que precisou ser multiplicado por 10 para melhor visualização gráfica.
 
