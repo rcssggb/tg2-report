@@ -192,22 +192,29 @@ Não será implementada nenhuma comunicação entre os jogadores neste trabalho.
 
 O ambiente de treinamento consiste em uma base de código que importa a biblioteca detalhada na Seção \ref{sec:lib}. Um formato geral foi definido e desenvolvido a fim de tornar os experimentos fáceis de adaptar, bastando mudar alguns trechos do código. No contexto desse trabalho, um episódio representa 6.000 ciclos com um único jogador e a bola em campo.
 
-O laço de treinamento obedece ao pseudo-código apresentado no Código \ref{code:training-loop}.
+O laço de treinamento obedece ao fluxograma apresentado na Figura \ref{fig:training-loop}.
 
-\begin{tabular}{c}
-	\begin{lstlisting}[caption={Pseudo-código que descreve a rotina de treinamento} , captionpos=b,label=code:training-loop]
-		
-		definir par'â'metros
-		inicializar pesos de treinamento
-		enquanto o estado n'ã'o 'é' terminal:
-			conectar jogador
-			para cada ciclo do episódio:
-				escolher a'ç''ã'o de acordo com a pol'í'tica e o estado
-				observar novo estado e recompensa
-				treinar pesos
-				estado <- novo estado
-	\end{lstlisting}
-\end{tabular}
+%\begin{tabular}{c}
+%	\begin{lstlisting}[caption={Pseudo-código que descreve a rotina de treinamento} , captionpos=b,label=code:training-loop]
+%		
+%		definir par'â'metros
+%		inicializar pesos de treinamento
+%		enquanto o estado n'ã'o 'é' terminal:
+%			conectar jogador
+%			para cada ciclo do episódio:
+%				escolher a'ç''ã'o de acordo com a pol'í'tica e o estado
+%				observar novo estado e recompensa
+%				treinar pesos
+%				estado <- novo estado
+%	\end{lstlisting}
+%\end{tabular}
+
+\begin{figure}[H]
+	\includegraphics[width=0.7\linewidth]{figs/treinamento.png}
+	\centering
+	\caption{Fluxograma que descreve a rotina de treinamento. }
+	\label{fig:training-loop}
+\end{figure}
 
 O laço interno é onde efetivamente os algoritmos de treinamento são implementados, portanto este trecho é alterado a depender da técnica de aprendizagem por reforço utilizada.
 
