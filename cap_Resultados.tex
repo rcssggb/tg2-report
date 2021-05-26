@@ -44,15 +44,6 @@ A estagnação pode indicar, também, existência de um limite superior para o d
 	\label{fig:single-agent-tabular-behaviors}
 \end{figure}
 
-A Figura \ref{fig:goal-seq} ilustra o agente único treinado conduzindo a bola e realizando um gol conforme a política aprendida.
-
-\begin{figure}[H]
-	\includegraphics[width=0.9\linewidth]{figs/goal-sequence.png}
-	\centering
-	\caption{Sobreposição de sequência de imagens do agente único fazendo gol.}
-	\label{fig:goal-seq}
-\end{figure}
-
 A Figura \ref{fig:curvalonga-bhv} mostra o histórico de retornos para um treinamento mais longo, de 200.000 episódios. Nela percebe-se que, após a cessação da exploração, o agente estabiliza seu desempenho um pouco abaixo do máximo obtido.
 
 \begin{figure}[H]
@@ -62,13 +53,22 @@ A Figura \ref{fig:curvalonga-bhv} mostra o histórico de retornos para um treina
 	\label{fig:curvalonga-bhv}
 \end{figure}
 
-Utilizando os pesos obtidos em uma das execuções do treinamento é possível observar cenários variados da política aprendida com um único agente e a bola em campo. A Figura \ref{fig:behaviors-result} ilustra quatro situações distintas construídas com sobreposição de imagens a cada 50 ciclos. Em três delas, o agente marcou um gol em tempos variados, ora tocando a bola até a área do gol, ora chutando de uma distância maior. A quarta situação, no canto inferior direito, ilustra uma situação em que o agente não realizou gols e ficou parado após tocar a bola para trás.
+Utilizando a tabela obtidos em uma das execuções do treinamento é possível observar cenários variados da política aprendida com um único agente e a bola em campo. A Figura \ref{fig:behaviors-result} ilustra quatro situações distintas construídas com sobreposição de imagens a cada 50 ciclos. Em três delas, o agente marcou um gol em tempos variados, ora tocando a bola até a área do gol, ora chutando de uma distância maior. A quarta situação, no canto inferior direito, ilustra uma situação em que o agente não realizou gols e ficou parado após tocar a bola para trás.
 
 \begin{figure}[H]
 	\includegraphics[width=1\linewidth]{figs/behaviors-result.jpg}
 	\centering
 	\caption{Montagem ilustrando 4 exemplos da política aprendida através de sobreposição de imagens.}
 	\label{fig:behaviors-result}
+\end{figure}
+
+Ainda com a tabela obtida, foi realizado a execução de 100 episódios, equivalente a 600.000 ciclos, onde o agente realizou 121 gols no total. Na Figura \ref{fig:bhvheat} é possível observar o mapa de calor das 100 execuções. É notável a utilização dos comportamentos e a previsibilidade do agente, como consequência. Algumas manchas podem ser vistas e são correspondentes a situações como a demonstrada na Figura \ref{fig:behaviors-result}, em que o jogador ficou parado até o final do episódio.
+
+\begin{figure}[H]
+	\includegraphics[width=0.9\linewidth]{figs/behaviorsheat.png}
+	\centering
+	\caption{Mapa de calor de execução de 100 episódios com a tabela Q final e comportamentos pré-programados.}
+	\label{fig:bhvheat}
 \end{figure}
 
 
@@ -93,6 +93,15 @@ A Figura \ref{fig:single-agent-curva} mostra esse histórico. É interessante ob
 \end{figure}
 
 Além disso, assim como na Seção \ref{sec:behaviors-tabular}, foi executado um treinamento de 200.000 episódios a fim de observar a aprendizagem por um período mais longo. Na Figura \ref{fig:single-agent-curvalonga}, observa-se que o agente continua melhorando seu desempenho até próximo do fim do treinamento, o que pode ser indício de que o aprendizado com ações elementares de fato permite mais flexibilidade na política aprendida.
+
+A Figura \ref{fig:actionsheat} mostra o mapa de calor para o treinamento. É possível confirmar, então, que o treinamento é, de fato, mais flexível, ao contrário do treinamento com comportamentos pré-programados. As 100 execuções com a tabela final resultaram em 19 gols no total.
+
+\begin{figure}[H]
+	\includegraphics[width=0.9\linewidth]{figs/actionsheat.png}
+	\centering
+	\caption{Mapa de calor de execução de 100 episódios com a tabela Q final e ações elementares.}
+	\label{fig:actionsheat}
+\end{figure}
 
 Apesar da grande quantidade de experiência a que o agente teve acesso, nota-se na Figura \ref{fig:single-agent-curvalonga} que o crescimento de seu desempenho é bastante limitado, sequer atingindo a média de 1 gol por episódio. Isso é um indicativo do altíssimo custo computacional de soluções utilizando ações elementares como a utilizada no experimento, especialmente quando o espaço de estados é vasto.
 
