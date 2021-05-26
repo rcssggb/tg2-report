@@ -10,7 +10,7 @@
 O problema abordado neste trabalho pode ser descrito simplificadamente como um Processo de Decisão de Markov (MDP).
 MDP é uma forma clássica de representação matemática de processos de decisão sequenciais.
 Nesse modelo de representação, cada ação realizada por um agente que interage com o ambiente transforma o estado do processo e determina a recompensa que o agente recebe.
-Em um MDP, a codificação do estado atual deve conter toda a informação sobre a interação entre o agente e o ambiente que seja relevante para a dinâmica futura do processo. Nesse caso, é dito que o estado possui a "propriedade de Markov".
+Em um MDP, a codificação do estado atual deve conter toda a informação sobre a interação entre o agente e o ambiente que seja relevante para o futuro do processo, ou seja, apenas $S_t$ é relevante na escolha de $A_t$. Nesse caso, é dito que o estado possui a "propriedade de Markov".
 
 \begin{figure}[h]
 	\includegraphics[width=0.6\linewidth]{figs/RL.png}
@@ -19,9 +19,19 @@ Em um MDP, a codificação do estado atual deve conter toda a informação sobre
 	\label{fig:mdp_env}
 \end{figure}
 
-Assim, dado um espaço de estados $\mathcal{S}$, um espaço de ações $\mathcal{A}$ e um espaço de recompensas $\mathcal{R}$, para cada par $(S, A)$ com $S \in \mathcal{S}$ sendo o estado atual do processo e $A \in \mathcal{A}$ a ação tomada pelo agente, existe uma determinada probabilidade de atingir o estado $S' \in \mathcal{S}$ e receber a recompensa $R \in \mathcal{R}$ \cite{sutton2018reinforcement}.
+Dado um espaço de estados $\mathcal{S}$, um espaço de ações $\mathcal{A}$ e um espaço de recompensas $\mathcal{R}$, a dinâmica do ambiente pode ser descrita pela função
+% 
+\begin{equation}
+	p(s^\text{'}, r|s, a) = Pr\{S_t=s^\text{'},R_t=r|S_{t-1}=s, A_{t-1}=a\},
+\end{equation}
+% 
+que determina a probabilidade de atingir o estado $s\text{'} \in \mathcal{S}$ e receber a recompensa $r \in \mathcal{R}$ dado que o agente está em $s \in \mathcal{S}$ e tomou a ação $a \in \mathcal{A}$ \cite{sutton2018reinforcement}.
 
-Essa abordagem é bastante flexível e torna possível modelar a dinâmica do futebol virtual de robôs de diversas maneiras de modo que cada agente possa construir um estado percebido a partir de seus sensores e tomar decisões acerca de qual a melhor ação a fim de maximizar a recompensa recebida.
+% Assim, dado um espaço de estados $\mathcal{S}$, um espaço de ações $\mathcal{A}$ e um espaço de recompensas $\mathcal{R}$, para cada par $(S, A)$ com $S \in \mathcal{S}$ sendo o estado atual do processo e $A \in \mathcal{A}$ a ação tomada pelo agente, existe uma determinada probabilidade de atingir o estado $S' \in \mathcal{S}$ e receber a recompensa $R \in \mathcal{R}$ \cite{sutton2018reinforcement}.
+
+Caso exista uma definição clara da função $p$ para um dado MDP, é possível computar qualquer informação a respeito dele. Porém, na maioria dos casos, a dinâmica do sistema é desconhecida ou muito complexa, como é o caso do futebol de robôs.
+
+A abordagem utilizando MDPs é bastante flexível e torna possível modelar a dinâmica do futebol virtual de robôs de diversas maneiras de modo que cada agente possa construir um estado percebido a partir de seus sensores e tomar decisões acerca de qual a melhor ação a fim de maximizar a recompensa recebida.
 
 \subsection{MDP Episódico e Continuado}
 
