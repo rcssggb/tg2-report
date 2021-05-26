@@ -38,22 +38,22 @@ Observa-se que há uma estagnação do retorno por volta das 60.000 amostras, o 
 A estagnação pode indicar, também, existência de um limite superior para o desempenho do agente devido à menor flexibilidade da política aprendida, ou seja, o agente só é capaz de construir a política a partir dos comportamentos pré-programados.
 
 \begin{figure}[H]
-	\includegraphics[width=0.95\linewidth]{figs/curva-behaviors-tabular.jpg}
+	\includegraphics[width=0.9\linewidth]{figs/curva-behaviors-tabular.jpg}
 	\centering
 	\caption{Curva de aprendizado do agente com comportamentos pré-programados.}
 	\label{fig:single-agent-tabular-behaviors}
 \end{figure}
 
-A Figura \ref{fig:curvalonga-bhv} mostra o histórico de retornos para um treinamento mais longo, de 200.000 episódios. Nela percebe-se que, após a cessação da exploração, o agente estabiliza seu desempenho um pouco abaixo do máximo obtido.
-
 \begin{figure}[H]
-	\includegraphics[width=1\linewidth]{figs/curvalonga-behaviors-tabular.jpg}
+	\includegraphics[width=0.9\linewidth]{figs/curvalonga-behaviors-tabular.jpg}
 	\centering
 	\caption{Curva de aprendizado do agente com comportamentos pré-programados para treinamento longo.}
 	\label{fig:curvalonga-bhv}
 \end{figure}
 
-Utilizando a tabela obtidos em uma das execuções do treinamento é possível observar cenários variados da política aprendida com um único agente e a bola em campo. A Figura \ref{fig:behaviors-result} ilustra quatro situações distintas construídas com sobreposição de imagens a cada 50 ciclos. Em três delas, o agente marcou um gol em tempos variados, ora tocando a bola até a área do gol, ora chutando de uma distância maior. A quarta situação, no canto inferior direito, ilustra uma situação em que o agente não realizou gols e ficou parado após tocar a bola para trás.
+A Figura \ref{fig:curvalonga-bhv} mostra o histórico de retornos para um treinamento mais longo, de 200.000 episódios. Nela percebe-se que, após a cessação da exploração, o agente estabiliza seu desempenho um pouco abaixo do máximo obtido.
+
+Utilizando a tabela Q obtida em uma das execuções do treinamento é possível observar cenários variados da política aprendida com um único agente e a bola em campo. A Figura \ref{fig:behaviors-result} ilustra quatro situações distintas construídas com sobreposição de imagens a cada 50 ciclos. Em três delas, o agente marcou um gol em tempos variados, ora tocando a bola até a área do gol, ora chutando de uma distância maior. A quarta situação, no canto inferior direito, ilustra uma situação em que o agente não realizou gols e ficou parado após tocar a bola para trás.
 
 \begin{figure}[H]
 	\includegraphics[width=1\linewidth]{figs/behaviors-result.jpg}
@@ -62,7 +62,7 @@ Utilizando a tabela obtidos em uma das execuções do treinamento é possível o
 	\label{fig:behaviors-result}
 \end{figure}
 
-Ainda com a tabela obtida, foi realizado a execução de 100 episódios, equivalente a 600.000 ciclos, onde o agente realizou 121 gols no total. Na Figura \ref{fig:bhvheat} é possível observar o mapa de calor das 100 execuções. É notável a utilização dos comportamentos e a previsibilidade do agente, como consequência. Algumas manchas podem ser vistas e são correspondentes a situações como a demonstrada na Figura \ref{fig:behaviors-result}, em que o jogador ficou parado até o final do episódio.
+Com a mesma tabela, foi realizada a execução de 100 episódios, equivalente a 600.000 ciclos, onde o agente realizou 121 gols no total. Na Figura \ref{fig:bhvheat} é possível observar o mapa de calor das 100 execuções. É notável a utilização dos comportamentos e a previsibilidade do agente, como consequência. Algumas manchas podem ser vistas e são correspondentes a situações como a demonstrada na Figura \ref{fig:behaviors-result}, em que o jogador ficou parado até o final do episódio.
 
 \begin{figure}[H]
 	\includegraphics[width=0.9\linewidth]{figs/behaviorsheat.png}
@@ -94,7 +94,7 @@ A Figura \ref{fig:single-agent-curva} mostra esse histórico. É interessante ob
 
 Além disso, assim como na Seção \ref{sec:behaviors-tabular}, foi executado um treinamento de 200.000 episódios a fim de observar a aprendizagem por um período mais longo. Na Figura \ref{fig:single-agent-curvalonga}, observa-se que o agente continua melhorando seu desempenho até próximo do fim do treinamento, o que pode ser indício de que o aprendizado com ações elementares de fato permite mais flexibilidade na política aprendida.
 
-A Figura \ref{fig:actionsheat} mostra o mapa de calor para o treinamento. É possível confirmar, então, que o treinamento é, de fato, mais flexível, ao contrário do treinamento com comportamentos pré-programados. As 100 execuções com a tabela final resultaram em 19 gols no total.
+Analogamente ao que foi feito no resultado anterior, utilizando a tabela Q de um dos treinamentos de 100.000 episódios foi construída a Figura \ref{fig:actionsheat}, que mostra o mapa de calor 100 episódios executados com a política aprendida. É possível confirmar que o treinamento é, de fato, mais flexível, ao contrário do treinamento com comportamentos pré-programados, uma vez que o mapa de calor mostra trajetórias menos previsíveis. As 100 execuções com a tabela final resultaram em 19 gols no total.
 
 \begin{figure}[H]
 	\includegraphics[width=0.9\linewidth]{figs/actionsheat.png}
