@@ -55,11 +55,11 @@ Observa-se que, para $ 0 \leq \gamma < 1$, o somatório converge. Para $\gamma =
 \subsection{Políticas e Funções de Valor}
 \label{subsec:policies}
 
-É dado o nome de política para qualquer função $\pi: (S, A) \to \mathbb{R}$ que associe um estado qualquer do MDP e uma ação a uma probabilidade de se tomar essa ação diante desse estado, ou seja, $\pi(A|S) = p$ onde $p$ é a probabilidade de selecionar a ação A diante do estado S.
+É dado o nome de política para qualquer função $\pi(a|s) = Pr\{A_t = a\ |\ S_t = s\}$ que associe um estado qualquer do MDP e uma ação a uma probabilidade de se tomar essa ação diante desse estado, ou seja, determina a probabilidade de se tomar a ação $a$ estando em $s$.
 
-Para cada política $\pi$ existe uma função $v_\pi: (S) \to \mathbb{R}$ que, para cada estado, define a esperança de retorno caso o agente continue seguindo a política $\pi$. A função $v_\pi$ é conhecida como função de valor sob a política $\pi$.
+Para cada política $\pi$ existe uma função $v_\pi: \mathcal{S} \to \mathbb{R}$ que, para cada estado, define a esperança de retorno caso o agente continue seguindo a política $\pi$, ou seja, $v_\pi(s) = \mathbb{E}_\pi[G_t\ |\ S_t = s]$. A função $v_\pi$ é conhecida como função de valor de estado sob a política $\pi$.
 
-Similarmente, existe uma função $q_\pi: (S, A) \to \mathbb{R}$ que, para cada par de estado e ação, define a esperança de retorno. Neste caso, a função $q_\pi$ é conhecida como função de valor da ação sob a política $\pi$.
+Similarmente, existe uma função $q_\pi: \mathcal{S} \times \mathcal{A} \to \mathbb{R};\ q_\pi(s, a) = \mathbb{E}_\pi[G_t\ |\ S_t = s, A_t = a]$ que, para cada par de estado e ação, define a esperança de retorno caso o agente esteja em $s$, tome a ação $a$ e em seguida continue executando a política $\pi$. Neste caso, a função $q_\pi$ é conhecida como função de valor de ação sob a política $\pi$.
 
 É possível comparar duas políticas $\pi$ e $\pi'$ a respeito de suas funções $q$. A política $\pi$ é considerada melhor ou igual a $\pi$, ou $\pi \ge \pi'$, caso $q_\pi(S, A) \ge q_{\pi'}(S, A)$ para todo par $(S, A)$.
 
