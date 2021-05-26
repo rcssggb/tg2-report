@@ -190,7 +190,7 @@ Não será implementada nenhuma comunicação entre os jogadores neste trabalho.
 
 \section{Ambiente de Treinamento}
 
-O ambiente de treinamento consiste em uma base de código que importa a biblioteca detalhada na Seção \ref{sec:lib}. Um formato geral foi definido e desenvolvido a fim de tornar os experimentos fáceis de adaptar, bastando mudar alguns trechos do código. No contexto desse trabalho, o treino de partida representa 6.000 ciclos com um único jogador e a bola em campo. 
+O ambiente de treinamento consiste em uma base de código que importa a biblioteca detalhada na Seção \ref{sec:lib}. Um formato geral foi definido e desenvolvido a fim de tornar os experimentos fáceis de adaptar, bastando mudar alguns trechos do código. No contexto desse trabalho, um episódio representa 6.000 ciclos com um único jogador e a bola em campo.
 
 O laço de treinamento obedece ao pseudo-código apresentado no Código \ref{code:training-loop}.
 
@@ -201,7 +201,7 @@ O laço de treinamento obedece ao pseudo-código apresentado no Código \ref{cod
 		inicializar pesos de treinamento
 		enquanto o estado n'ã'o 'é' terminal:
 			conectar jogador
-			para cada ciclo do treino de partida:
+			para cada ciclo do episódio:
 				escolher a'ç''ã'o de acordo com a pol'í'tica e o estado
 				observar novo estado e recompensa
 				treinar pesos
@@ -330,9 +330,9 @@ Nos Códigos \ref{code:walktoball}, \ref{code:leadball} e \ref{code:shootball} s
 \begin{itemize}
 	\item \textbf{Fator de desconto ($\gamma$)}: Apesar do ambiente ser episódico, foi utilizado um fator de desconto de 0.99 devido ao fato de que a condição de término do episódio (fim de jogo) não ser observável através da discretização do estado utilizada.  
 	
-	\item \textbf{Fator de aprendizagem ($\alpha$)}: O fator de aprendizagem foi definido inicialmente como 0.1 e foi reduzido exponencialmente multiplicando-o por $0.99999$ ao final de cada treino de partida. 
+	\item \textbf{Fator de aprendizagem ($\alpha$)}: O fator de aprendizagem foi definido inicialmente como 0.1 e foi reduzido exponencialmente multiplicando-o por $0.99999$ ao final de cada episódio. 
 	
-	\item \textbf{Fator de exploração ($\epsilon$)}: Para incentivar a exploração das possibilidades, o fator de exploração foi definido inicialmente como 0.9 e reduzido exponencialmente multiplicando-o por $0.99990$ ao final de cada treino de partida. A cada ação tomada, o agente tem probabilidade $\epsilon$ de escolher uma ação aleatória. Além disso, para favorecer a exploração, no início de cada treino de partida era também sorteada uma posição inicial para o agente em seu lado do campo.
+	\item \textbf{Fator de exploração ($\epsilon$)}: Para incentivar a exploração das possibilidades, o fator de exploração foi definido inicialmente como 0.9 e reduzido exponencialmente multiplicando-o por $0.99990$ ao final de cada episódio. A cada ação tomada, o agente tem probabilidade $\epsilon$ de escolher uma ação aleatória. Além disso, para favorecer a exploração, no início de cada episódio era também sorteada uma posição inicial para o agente em seu lado do campo.
 \end{itemize}
 
 \subsection{Recompensa}
@@ -365,7 +365,7 @@ Deste modo, a cada instante de tempo foi atribuída uma recompensa $R = R_1 + R_
 
 Além da solução através de um aproximador de funções, foi testada uma solução utilizando o método tabular com os mesmos comportamentos e uma discretização dos estados descrita abaixo.
 
-A codificação dos comportamentos, parâmetros $\alpha$ e $\gamma$ e a recompensa foram mantidos como descrito nas subseções \ref{subsubsec:behaviors-mapping}, \ref{subsubsec:sarsa-params} e \ref{subsubsec:reward} respectivamente. O parâmetro $\epsilon$ foi mantido em $0.9$ porém com um decaimento mais lento, sendo multiplicado por $0.99996$ ao final de cada treino de partida.
+A codificação dos comportamentos, parâmetros $\alpha$ e $\gamma$ e a recompensa foram mantidos como descrito nas subseções \ref{subsubsec:behaviors-mapping}, \ref{subsubsec:sarsa-params} e \ref{subsubsec:reward} respectivamente. O parâmetro $\epsilon$ foi mantido em $0.9$ porém com um decaimento mais lento, sendo multiplicado por $0.99996$ ao final de cada episódio.
 
 \subsection{Codificação dos Estados}
 \label{subsubsec:state-encoding}
@@ -434,9 +434,9 @@ Para simplificar o vasto espaço de ações disponíveis, foi selecionado um con
 \begin{itemize}
 	\item \textbf{Fator de desconto ($\gamma$)}: Foi mantido tal como descrito na subseção \ref{subsubsec:sarsa-params}.
 	
-	\item \textbf{Fator de aprendizagem ($\alpha$)}: O fator de aprendizagem foi definido como $\frac{6000}{6000+N}$ sendo $N$ o número de treino de partidas experienciadas pelo jogador. 
+	\item \textbf{Fator de aprendizagem ($\alpha$)}: O fator de aprendizagem foi definido como $\frac{6000}{6000+N}$ sendo $N$ o número de episódios experienciados pelo jogador. 
 	
-	\item \textbf{Fator de exploração ($\epsilon$)}: O fator de aprendizagem foi definido como $\frac{8000}{8000+N}$ sendo $N$ o número de treino de partidas experienciadas pelo jogador. 
+	\item \textbf{Fator de exploração ($\epsilon$)}: O fator de aprendizagem foi definido como $\frac{8000}{8000+N}$ sendo $N$ o número de episódios experienciados pelo jogador. 
 \end{itemize}
 
 No capítulo seguinte, é feita a análise dos resultados dos experimentos descritos neste capítulo.
